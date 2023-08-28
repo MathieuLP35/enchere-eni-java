@@ -4,6 +4,7 @@ public class Utilisateur {
 	private Integer noUtilisateur;
 	private String pseudo;
 	private String prenom;
+	private String nom;
 	private String email;
 	private String telephone;
 	private String rue;
@@ -17,11 +18,12 @@ public class Utilisateur {
 		super();
 	}
 	
-	public Utilisateur(String pseudo, String prenom, String email, String telephone, String rue, String codePostal,
+	public Utilisateur(String pseudo, String prenom, String nom, String email, String telephone, String rue, String codePostal,
 			String ville, String motdepasse, Integer credit, Boolean administateur) {
 		super();
 		this.pseudo = pseudo;
 		this.prenom = prenom;
+		this.nom = nom;
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
@@ -49,6 +51,14 @@ public class Utilisateur {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+	
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
 	public String getEmail() {
 		return email;
 	}
