@@ -94,11 +94,10 @@
 		prenom:<input type="text" name="prenom"/>
 		email:<input type="text" name="email"/>
 		téléphone:<input type="text" name="telephone"/>
-		rue:<input type="text" name="telephone"/>
-		code postal:<input type="text" name="telephone"/>
-		ville:<input type="text" name="telephone"/>
-		mot de passe:<input type="text" name="telephone"/>
-		credit:<input type="number" name="telephone"/>
+		rue:<input type="text" name="rue"/>
+		code postal:<input type="text" name="codePostal"/>
+		ville:<input type="text" name="ville"/>
+		mot de passe:<input type="text" name="motdepasse"/>
 		<input type="submit" value=">>"/>
 	</form>
 	${message}
