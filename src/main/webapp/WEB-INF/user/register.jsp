@@ -72,7 +72,7 @@
                         <button type="submit" class="btn btn-primary">Créer</button>
                     </div>
                     <div class="col-md-6 text-center">
-                        <button type="submit" class="btn btn-primary">Annuler</button>
+						<a href="${pageContext.request.contextPath}/AccueilServlet" class="btn btn-primary">Annuler</a>
                     </div>
                 </div>
         </form>

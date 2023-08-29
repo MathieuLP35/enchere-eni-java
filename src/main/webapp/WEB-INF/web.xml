@@ -1,36 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" version="6.0">
-<<<<<<< HEAD
-  <display-name>enchere-eni-java</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>PageProfilServlet</display-name>
-    <servlet-name>PageProfilServlet</servlet-name>
-    <servlet-class>fr.eni.right.ihm.profil.PageProfilServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>PageProfilServlet</servlet-name>
-    <url-pattern>/PageProfilServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ProfilServlet</display-name>
-    <servlet-name>ProfilServlet</servlet-name>
-    <servlet-class>fr.eni.right.ihm.profil.ProfilServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ProfilServlet</servlet-name>
-    <url-pattern>/ProfilServlet</url-pattern>
-  </servlet-mapping>
-=======
 	<display-name>enchere-eni-java</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
@@ -40,5 +9,4 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
->>>>>>> develop-mathieu
 </web-app>

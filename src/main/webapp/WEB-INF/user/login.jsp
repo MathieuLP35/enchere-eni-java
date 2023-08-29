@@ -39,7 +39,7 @@
 				</div>
 			</form>
 			
-			<button class="btn btn-secondary btn-lg btn-block">Créer un compte</button>
+			<a href="${pageContext.request.contextPath}/RegisterServlet" class="btn btn-secondary btn-lg btn-block">Créer un compte</a>
 		</div>
 		${message}
 	</div>
