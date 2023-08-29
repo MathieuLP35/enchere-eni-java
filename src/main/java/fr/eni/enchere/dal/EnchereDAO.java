@@ -21,4 +21,7 @@ public interface EnchereDAO {
 	public List<Enchere> getAllEnchere() throws DALException;
 	
 	
+
+public interface EnchereDAO {
+
 }
