@@ -16,7 +16,7 @@ import fr.eni.right.bo.User;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter(urlPatterns = {"/HomeServlet"})
+@WebFilter(urlPatterns = {"/"})
 public class LoginFilter implements Filter {
 
 	/**
