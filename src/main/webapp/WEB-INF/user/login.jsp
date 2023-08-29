@@ -41,6 +41,7 @@
 			
 			<button class="btn btn-secondary btn-lg btn-block">Créer un compte</button>
 		</div>
+		${message}
 	</div>
 </div>
 </body>
