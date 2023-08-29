@@ -14,6 +14,7 @@
                 <h1>Liste des enchères</h1>
             </div>
         </div>
+        ${user}
         <div class="row mt-4">
             <div class="col">
                 <h4>Filtres:</h4>
@@ -74,7 +75,7 @@
 				<button class="btn btn-primary mt-5 py-5 px-5 d-block mx-auto">Rechercher</button>
             </div>
 			<div class="row mt-5">
-                <div class="card p-2 col-sm-5 mx-2">
+                <div class="card p-2 col-sm-5 m-2">
                 	<div class="row">
                 		<div class="col">
 		                    <img src="https://picsum.photos/100" class="card-img-top" alt="Photo de l'article">
@@ -89,7 +90,22 @@
                 		</div>
                 	</div>
                 </div>
-                <div class="card p-2 col-sm-5 mx-2">
+                <div class="card p-2 col-sm-5 m-2">
+                	<div class="row">
+                		<div class="col">
+		                    <img src="https://picsum.photos/100?random=2" class="card-img-top" alt="Photo de l'article">
+                		</div>
+                		<div class="col">
+		                    <div class="card-body">
+		                        <h5 class="card-title text-decoration-underline">Nom de l'article</h5>
+		                        <p class="card-text">Prix : $XX.XX</p>
+		                        <p class="card-text">Fin de l'enchère : Date</p>
+		                        <p class="card-text">Vendeur : Nom du vendeur</p>
+		                    </div>
+                		</div>
+                	</div>
+                </div>
+                <div class="card p-2 col-sm-5 m-2">
                 	<div class="row">
                 		<div class="col">
 		                    <img src="https://picsum.photos/100?random=2" class="card-img-top" alt="Photo de l'article">
