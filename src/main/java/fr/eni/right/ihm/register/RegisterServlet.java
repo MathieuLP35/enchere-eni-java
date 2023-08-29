@@ -52,7 +52,7 @@ public class RegisterServlet extends HttpServlet {
 				    request.getParameter("codePostal"),
 				    request.getParameter("ville"),
 				    request.getParameter("motdepasse"),
-				    Integer.parseInt(request.getParameter("credit")),
+				    0,
 				    false // Un nouvel utilisateur ne devrait pas être un administrateur par défaut
 				));
 			request.setAttribute("message", "Inscription OK");
