@@ -1,6 +1,6 @@
-package fr.eni.enchere.bo;
+package fr.eni.right.bo;
 
-public class Utilisateur {
+public class User {
 	private Integer noUtilisateur;
 	private String pseudo;
 	private String prenom;
@@ -14,11 +14,11 @@ public class Utilisateur {
 	private Integer credit;
 	private Boolean administateur;
 	
-	public Utilisateur() {
+	public User() {
 		super();
 	}
 	
-	public Utilisateur(String pseudo, String prenom, String nom, String email, String telephone, String rue, String codePostal,
+	public User(String pseudo, String prenom, String nom, String email, String telephone, String rue, String codePostal,
 			String ville, String motdepasse, Integer credit, Boolean administateur) {
 		super();
 		this.pseudo = pseudo;
@@ -115,6 +115,4 @@ public class Utilisateur {
 				+ ville + ", motdepasse=" + motdepasse + ", credit=" + credit + ", administateur=" + administateur
 				+ "]";
 	}
-	
-	
 }
