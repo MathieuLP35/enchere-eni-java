@@ -17,6 +17,21 @@
                      <a class="nav-link" href="${pageContext.request.contextPath}/RegisterServlet">S'inscrire</a>
 				</li>                
 			</c:if>
+			<c:if test="${user != null}">
+                <li class="nav-item">
+                     <a class="nav-link" href="${pageContext.request.contextPath}/LoginServlet">Enchere</a>
+                </li>
+                <li>
+                     <a class="nav-link" href="${pageContext.request.contextPath}/RegisterServlet">Vendre un article</a>
+				</li> 
+				<li>
+                     <a class="nav-link" href="${pageContext.request.contextPath}/ProfilServlet">Mon Profil</a>
+				</li>    
+				<li>
+                     <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">Deconnexion</a>
+                     
+				</li> 				            
+			</c:if>
         </ul>
     </div>
 </nav>
