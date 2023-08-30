@@ -20,9 +20,6 @@ public interface EnchereManager {
 	public void addEnchere(Enchere enchere) throws DALException;
 	public List<Enchere> getAllEnchere() throws DALException;
 	
-	public void addUtilisateur(Utilisateur utilisateur) throws DALException;
-	public List<Utilisateur> getAllUtilisateur() throws DALException;
-	
 	public void addRetrait(Retrait retrait) throws DALException;
 	public List<Retrait> getAllRetrait() throws DALException;
 }

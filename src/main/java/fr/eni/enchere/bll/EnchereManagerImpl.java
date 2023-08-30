@@ -46,17 +46,6 @@ public class EnchereManagerImpl implements EnchereManager{
 	}
 
 	@Override
-	public void addUtilisateur(Utilisateur utilisateur) throws DALException {
-		dao.insertUtilisateur(utilisateur);
-	}
-
-	@Override
-	public List<Utilisateur> getAllUtilisateur() throws DALException {
-		// TODO Auto-generated method stub
-		return dao.getAllUtilisateur();
-	}
-
-	@Override
 	public void addRetrait(Retrait retrait) throws DALException {
 		dao.insertRetrait(retrait);
 	}

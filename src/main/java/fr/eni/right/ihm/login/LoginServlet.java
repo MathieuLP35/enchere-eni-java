@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 			// On appelle l'url de la servlet initialisement appelée
 			String urlPattern = (String) request.getSession().getAttribute("urlPattern");
 
-			// Si pas de servlet initialement appelée on va sur l'url racine (ou il y a généralement le menu
+			// Si pas de servlet initialement appelée on va sur l'url racine (ou il y a généralement le menu)
 			if(urlPattern==null) {
 				urlPattern="/";
 			}
