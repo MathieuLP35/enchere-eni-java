@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
             // On met l'utilisateur en session
             request.getSession().setAttribute("user", user);
             
-            request.getSession().setMaxInactiveInterval(300);
+            //request.getSession().setMaxInactiveInterval(300);
             
             request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
         }

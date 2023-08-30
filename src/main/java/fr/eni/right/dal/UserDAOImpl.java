@@ -33,7 +33,7 @@ public class UserDAOImpl implements UserDAO {
 			stmt.setString(8, user.getVille());
 			stmt.setString(9, user.getMotdepasse());
 			stmt.setInt(10, user.getCredit());
-			stmt.setBoolean(11,user.getAdministateur()?true:false);
+			stmt.setBoolean(11,user.getAdministrateur()?true:false);
 			int nb = stmt.executeUpdate();
 			if(nb>0) {
 				ResultSet rs= stmt.getGeneratedKeys();
@@ -72,7 +72,7 @@ public class UserDAOImpl implements UserDAO {
 	                user.setVille(rs.getString("ville"));
 	                user.setMotdepasse(rs.getString("mot_de_passe"));
 	                user.setCredit(rs.getInt("credit"));
-	                user.setAdministateur(rs.getBoolean("administrateur"));
+	                user.setAdministrateur(rs.getBoolean("administrateur"));
 	                users.add(user);
 	            }
 	        }
