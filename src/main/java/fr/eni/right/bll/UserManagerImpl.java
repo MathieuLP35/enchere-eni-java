@@ -38,4 +38,15 @@ public class UserManagerImpl implements UserManager {
 		return null;
 	}
 
+	public List<User> getAllUser() {
+	    try {
+	        return dao.getAllUsers();
+	    } catch (DALException e) {
+	        // Gérer l'exception, par exemple, imprimer l'erreur
+	        e.printStackTrace();
+	    }
+	    
+	    return null;
+	}
+
 }

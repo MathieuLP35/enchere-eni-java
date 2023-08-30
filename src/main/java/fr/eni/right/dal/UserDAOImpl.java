@@ -14,6 +14,9 @@ import fr.eni.enchere.dal.DALException;
 import fr.eni.enchere.dal.util.ConnectionProvider;
 
 public class UserDAOImpl implements UserDAO {
+	
+	final String GET_ALL_USERS = "SELECT * FROM UTILISATEURS";
+	
 	final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
@@ -75,6 +78,38 @@ public class UserDAOImpl implements UserDAO {
 	                user.setAdministrateur(rs.getBoolean("administrateur"));
 	                users.add(user);
 	            }
+	        }
+	    } catch (SQLException e) {
+	        throw new DALException(e.getMessage());
+	    }
+	    
+	    return users;
+	}
+
+
+	@Override
+	public List<User> getAllUsers() throws DALException {
+	    List<User> users = new ArrayList<>();
+
+	    try (Connection con = ConnectionProvider.getConnection();
+	         Statement stmt = con.createStatement();
+	         ResultSet rs = stmt.executeQuery(GET_ALL_USERS)) {
+	        
+	        while (rs.next()) {
+	            User user = new User();
+	            user.setNoUtilisateur(rs.getInt("no_utilisateur"));
+	            user.setPseudo(rs.getString("pseudo"));
+	            user.setNom(rs.getString("nom"));
+	            user.setPrenom(rs.getString("prenom"));
+	            user.setEmail(rs.getString("email"));
+	            user.setTelephone(rs.getString("telephone"));
+	            user.setRue(rs.getString("rue"));
+	            user.setCodePostal(rs.getString("code_postal"));
+	            user.setVille(rs.getString("ville"));
+	            user.setMotdepasse(rs.getString("mot_de_passe"));
+	            user.setCredit(rs.getInt("credit"));
+	            user.setAdministrateur(rs.getBoolean("administrateur"));
+	            users.add(user);
 	        }
 	    } catch (SQLException e) {
 	        throw new DALException(e.getMessage());
