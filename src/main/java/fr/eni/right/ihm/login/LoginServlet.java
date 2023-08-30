@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 
 			// Si pas de servlet initialement appelée on va sur l'url racine (ou il y a généralement le menu)
 			if(urlPattern==null) {
-				urlPattern="/";
+				urlPattern="/AccueilServlet";
 			}
 			
 			request.getRequestDispatcher(urlPattern).forward(request, response);
