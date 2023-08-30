@@ -30,7 +30,8 @@ public class LoginFilter implements Filter {
 			((HttpServletRequest) request).getSession().setAttribute("urlPattern", urlPattern);
 			request.getRequestDispatcher("/LoginServlet").forward(request, response);
 		} else {
-			chain.doFilter(request, response);
+			request.getRequestDispatcher("AccueilServlet").forward(request, response);	
+			//chain.doFilter(request, response);
 		}
 	}
 
