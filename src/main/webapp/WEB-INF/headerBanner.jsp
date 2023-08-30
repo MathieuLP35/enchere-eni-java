@@ -3,10 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
-<a href="${pageContext.request.contextPath}/AccueilServlet" class="vintage-button text-decoration-none text-dark fs-2">ENI-Enchère</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/AccueilServlet">ENI-Enchère</a>
 
-<c:if test="${user == null}">
-<a href="${pageContext.request.contextPath}/RegisterServlet" class="text-decoration-none text-dark">S'inscrire</a>
-<a href="${pageContext.request.contextPath}/LoginServlet" class="text-decoration-none text-dark">Se connecter</a>
-</c:if>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+			<c:if test="${user == null}">
+                <li class="nav-item">
+                     <a class="nav-link" href="${pageContext.request.contextPath}/LoginServlet">Se connecter</a>
+                </li>
+                <li>
+                     <a class="nav-link" href="${pageContext.request.contextPath}/RegisterServlet">S'inscrire</a>
+				</li>                
+			</c:if>
+        </ul>
+    </div>
+</nav>
 
