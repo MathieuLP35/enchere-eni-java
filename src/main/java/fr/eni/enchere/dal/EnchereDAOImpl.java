@@ -19,13 +19,13 @@ public class EnchereDAOImpl implements EnchereDAO {
 	
 	// SELECT
 	
-	final String SELECT_CATEGORIES = "SELECT no_categories, libelle FROM CATEGORIES";
+	final String SELECT_CATEGORIES = "SELECT no_categorie, libelle FROM CATEGORIES";
 	
 	final String SELECT_RETRAITS = "SELECT no_article, rue, code_postal, ville FROM RETRAITS";
 	
 	final String SELECT_ARTICLES_VENDUS = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS";
 	
-	final String SELECT_ENCHERES = "SELECT no_enchere, no_utilisateur, no_article, date_enchere, montant_enchere FROM ENCHERES";
+	final String SELECT_ENCHERES = "SELECT no_enchere, ENCHERES.no_utilisateur, ENCHERES.no_article, date_enchere, montant_enchere, ARTICLES_VENDUS.nom_article, ARTICLES_VENDUS.prix_vente, UTILISATEURS.nom, UTILISATEURS.prenom FROM ENCHERES INNER JOIN UTILISATEURS ON ENCHERES.no_utilisateur = UTILISATEURS.no_utilisateur INNER JOIN ARTICLES_VENDUS ON ENCHERES.no_article = ARTICLES_VENDUS.no_article ";
 	
 	// INSERT
 	
