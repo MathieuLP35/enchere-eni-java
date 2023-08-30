@@ -6,8 +6,8 @@ import fr.eni.enchere.bo.ArticleVendu;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.bo.Retrait;
-import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.dal.DALException;
+import fr.eni.right.bo.User;
 
 public interface EnchereManager {
 
@@ -20,8 +20,8 @@ public interface EnchereManager {
 	public void addEnchere(Enchere enchere) throws DALException;
 	public List<Enchere> getAllEnchere() throws DALException;
 	
-	public void addUtilisateur(Utilisateur utilisateur) throws DALException;
-	public List<Utilisateur> getAllUtilisateur() throws DALException;
+	public void addUtilisateur(User utilisateur) throws DALException;
+	public List<User> getAllUtilisateur() throws DALException;
 	
 	public void addRetrait(Retrait retrait) throws DALException;
 	public List<Retrait> getAllRetrait() throws DALException;
