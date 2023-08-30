@@ -17,7 +17,7 @@ public class UserDAOImpl implements UserDAO {
 	final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
-	final String FIND_BY_LOGIN_AND_PASSWORD = "SELECT * FROM UTILISATEURS WHERE pseudo = ? AND mot_de_passe = ?";
+	final String FIND_BY_LOGIN_AND_PASSWORD = "SELECT * FROM UTILISATEURS WHERE (pseudo = ? OR email = ?) AND mot_de_passe = ?";
 
 	@Override
 	public void insert(User user) throws DALException {
@@ -49,13 +49,14 @@ public class UserDAOImpl implements UserDAO {
 
 
 	@Override
-	public List<User> findByLoginAndPassword(String login, String password) throws DALException {
+	public List<User> findByLoginAndPassword(String identifier, String password) throws DALException {
 	    List<User> users = new ArrayList<>();
 
 	    try (Connection con = ConnectionProvider.getConnection();
-	         PreparedStatement stmt = con.prepareStatement(FIND_BY_LOGIN_AND_PASSWORD)) {
-	        stmt.setString(1, login);
-	        stmt.setString(2, password);
+	        PreparedStatement stmt = con.prepareStatement(FIND_BY_LOGIN_AND_PASSWORD)) {
+	        stmt.setString(1, identifier);
+	        stmt.setString(2, identifier);
+	        stmt.setString(3, password);
 	        
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            while (rs.next()) {

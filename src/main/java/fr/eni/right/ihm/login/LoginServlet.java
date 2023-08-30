@@ -42,8 +42,16 @@ public class LoginServlet extends HttpServlet {
 		else {
 			// On met l'utilisateur en session
 			request.getSession().setAttribute("user", user);
+
+			// On appelle l'url de la servlet initialisement appelée
+			String urlPattern = (String) request.getSession().getAttribute("urlPattern");
+
+			// Si pas de servlet initialement appelée on va sur l'url racine (ou il y a généralement le menu
+			if(urlPattern==null) {
+				urlPattern="/";
+			}
 			
-			request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
+			request.getRequestDispatcher(urlPattern).forward(request, response);
 		}
 		
 	}
