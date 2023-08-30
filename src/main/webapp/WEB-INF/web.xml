@@ -28,8 +28,14 @@
     <servlet-name>GestionCategorieServlet</servlet-name>
     <servlet-class>fr.eni.admin.ihm.GestionCategorieServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description></description>
+    <display-name>ModifyProfilServlet</display-name>
+    <servlet-name>ModifyProfilServlet</servlet-name>
+    <servlet-class>fr.eni.right.ihm.profil.ModifyProfilServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
-    <servlet-name>GestionCategorieServlet</servlet-name>
-    <url-pattern>/GestionCategorieServlet</url-pattern>
+    <servlet-name>ModifyProfilServlet</servlet-name>
+    <url-pattern>/ModifyProfilServlet</url-pattern>
   </servlet-mapping>
 </web-app>

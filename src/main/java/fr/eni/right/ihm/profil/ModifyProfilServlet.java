@@ -1,7 +1,6 @@
 package fr.eni.right.ihm.profil;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,24 +12,26 @@ import java.io.IOException;
 import fr.eni.right.bo.User;
 
 /**
- * Servlet implementation class ProfilServlet
+ * Servlet implementation class ModifyProfilServlet
  */
-@WebServlet("/ProfilServlet")
-public class ProfilServlet extends HttpServlet {
+public class ModifyProfilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/home/profil.jsp").forward(request, response);
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/home/modifyProfil.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false); // Utilisez false pour éviter de créer une nouvelle session si elle n'existe pas
 
@@ -59,9 +60,8 @@ public class ProfilServlet extends HttpServlet {
             response.getWriter().println("Aucune session n'est active.");
         }
 
-		request.getRequestDispatcher("/WEB-INF/home/profil.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/home/modifyProfil.jsp").forward(request, response);
 
 	}
 
 }
-
