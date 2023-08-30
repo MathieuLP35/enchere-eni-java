@@ -59,7 +59,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
-			throw new DALException("probleme insert categories");
+			throw new DALException("ms_insertArticleVendu");
 		}
 		
 	}
@@ -78,7 +78,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
-			throw new DALException("Erreur liste articles vendus");
+			throw new DALException("ms_insertArticlesVendus");
 		}
 		
 		return result;
@@ -98,7 +98,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
-			throw new DALException("probleme insert categories");
+			throw new DALException("ms_insertCategorie");
 		}
 	}
 
@@ -116,7 +116,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
-			throw new DALException("Erreur liste catégories");
+			throw new DALException("ms_getAllCategorie");
 		}
 		
 		return result;
@@ -133,7 +133,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			stmt.executeUpdate();
 		}
 		catch(SQLException e) {
-			throw new DALException("probleme insert retraits");
+			throw new DALException("ms_insertRetrait");
 		}
 		
 	}
@@ -152,7 +152,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
-			throw new DALException("Erreur liste retraits");
+			throw new DALException("ms_getAllRetrait");
 		}
 		
 		return result;
@@ -175,7 +175,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
-			throw new DALException("probleme insert retraits");
+			throw new DALException("ms_insertEnchere");
 		}
 	}
 
@@ -193,7 +193,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
-			throw new DALException("Erreur liste retraits");
+			throw new DALException("ms_getAllEnchere");
 		}
 		
 		return result;
