@@ -16,44 +16,38 @@ import fr.eni.right.bo.User;
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private UserManager manager = UserManagerSing.getInstance();
+    private static final long serialVersionUID = 1L;
+    private UserManager manager = UserManagerSing.getInstance();
     
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
-	}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String login = request.getParameter("pseudo");
-		String password = request.getParameter("motdepasse");
-		
-		User user = manager.check(login, password);
-		if(user==null) {
-			request.setAttribute("message", "utilisteur inconnu");
-			request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
-		}
-		else {
-			// On met l'utilisateur en session
-			request.getSession().setAttribute("user", user);
-
-			// On appelle l'url de la servlet initialisement appelée
-			String urlPattern = (String) request.getSession().getAttribute("urlPattern");
-
-			// Si pas de servlet initialement appelée on va sur l'url racine (ou il y a généralement le menu)
-			if(urlPattern==null) {
-				urlPattern="/";
-			}
-			
-			request.getRequestDispatcher(urlPattern).forward(request, response);
-		}
-		
-	}
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String login = request.getParameter("pseudo");
+        String password = request.getParameter("motdepasse");
+        
+        User user = manager.check(login, password);
+        if(user==null) {
+            request.setAttribute("message", "utilisteur inconnu");
+            request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
+        }
+        else {
+            // On met l'utilisateur en session
+            request.getSession().setAttribute("user", user);
+            
+            //request.getSession().setMaxInactiveInterval(300);
+            
+            request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
+        }
+        
+    }
 
 }
