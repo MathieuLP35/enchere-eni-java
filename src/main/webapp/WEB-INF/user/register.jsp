@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+	<jsp:include page="../headerBanner.jsp"/>
     <div class="container text-center">
         <h3>Mon Profil</h3>
         <form action="RegisterServlet" method="post">
@@ -71,7 +72,7 @@
                         <button type="submit" class="btn btn-primary">Créer</button>
                     </div>
                     <div class="col-md-6 text-center">
-                        <button type="submit" class="btn btn-primary">Annuler</button>
+						<a href="${pageContext.request.contextPath}/AccueilServlet" class="btn btn-primary">Annuler</a>
                     </div>
                 </div>
         </form>
