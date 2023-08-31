@@ -12,4 +12,5 @@ public interface UserManager {
 	public User checkIdUser(Integer idUser);
 	public User checkEmailUser(String emailUser);
 	public List<User> getAllUser();
+	public void update(User user, Integer noUtilisateur);
 }
