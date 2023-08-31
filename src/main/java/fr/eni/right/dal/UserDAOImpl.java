@@ -25,6 +25,8 @@ public class UserDAOImpl implements UserDAO {
 	final String FIND_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = ?";
 	
 	final String FIND_BY_USER_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
+	
+	final String FIND_BY_USER_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ?";
 
 	@Override
 	public void insert(User user) throws DALException {
@@ -163,6 +165,39 @@ public class UserDAOImpl implements UserDAO {
 	    try (Connection con = ConnectionProvider.getConnection();
 	         PreparedStatement stmt = con.prepareStatement(FIND_BY_USER_ID)) {
 	        stmt.setInt(1, idUser);
+	        
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) {
+	                user = new User();
+	                user.setNoUtilisateur(rs.getInt("no_utilisateur"));
+	                user.setPseudo(rs.getString("pseudo"));
+	                user.setNom(rs.getString("nom"));
+	                user.setPrenom(rs.getString("prenom"));
+	                user.setEmail(rs.getString("email"));
+	                user.setTelephone(rs.getString("telephone"));
+	                user.setRue(rs.getString("rue"));
+	                user.setCodePostal(rs.getString("code_postal"));
+	                user.setVille(rs.getString("ville"));
+	                user.setMotdepasse(rs.getString("mot_de_passe"));
+	                user.setCredit(rs.getInt("credit"));
+	                user.setAdministrateur(rs.getBoolean("administrateur"));
+	            }
+	        }
+	    } catch (SQLException e) {
+	        throw new DALException(e.getMessage());
+	    }
+	    
+	    return user;
+	}
+
+
+	@Override
+	public User findByEmail(String emailUser) throws DALException {
+		User user = null;
+	    
+	    try (Connection con = ConnectionProvider.getConnection();
+	         PreparedStatement stmt = con.prepareStatement(FIND_BY_USER_EMAIL)) {
+	        stmt.setString(1, emailUser);
 	        
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            if (rs.next()) {
