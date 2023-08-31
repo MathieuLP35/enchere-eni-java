@@ -11,4 +11,5 @@ public interface UserManager {
 	public User checkUser(String pseudo);
 	public User checkIdUser(Integer idUser);
 	public List<User> getAllUser();
+	public void update(User user, Integer noUtilisateur);
 }

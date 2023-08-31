@@ -20,7 +20,6 @@ public class UserManagerImpl implements UserManager {
 			try {
 				dao.insert(user);
 			} catch (DALException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -39,7 +38,6 @@ public class UserManagerImpl implements UserManager {
 				return null;
 			}
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -56,22 +54,33 @@ public class UserManagerImpl implements UserManager {
 	    return null;
 	}
 
+    @Override
+
+    public User checkUser(String pseudo) {
+        User user;
+        try {
+            user = dao.findByPseudo(pseudo);
+            if(user != null) {
+                return user;
+            }
+            else {
+                return null;
+            }
+        } catch (DALException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 	@Override
-	public User checkUser(String pseudo) {
-		User user;
+	public void update(User user, Integer noUtilisateur){
 		try {
-			user = dao.findByPseudo(pseudo);
-			if(user != null) {
-				return user;
-			}
-			else {
-				return null;
-			}
+			dao.update(user, noUtilisateur);
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 	@Override
