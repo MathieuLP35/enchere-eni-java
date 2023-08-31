@@ -11,7 +11,8 @@
 <body>
 	<jsp:include page="../headerBanner.jsp"/>
     <div class="container mt-5">
-        <table class="table">
+    	${message}
+        <table class="table mt-5">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -27,23 +28,26 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${users}" var="user">
+                <c:forEach items="${users}" var="u">
                     <tr>
-                        <td>${user.noUtilisateur}</td>
-                        <td>${user.pseudo}</td>
-                        <td>${user.nom}</td>
-                        <td>${user.prenom}</td>
-                        <td>${user.email}</td>
-                        <td>${user.telephone}</td>
-                        <td>${user.rue}, ${user.codePostal} ${user.ville}</td>
-                        <td>${user.credit}</td>
+                        <td>${u.noUtilisateur}</td>
+                        <td>${u.pseudo}</td>
+                        <td>${u.nom}</td>
+                        <td>${u.prenom}</td>
+                        <td>${u.email}</td>
+                        <td>${u.telephone}</td>
+                        <td>${u.rue}, ${u.codePostal} ${u.ville}</td>
+                        <td>${u.credit}</td>
                         <td>
-                        	<c:if test="${user.administrateur}"><span class="text-success">Oui</span></c:if>
-                        	<c:if test="${!user.administrateur}"><span class="text-error">Non</span></c:if>
+                        	<c:if test="${u.administrateur}"><span class="text-success">Oui</span></c:if>
+                        	<c:if test="${!u.administrateur}"><span class="text-error">Non</span></c:if>
 						</td>
                         <td>
-                            <a href="#" class="btn btn-primary">Désactiver</a>
-                            <a href="#" class="btn btn-danger">Supprimer</a>
+							<form action="GestionUtilisateurServlet" method="post" class="d-flex flex-nowrap">
+								<input type="hidden" name="idUser" value="${u.noUtilisateur}" />
+	                            <button href="#" class="btn btn-primary mx-1" name="BT_DESACTIVATE">Désactiver</button>
+	                            <button href="#" class="btn btn-danger mx-1" name="BT_REMOVE">Supprimer</button>
+							</form>
                         </td>
                     </tr>
                 </c:forEach>

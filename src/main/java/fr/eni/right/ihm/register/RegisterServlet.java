@@ -43,7 +43,7 @@ public class RegisterServlet extends HttpServlet {
 			request.setAttribute("message", "Le login doit être rempli");
 		} else if (password == null || password.isBlank()) {
 			request.setAttribute("message", "Le mot de passe doit être rempli");
-		} else if (password != confirmPassword) {
+		} else if (!password.equals(confirmPassword)) {
 			request.setAttribute("message", "Le mot de passe doit être identique au mot de passe de confirmation");
 		} else {
 			try {
