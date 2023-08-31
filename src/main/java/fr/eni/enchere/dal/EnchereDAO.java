@@ -10,6 +10,7 @@ import fr.eni.enchere.bo.Retrait;
 public interface EnchereDAO {
 	public void insertArticleVendu(ArticleVendu articleVendu) throws DALException;
 	public List<ArticleVendu> getAllArticleVendu() throws DALException;
+	public ArticleVendu findById(Integer idArticle) throws DALException;
 	public void insertCategorie(Categorie categorie) throws DALException;
 	public List<Categorie> getAllCategorie() throws DALException;
 	public void insertRetrait(Retrait retrait) throws DALException;

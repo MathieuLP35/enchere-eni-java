@@ -14,6 +14,7 @@ import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.bo.Retrait;
 import fr.eni.enchere.dal.util.ConnectionProvider;
+import fr.eni.right.bo.User;
 
 public class EnchereDAOImpl implements EnchereDAO {
 	
@@ -26,6 +27,10 @@ public class EnchereDAOImpl implements EnchereDAO {
 	final String SELECT_ARTICLES_VENDUS = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS";
 	
 	final String SELECT_ENCHERES = "SELECT no_enchere, ENCHERES.no_utilisateur, ENCHERES.no_article, date_enchere, montant_enchere, ARTICLES_VENDUS.nom_article, ARTICLES_VENDUS.prix_vente, UTILISATEURS.nom, UTILISATEURS.prenom FROM ENCHERES INNER JOIN UTILISATEURS ON ENCHERES.no_utilisateur = UTILISATEURS.no_utilisateur INNER JOIN ARTICLES_VENDUS ON ENCHERES.no_article = ARTICLES_VENDUS.no_article ";
+	
+	// SELECT BY ID
+	
+	final String SELECT_BY_ID_ARTICLES_VENDUS = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS WHERE no_article = ?";
 	
 	// INSERT
 	
@@ -48,8 +53,8 @@ public class EnchereDAOImpl implements EnchereDAO {
 			stmt.setDate(4, (java.sql.Date) articleVendu.getDateFinEnchere());
 			stmt.setInt(5, articleVendu.getPrixInitial());
 			stmt.setInt(6, articleVendu.getPrixVente());
-			stmt.setInt(7, articleVendu.getNoUtilisateur());
-			stmt.setInt(8, articleVendu.getNoCategorie());
+			stmt.setObject(7, articleVendu.getUtilisateur());
+			stmt.setObject(8, articleVendu.getCategorie());
 			int nb = stmt.executeUpdate();
 			if(nb>0) {
 				ResultSet rs= stmt.getGeneratedKeys();
@@ -73,7 +78,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
 				ArticleVendu articleVendu = new ArticleVendu(rs.getString("nomArticle"), rs.getString("description"), rs.getDate("dateDebutEnchere"), rs.getDate("dateFinEnchere"),
-						rs.getInt("prixInitial"), rs.getInt("prixVente"), rs.getInt("noUtilisateur"), rs.getInt("noCategorie"));
+						rs.getInt("prixInitial"), rs.getInt("prixVente"));
 				result.add(articleVendu);
 			}
 		}
@@ -82,6 +87,26 @@ public class EnchereDAOImpl implements EnchereDAO {
 		}
 		
 		return result;
+	}
+	
+	@Override
+	public ArticleVendu findById(Integer idArticle) throws DALException {
+		
+		ArticleVendu articleVendu = new ArticleVendu();
+		try (Connection con = ConnectionProvider.getConnection()){
+			PreparedStatement stmt = con.prepareStatement(SELECT_BY_ID_ARTICLES_VENDUS);
+			stmt.setInt(1, idArticle);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				articleVendu = new ArticleVendu(rs.getString("nomArticle"), rs.getString("description"), rs.getDate("dateDebutEnchere"), rs.getDate("dateFinEnchere"),
+						rs.getInt("prixInitial"), rs.getInt("prixVente"));
+			}
+		}
+		catch(SQLException e) {
+			throw new DALException("ms_findByIdArticleVendu");
+		}
+		
+		return articleVendu;
 	}
 
 	@Override
@@ -187,16 +212,22 @@ public class EnchereDAOImpl implements EnchereDAO {
 			PreparedStatement stmt = con.prepareStatement(SELECT_ENCHERES);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				Enchere enchere = new Enchere(rs.getInt("noUtilisateur"), rs.getInt("noArticle"), rs.getTimestamp("dateEnchere").toLocalDateTime(), rs.getInt("montant"));
+				Enchere enchere = new Enchere(rs.getInt("no_utilisateur"), rs.getInt("no_article"), rs.getTimestamp("date_enchere").toLocalDateTime(), rs.getInt("montant_enchere"));
 				enchere.setNoEnchere(rs.getInt("no_enchere"));
+				
+				ArticleVendu articleVendu = this.findById(rs.getInt("no_article"));
+				
 				result.add(enchere);
 			}
 		}
 		catch(SQLException e) {
+			System.out.println(e.getMessage());
 			throw new DALException("ms_getAllEnchere");
 		}
 		
 		return result;
 	}
+
+	
 	
 }

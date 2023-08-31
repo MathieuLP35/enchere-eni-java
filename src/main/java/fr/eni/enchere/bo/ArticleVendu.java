@@ -2,6 +2,8 @@ package fr.eni.enchere.bo;
 
 import java.util.Date;
 
+import fr.eni.right.bo.User;
+
 public class ArticleVendu {
 	private Integer noArticle;
 	private String nomArticle;
@@ -10,15 +12,21 @@ public class ArticleVendu {
 	private Date dateFinEnchere;
 	private Integer prixInitial;
 	private Integer prixVente;
-	private Integer noUtilisateur;
-	private Integer noCategorie;
+
+	
+	private Categorie categorie;
+	
+	private User utilisateur;
+	
+	private Retrait lieuRetrait;
+	
 	
 	public ArticleVendu() {
 		super();
 	}
 
 	public ArticleVendu(String nomArticle, String description, Date dateDebutEnchere, Date dateFinEnchere,
-			Integer prixInitial, Integer prixVente, Integer noUtilisateur, Integer noCategorie) {
+			Integer prixInitial, Integer prixVente) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -26,8 +34,7 @@ public class ArticleVendu {
 		this.dateFinEnchere = dateFinEnchere;
 		this.prixInitial = prixInitial;
 		this.prixVente = prixVente;
-		this.noUtilisateur = noUtilisateur;
-		this.noCategorie = noCategorie;
+
 	}
 
 	public Integer getNoArticle() {
@@ -86,28 +93,35 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 	}
 
-	public Integer getNoUtilisateur() {
-		return noUtilisateur;
+	public Categorie getCategorie() {
+		return categorie;
 	}
 
-	public void setNoUtilisateur(Integer noUtilisateur) {
-		this.noUtilisateur = noUtilisateur;
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
 	}
 
-	public Integer getNoCategorie() {
-		return noCategorie;
+	public User getUtilisateur() {
+		return utilisateur;
 	}
 
-	public void setNoCategorie(Integer noCategorie) {
-		this.noCategorie = noCategorie;
+	public void setUtilisateur(User utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+	public Retrait getLieuRetrait() {
+		return lieuRetrait;
+	}
+
+	public void setLieuRetrait(Retrait lieuRetrait) {
+		this.lieuRetrait = lieuRetrait;
 	}
 
 	@Override
 	public String toString() {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEnchere=" + dateDebutEnchere + ", dateFinEnchere=" + dateFinEnchere + ", prixInitial="
-				+ prixInitial + ", prixVente=" + prixVente + ", noUtilisateur=" + noUtilisateur + ", noCategorie="
-				+ noCategorie + "]";
+				+ prixInitial + ", prixVente=" + prixVente + "]";
 	}
 	
 }

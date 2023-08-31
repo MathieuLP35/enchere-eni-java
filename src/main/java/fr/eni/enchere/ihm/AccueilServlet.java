@@ -36,11 +36,14 @@ public class AccueilServlet extends HttpServlet {
 		} catch (Exception e) {
 			model.setMessage(e.getMessage());
 		}
+		
 		try {
 			model.setLstEncheres(manager.getAllEnchere());
+			System.out.println(manager.getAllEnchere());
 		} catch (Exception e) {
 			model.setMessage(e.getMessage());
 		}
+		
 		request.setAttribute("model", model);
 		request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
 	}
