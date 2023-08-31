@@ -10,5 +10,7 @@ public interface UserManager {
 	public User check(String login, String password);
 	public User checkUser(String pseudo);
 	public User checkIdUser(Integer idUser);
+	public User checkEmailUser(String emailUser);
 	public List<User> getAllUser();
+	public void update(User user, Integer noUtilisateur);
 }

@@ -4,16 +4,20 @@ import java.util.List;
 
 import fr.eni.enchere.dal.DALException;
 import fr.eni.right.bo.User;
-import fr.eni.right.dal.DAOFact;
-import fr.eni.right.dal.UserDAO;
+import fr.eni.admin.dal.DAOFact;
+import fr.eni.admin.dal.AdminDAO;
 
 public class AdminManagerImpl implements AdminManager {
-	private UserDAO dao = DAOFact.getUserDAO();
+	private AdminDAO dao = DAOFact.getAdminDAO();
 
 	@Override
-	public List<User> removeUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public void removeUser(Integer idUser) {
+		try {
+			dao.removeUser(idUser);
+		} catch (fr.eni.admin.dal.DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	

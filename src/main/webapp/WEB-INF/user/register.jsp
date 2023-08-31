@@ -29,7 +29,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="telephone">Téléphone :</label>
-                                <input type="text" class="form-control" id="telephone" name="telephone">
+								<input type="tel" class="form-control" id="telephone" name="telephone" />
                             </div>
                             <div class="mb-3">
                                 <label for="codePostal">Code Postal :</label>

@@ -1,9 +1,10 @@
 package fr.eni.right.bll;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import fr.eni.enchere.dal.DALException;
-import fr.eni.right.bll.BLLException;
 import fr.eni.right.bo.User;
 import fr.eni.right.dal.DAOFact;
 import fr.eni.right.dal.UserDAO;
@@ -14,13 +15,28 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	public void addUser(User user) throws BLLException {
 
+		String regexTelephone = "[^0-9]";
+		Pattern patternTelephone = Pattern.compile(regexTelephone);
+		Matcher matcherTelephone = patternTelephone.matcher(user.getTelephone()); 
+		
+		String regexMail = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
+		Pattern patternMail = Pattern.compile(regexMail);
+		Matcher matcherMail = patternMail.matcher(user.getEmail());
+		
 		if(checkUser(user.getPseudo()) != null) {
 			throw new BLLException("Ce pseudo est déjà utilisé.");
+		} else if(checkEmailUser(user.getEmail()) != null) {
+			throw new BLLException("Cette email est déjà utilisé.");
+		} else if(matcherTelephone.find()){
+	        throw new BLLException("Le numéro de téléphone n'est pas au format valide. (XXXXXXXXXX)"); 
+		} else if(user.getCodePostal().length() < 5 || user.getCodePostal().length() > 5){
+			throw new BLLException("Le code postal doit se composé de 5 chiffres."); 
+		} else if(matcherMail.find()){
+	        throw new BLLException("Le mail n'est pas valide. (xx@xxx.fr)"); 
 		} else {
 			try {
 				dao.insert(user);
 			} catch (DALException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -39,7 +55,6 @@ public class UserManagerImpl implements UserManager {
 				return null;
 			}
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -56,11 +71,40 @@ public class UserManagerImpl implements UserManager {
 	    return null;
 	}
 
+    @Override
+
+    public User checkUser(String pseudo) {
+        User user;
+        try {
+            user = dao.findByPseudo(pseudo);
+            if(user != null) {
+                return user;
+            }
+            else {
+                return null;
+            }
+        } catch (DALException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 	@Override
-	public User checkUser(String pseudo) {
+	public void update(User user, Integer noUtilisateur){
+		try {
+			dao.update(user, noUtilisateur);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public User checkIdUser(Integer idUser) {
 		User user;
 		try {
-			user = dao.findByPseudo(pseudo);
+			user = dao.findById(idUser);
 			if(user != null) {
 				return user;
 			}
@@ -75,10 +119,10 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Override
-	public User checkIdUser(Integer idUser) {
+	public User checkEmailUser(String emailUser) {
 		User user;
 		try {
-			user = dao.findById(idUser);
+			user = dao.findByEmail(emailUser);
 			if(user != null) {
 				return user;
 			}
