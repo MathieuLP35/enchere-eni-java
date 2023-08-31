@@ -76,39 +76,24 @@
             <div class="col align-items-center">
 				<button class="btn btn-primary mt-5 py-5 px-5 d-block mx-auto">Rechercher</button>
             </div>
-         ${model.lstEncheres}
 			<div class="row mt-5">
-				
-                <div class="card p-2 col-sm-5 m-2">
-                	<div class="row">
-                		<div class="col">
-		                    <img src="https://picsum.photos/100?random=2" class="card-img-top" alt="Photo de l'article">
-                		</div>
-                		<div class="col">
-		                    <div class="card-body">
-		                        <h5 class="card-title text-decoration-underline">Nom de l'article</h5>
-		                        <p class="card-text">Prix : $XX.XX</p>
-		                        <p class="card-text">Fin de l'enchère : Date</p>
-		                        <p class="card-text">Vendeur : Nom du vendeur</p>
-		                    </div>
-                		</div>
-                	</div>
-                </div>
-                <div class="card p-2 col-sm-5 m-2">
-                	<div class="row">
-                		<div class="col">
-		                    <img src="https://picsum.photos/100?random=2" class="card-img-top" alt="Photo de l'article">
-                		</div>
-                		<div class="col">
-		                    <div class="card-body">
-		                        <h5 class="card-title text-decoration-underline">Nom de l'article</h5>
-		                        <p class="card-text">Prix : $XX.XX</p>
-		                        <p class="card-text">Fin de l'enchère : Date</p>
-		                        <p class="card-text">Vendeur : Nom du vendeur</p>
-		                    </div>
-                		</div>
-                	</div>
-                </div>
+				<c:forEach items="${model.lstEncheres}" var="enchere">
+	                <div class="card p-2 col-sm-5 m-2">
+	                	<div class="row">
+	                		<div class="col">
+			                    <img src="https://picsum.photos/100?random=2" class="card-img-top" alt="Photo de l'article">
+	                		</div>
+	                		<div class="col">
+			                    <div class="card-body">
+			                        <h5 class="card-title text-decoration-underline">${enchere.articleVendu.nomArticle }</h5>
+			                        <p class="card-text">Prix : ${enchere.articleVendu.prixVente}</p>
+			                        <p class="card-text">Fin de l'enchère : ${enchere.articleVendu.dateFinEnchere}</p>
+			                        <p class="card-text">Vendeur : ${enchere.user.nom } ${enchere.user.prenom}</p>
+			                    </div>
+	                		</div>
+	                	</div>
+	                </div>
+                </c:forEach>
 	        </div>
         </div>
     </div>

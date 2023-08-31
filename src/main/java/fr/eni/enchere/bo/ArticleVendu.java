@@ -13,13 +13,11 @@ public class ArticleVendu {
 	private Integer prixInitial;
 	private Integer prixVente;
 
-	
-	private Categorie categorie;
+	private Categorie categorieArticle;
 	
 	private User utilisateur;
 	
 	private Retrait lieuRetrait;
-	
 	
 	public ArticleVendu() {
 		super();
@@ -94,11 +92,21 @@ public class ArticleVendu {
 	}
 
 	public Categorie getCategorie() {
-		return categorie;
+		return categorieArticle;
 	}
 
-	public void setCategorie(Categorie categorie) {
-		this.categorie = categorie;
+	public void setCategorie(Categorie categorieArticle) {
+		this.categorieArticle = categorieArticle;
+	}
+
+	
+
+	public Retrait getLieuRetrait() {
+		return lieuRetrait;
+	}
+
+	public void setLieuRetrait(Retrait lieuRetrait) {
+		this.lieuRetrait = lieuRetrait;
 	}
 
 	public User getUtilisateur() {
@@ -107,14 +115,6 @@ public class ArticleVendu {
 
 	public void setUtilisateur(User utilisateur) {
 		this.utilisateur = utilisateur;
-	}
-
-	public Retrait getLieuRetrait() {
-		return lieuRetrait;
-	}
-
-	public void setLieuRetrait(Retrait lieuRetrait) {
-		this.lieuRetrait = lieuRetrait;
 	}
 
 	@Override

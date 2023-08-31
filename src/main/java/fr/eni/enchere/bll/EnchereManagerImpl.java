@@ -41,12 +41,13 @@ public class EnchereManagerImpl implements EnchereManager{
 
 	@Override
 	public List<Enchere> getAllEnchere() throws DALException {
+		System.out.println(dao.getAllEnchere());
 		return dao.getAllEnchere();
 	}
 
 	@Override
-	public void addRetrait(Retrait retrait) throws DALException {
-		dao.insertRetrait(retrait);
+	public void addRetrait(Retrait retrait, ArticleVendu articleVendu) throws DALException {
+		dao.insertRetrait(retrait, articleVendu);
 	}
 
 	@Override

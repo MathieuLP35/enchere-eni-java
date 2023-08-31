@@ -23,7 +23,7 @@ public class AccueilServlet extends HttpServlet {
      * Default constructor. 
      */
     public AccueilServlet() {
-        // TODO Auto-generated constructor stub
+       
     }
 
 	/**
@@ -32,6 +32,7 @@ public class AccueilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		AccueilModel model = new AccueilModel();
+		
 		try {
 			model.setLstCategories(manager.getAllCategorie());
 		} catch (Exception e) {
@@ -42,9 +43,10 @@ public class AccueilServlet extends HttpServlet {
 			model.setLstEncheres(manager.getAllEnchere());
 			System.out.println(manager.getAllEnchere());
 		} catch (Exception e) {
+			e.printStackTrace();
 			model.setMessage(e.getMessage());
 		}
-		
+		System.out.println(model.getLstEncheres());
 		request.setAttribute("model", model);
 		request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
 	}
@@ -53,7 +55,8 @@ public class AccueilServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
+//		request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
+		doGet(request, response);
 	}
 
 }

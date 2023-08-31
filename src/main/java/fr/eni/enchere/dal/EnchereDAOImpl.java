@@ -1,6 +1,7 @@
 package fr.eni.enchere.dal;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ import fr.eni.right.bo.User;
 
 public class EnchereDAOImpl implements EnchereDAO {
 	
+	
 	// SELECT
 	
 	final String SELECT_CATEGORIES = "SELECT no_categorie, libelle FROM CATEGORIES";
@@ -27,11 +29,21 @@ public class EnchereDAOImpl implements EnchereDAO {
 	
 	final String SELECT_ARTICLES_VENDUS = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS";
 	
-	final String SELECT_ENCHERES = "SELECT no_enchere, ENCHERES.no_utilisateur, ENCHERES.no_article, date_enchere, montant_enchere, ARTICLES_VENDUS.nom_article, ARTICLES_VENDUS.prix_vente, UTILISATEURS.nom, UTILISATEURS.prenom FROM ENCHERES INNER JOIN UTILISATEURS ON ENCHERES.no_utilisateur = UTILISATEURS.no_utilisateur INNER JOIN ARTICLES_VENDUS ON ENCHERES.no_article = ARTICLES_VENDUS.no_article ";
+	final String SELECT_ENCHERES = """ 
+			SELECT no_enchere, ENCHERES.no_utilisateur AS idUser, ENCHERES.no_article AS idArticle, date_enchere, montant_enchere, 
+			ARTICLES_VENDUS.nom_article AS nomArticle, ARTICLES_VENDUS.prix_vente AS prixVenteArticle, ARTICLES_VENDUS.date_fin_encheres AS dateFinEnchere,
+			UTILISATEURS.nom AS nomUser, UTILISATEURS.prenom AS prenomUser FROM ENCHERES
+			INNER JOIN UTILISATEURS ON ENCHERES.no_utilisateur = UTILISATEURS.no_utilisateur 
+			INNER JOIN ARTICLES_VENDUS ON ENCHERES.no_article = ARTICLES_VENDUS.no_article
+		""";
 	
 	// SELECT BY ID
 	
 	final String SELECT_BY_ID_ARTICLES_VENDUS = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS WHERE no_article = ?";
+	
+	final String SELECT_BY_ID_CATEGORIES = "SELECT no_categorie, libelle FROM CATEGORIES WHERE no_categorie = ?";
+	
+	final String SELECT_BY_ID_RETRAITS = "SELECT no_article, rue, code_postal, ville FROM RETRAITS WHERE no_article = ?";
 	
 	// INSERT
 	
@@ -54,8 +66,8 @@ public class EnchereDAOImpl implements EnchereDAO {
 			stmt.setDate(4, (java.sql.Date) articleVendu.getDateFinEnchere());
 			stmt.setInt(5, articleVendu.getPrixInitial());
 			stmt.setInt(6, articleVendu.getPrixVente());
-			stmt.setObject(7, articleVendu.getUtilisateur());
-			stmt.setObject(8, articleVendu.getCategorie());
+			stmt.setInt(7, articleVendu.getUtilisateur().getNoUtilisateur());
+			stmt.setInt(8, articleVendu.getCategorie().getNoCategorie());
 			int nb = stmt.executeUpdate();
 			if(nb>0) {
 				ResultSet rs= stmt.getGeneratedKeys();
@@ -65,6 +77,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
+			System.out.println(e.getMessage());
 			throw new DALException("ms_insertArticleVendu");
 		}
 		
@@ -84,6 +97,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
+			System.out.println(e.getMessage());
 			throw new DALException("ms_insertArticlesVendus");
 		}
 		
@@ -91,7 +105,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 	}
 	
 	@Override
-	public ArticleVendu findById(Integer idArticle) throws DALException {
+	public ArticleVendu findByIdArticle(Integer idArticle) throws DALException {
 		
 		ArticleVendu articleVendu = new ArticleVendu();
 		try (Connection con = ConnectionProvider.getConnection()){
@@ -101,9 +115,12 @@ public class EnchereDAOImpl implements EnchereDAO {
 			while(rs.next()) {
 				articleVendu = new ArticleVendu(rs.getString("nomArticle"), rs.getString("description"), rs.getDate("dateDebutEnchere"), rs.getDate("dateFinEnchere"),
 						rs.getInt("prixInitial"), rs.getInt("prixVente"));
+			 // TODO 
+			
 			}
 		}
 		catch(SQLException e) {
+			System.out.println(e.getMessage());
 			throw new DALException("ms_findByIdArticleVendu");
 		}
 		
@@ -124,6 +141,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
+			System.out.println(e.getMessage());
 			throw new DALException("ms_insertCategorie");
 		}
 	}
@@ -142,6 +160,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
+			System.out.println(e.getMessage());
 			throw new DALException("ms_getAllCategorie");
 		}
 		
@@ -149,16 +168,17 @@ public class EnchereDAOImpl implements EnchereDAO {
 	}
 
 	@Override
-	public void insertRetrait(Retrait retrait) throws DALException {
+	public void insertRetrait(Retrait retrait, ArticleVendu article) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()){
 			PreparedStatement stmt = con.prepareStatement(INSERT_RETRAITS);
-			stmt.setInt(1, retrait.getNoArticle());
+			stmt.setInt(1, article.getNoArticle());
 			stmt.setString(2, retrait.getRue());
 			stmt.setString(3, retrait.getCodePostal());
 			stmt.setString(4, retrait.getVille());
 			stmt.executeUpdate();
 		}
 		catch(SQLException e) {
+			System.out.println(e.getMessage());
 			throw new DALException("ms_insertRetrait");
 		}
 		
@@ -178,6 +198,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
+			System.out.println(e.getMessage());
 			throw new DALException("ms_getAllRetrait");
 		}
 		
@@ -188,8 +209,8 @@ public class EnchereDAOImpl implements EnchereDAO {
 	public void insertEnchere(Enchere enchere) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()){
 			PreparedStatement stmt = con.prepareStatement(INSERT_ENCHERES, Statement.RETURN_GENERATED_KEYS);
-			stmt.setInt(1, enchere.getNoUtilisateur());
-			stmt.setInt(2, enchere.getNoArticle());
+			stmt.setInt(1, enchere.getUser().getNoUtilisateur());
+			stmt.setInt(2, enchere.getArticleVendu().getNoArticle());
 			stmt.setTimestamp(3, Timestamp.valueOf(enchere.getDateEnchere()));
 			stmt.setInt(4, enchere.getMontant());
 			int nb = stmt.executeUpdate();
@@ -201,6 +222,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			}
 		}
 		catch(SQLException e) {
+			System.out.println(e.getMessage());
 			throw new DALException("ms_insertEnchere");
 		}
 	}
@@ -213,11 +235,17 @@ public class EnchereDAOImpl implements EnchereDAO {
 			PreparedStatement stmt = con.prepareStatement(SELECT_ENCHERES);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				Enchere enchere = new Enchere(rs.getInt("no_utilisateur"), rs.getInt("no_article"), rs.getTimestamp("date_enchere").toLocalDateTime(), rs.getInt("montant_enchere"));
+				User user = new User();
+				user.setNoUtilisateur(rs.getInt("idUser"));
+				user.setNom(rs.getString("nomUser"));
+				user.setPrenom(rs.getString("prenomUser"));
+				ArticleVendu articleVendu = new ArticleVendu(); 
+				articleVendu.setNoArticle(rs.getInt("idArticle"));
+				articleVendu.setNomArticle(rs.getString("nomArticle"));	
+				articleVendu.setPrixVente(rs.getInt("prixVenteArticle"));
+				articleVendu.setDateFinEnchere(Date.valueOf(rs.getString("dateFinEnchere")));
+				Enchere enchere = new Enchere(rs.getTimestamp("date_enchere").toLocalDateTime(), rs.getInt("montant_enchere"), user, articleVendu);
 				enchere.setNoEnchere(rs.getInt("no_enchere"));
-				
-				ArticleVendu articleVendu = this.findById(rs.getInt("no_article"));
-				
 				result.add(enchere);
 			}
 		}
@@ -227,6 +255,47 @@ public class EnchereDAOImpl implements EnchereDAO {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public Categorie findByIdCategorie(Integer idCategorie) throws DALException {
+		Categorie categorie = new Categorie();
+		try (Connection con = ConnectionProvider.getConnection()){
+			PreparedStatement stmt = con.prepareStatement(SELECT_BY_ID_CATEGORIES);
+			stmt.setInt(1, idCategorie);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				categorie = new Categorie(rs.getString("libelle"));
+			
+			}
+		}
+		catch(SQLException e) {
+			System.out.println(e.getMessage());
+			throw new DALException("ms_findByIdCategorie");
+		}
+		
+		return categorie;
+
+	}
+
+	@Override
+	public Retrait findByIdRetrait(Integer idArticle) throws DALException {
+		Retrait retrait = new Retrait();
+		try (Connection con = ConnectionProvider.getConnection()){
+			PreparedStatement stmt = con.prepareStatement(SELECT_BY_ID_RETRAITS);
+			stmt.setInt(1, idArticle);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				retrait = new Retrait(rs.getString("rue"), rs.getString("codePostal"), rs.getString("ville"));
+			
+			}
+		}
+		catch(SQLException e) {
+			System.out.println(e.getMessage());
+			throw new DALException("ms_findByIdRetrait");
+		}
+		
+		return retrait;
 	}
 
 	

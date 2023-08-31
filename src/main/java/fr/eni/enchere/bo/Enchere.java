@@ -6,8 +6,6 @@ import fr.eni.right.bo.User;
 
 public class Enchere {
 	private Integer noEnchere;
-	private Integer noUtilisateur;
-	private Integer noArticle;
 	private LocalDateTime dateEnchere;
 	private Integer montant;
 	
@@ -20,12 +18,12 @@ public class Enchere {
 	}
 
 
-	public Enchere(Integer noUtilisateur, Integer noArticle, LocalDateTime dateEnchere, Integer montant) {
+	public Enchere(LocalDateTime dateEnchere, Integer montant, User user, ArticleVendu articleVendu) {
 		super();
-		this.noUtilisateur = noUtilisateur;
-		this.noArticle = noArticle;
 		this.dateEnchere = dateEnchere;
 		this.montant = montant;
+		this.user = user;
+		this.articleVendu = articleVendu;
 	}
 
 
@@ -36,26 +34,6 @@ public class Enchere {
 
 	public void setNoEnchere(Integer noEnchere) {
 		this.noEnchere = noEnchere;
-	}
-
-
-	public Integer getNoUtilisateur() {
-		return noUtilisateur;
-	}
-
-
-	public void setNoUtilisateur(Integer noUtilisateur) {
-		this.noUtilisateur = noUtilisateur;
-	}
-
-
-	public Integer getNoArticle() {
-		return noArticle;
-	}
-
-
-	public void setNoArticle(Integer noArticle) {
-		this.noArticle = noArticle;
 	}
 
 
@@ -100,9 +78,9 @@ public class Enchere {
 
 	@Override
 	public String toString() {
-		return "Enchere [noEnchere=" + noEnchere + ", noUtilisateur=" + noUtilisateur + ", noArticle=" + noArticle
-				+ ", dateEnchere=" + dateEnchere + ", montant=" + montant + ", user=" + user + ", articleVendu="
-				+ articleVendu + "]";
+		return "Enchere [noEnchere=" + noEnchere
+				+ ", dateEnchere=" + dateEnchere + ", montant=" + montant + ", user=" + user.toString() + ", articleVendu="
+				+ articleVendu.toString() + "]";
 	}
 
 	
