@@ -26,6 +26,16 @@ public class UserDAOMock implements UserDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public User findByPseudo(String pseudo) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public User findById(Integer idUser) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

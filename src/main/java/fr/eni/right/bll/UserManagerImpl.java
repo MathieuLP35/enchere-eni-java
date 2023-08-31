@@ -3,6 +3,7 @@ package fr.eni.right.bll;
 import java.util.List;
 
 import fr.eni.enchere.dal.DALException;
+import fr.eni.right.bll.BLLException;
 import fr.eni.right.bo.User;
 import fr.eni.right.dal.DAOFact;
 import fr.eni.right.dal.UserDAO;
@@ -11,13 +12,19 @@ public class UserManagerImpl implements UserManager {
 	private UserDAO dao = DAOFact.getUserDAO();
 	
 	@Override
-	public void addUser(User user) {
-		try {
-			dao.insert(user);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void addUser(User user) throws BLLException {
+
+		if(checkUser(user.getPseudo()) != null) {
+			throw new BLLException("Ce pseudo est déjà utilisé.");
+		} else {
+			try {
+				dao.insert(user);
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+	
 	}
 
 	@Override
@@ -47,6 +54,42 @@ public class UserManagerImpl implements UserManager {
 	    }
 	    
 	    return null;
+	}
+
+	@Override
+	public User checkUser(String pseudo) {
+		User user;
+		try {
+			user = dao.findByPseudo(pseudo);
+			if(user != null) {
+				return user;
+			}
+			else {
+				return null;
+			}
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public User checkIdUser(Integer idUser) {
+		User user;
+		try {
+			user = dao.findById(idUser);
+			if(user != null) {
+				return user;
+			}
+			else {
+				return null;
+			}
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
