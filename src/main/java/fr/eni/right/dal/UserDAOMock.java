@@ -41,6 +41,11 @@ public class UserDAOMock implements UserDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public void update(User user, Integer noUtilisateur) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }
