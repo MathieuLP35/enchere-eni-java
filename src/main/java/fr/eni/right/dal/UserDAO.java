@@ -11,5 +11,6 @@ public interface UserDAO {
 	public List<User> findByLoginAndPassword(String login, String password) throws DALException;
 	public User findByPseudo(String pseudo) throws DALException;
 	public User findById(Integer idUser) throws DALException;
-    public void update(User user, Integer noUtilisateur) throws DALException;
+	public User findByEmail(String emailUser) throws DALException;
+  public void update(User user, Integer noUtilisateur) throws DALException;
 }

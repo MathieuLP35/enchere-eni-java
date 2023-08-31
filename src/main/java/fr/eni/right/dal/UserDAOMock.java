@@ -36,6 +36,11 @@ public class UserDAOMock implements UserDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public User findByEmail(String emailUser) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

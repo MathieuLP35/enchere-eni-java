@@ -1,12 +1,13 @@
 package fr.eni.admin.ihm;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import fr.eni.admin.bll.AdminManager;
+import fr.eni.admin.bll.AdminManagerSing;
 import fr.eni.right.bll.UserManager;
 import fr.eni.right.bll.UserManagerSing;
 import fr.eni.right.bo.User;
@@ -17,6 +18,7 @@ import fr.eni.right.bo.User;
 public class GestionUtilisateurServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserManager manager = UserManagerSing.getInstance();
+	private AdminManager managerAdmin = AdminManagerSing.getInstance();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -44,10 +46,29 @@ public class GestionUtilisateurServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Boolean isAdmin = ((User) request.getSession().getAttribute("user")).getAdministrateur();
 		if (isAdmin) {
-			request.getRequestDispatcher("/WEB-INF/admin/gestionUtilisateur.jsp").forward(request, response);
+			if(request.getParameter("BT_DESACTIVATE") != null) {
+				doDesactivate(request,response);
+			}
+			if(request.getParameter("BT_REMOVE") != null) {
+				doRemove(request,response);
+			}
 		} else {
 			request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
 		}
+	}
+	
+	private void doDesactivate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("users", manager.getAllUser());
+		request.getRequestDispatcher("/WEB-INF/admin/gestionUtilisateur.jsp").forward(request, response);
+	}
+	
+	private void doRemove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		managerAdmin.removeUser(Integer.parseInt(request.getParameter("idUser")));
+		
+		request.setAttribute("message", "L'utilisateur ID:" + request.getParameter("idUser") + "à été supprimé.");
+		request.setAttribute("users", manager.getAllUser());
+		
+		request.getRequestDispatcher("/WEB-INF/admin/gestionUtilisateur.jsp").forward(request, response);
 	}
 
 }

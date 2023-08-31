@@ -37,10 +37,14 @@ public class RegisterServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String login = request.getParameter("pseudo");
 		String password = request.getParameter("motdepasse");
+		String confirmPassword = request.getParameter("confirmationMotDePasse");
+		
 		if (login == null || login.isBlank()) {
 			request.setAttribute("message", "Le login doit être rempli");
 		} else if (password == null || password.isBlank()) {
 			request.setAttribute("message", "Le mot de passe doit être rempli");
+		} else if (!password.equals(confirmPassword)) {
+			request.setAttribute("message", "Le mot de passe doit être identique au mot de passe de confirmation");
 		} else {
 			try {
 				manager.addUser(new User(

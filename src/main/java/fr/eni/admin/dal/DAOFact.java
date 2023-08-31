@@ -1,7 +1,7 @@
 package fr.eni.admin.dal;
 
 public class DAOFact {
-	public static AdminDAO getEnchereDAO() {
+	public static AdminDAO getAdminDAO() {
 		return new AdminDAOImpl();
 	}
 }
