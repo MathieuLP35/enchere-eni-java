@@ -3,6 +3,7 @@ package fr.eni.right.dal;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.enchere.dal.DALException;
 import fr.eni.right.bo.User;
 
 public class UserDAOMock implements UserDAO {
@@ -19,6 +20,21 @@ public class UserDAOMock implements UserDAO {
 				.filter(u->u.getPseudo().equals(login))
 				.filter(u->u.getMotdepasse().equals(password))
 				.toList();
+	}
+	@Override
+	public List<User> getAllUsers() throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public User findByPseudo(String pseudo) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public User findById(Integer idUser) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

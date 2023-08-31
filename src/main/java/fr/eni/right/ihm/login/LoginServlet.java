@@ -16,36 +16,39 @@ import fr.eni.right.bo.User;
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private UserManager manager = UserManagerSing.getInstance();
+    private static final long serialVersionUID = 1L;
+    private UserManager manager = UserManagerSing.getInstance();
     
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
-	}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String login = request.getParameter("pseudo");
-		String password = request.getParameter("motdepasse");
-		
-		User user = manager.check(login, password);
-		if(user==null) {
-			request.setAttribute("message", "utilisteur inconnu");
-			request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
-		}
-		else {
-			// On met l'utilisateur en session
-			request.getSession().setAttribute("user", user);
-			
-			request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
-		}
-		
-	}
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String login = request.getParameter("pseudo");
+        String password = request.getParameter("motdepasse");
+        
+        User user = manager.check(login, password);
+        if(user==null) {
+            request.setAttribute("message", "utilisteur inconnu");
+            request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
+        }
+        else {
+            // On met l'utilisateur en session
+            request.getSession().setAttribute("user", user);
+            
+            //request.getSession().setMaxInactiveInterval(300);
+            
+            request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
+        }
+        
+    }
 
 }
+

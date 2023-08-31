@@ -7,6 +7,7 @@ import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.bo.Retrait;
 import fr.eni.enchere.dal.DALException;
+import fr.eni.right.bo.User;
 
 public interface EnchereManager {
 

@@ -16,6 +16,7 @@ import fr.eni.enchere.bo.Retrait;
 import fr.eni.enchere.dal.util.ConnectionProvider;
 import fr.eni.right.bo.User;
 
+
 public class EnchereDAOImpl implements EnchereDAO {
 	
 	// SELECT

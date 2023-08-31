@@ -7,7 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import fr.eni.right.bll.BLLException;
 import fr.eni.right.bll.UserManager;
 import fr.eni.right.bll.UserManagerSing;
 import fr.eni.right.bo.User;
@@ -42,20 +42,25 @@ public class RegisterServlet extends HttpServlet {
 		} else if (password == null || password.isBlank()) {
 			request.setAttribute("message", "Le mot de passe doit être rempli");
 		} else {
-			manager.addUser(new User(
-				    request.getParameter("pseudo"),
-				    request.getParameter("prenom"),
-				    request.getParameter("nom"),
-				    request.getParameter("email"),
-				    request.getParameter("telephone"),
-				    request.getParameter("rue"),
-				    request.getParameter("codePostal"),
-				    request.getParameter("ville"),
-				    request.getParameter("motdepasse"),
-				    0,
-				    false // Un nouvel utilisateur ne devrait pas être un administrateur par défaut
-				));
-			request.setAttribute("message", "Inscription OK");
+			try {
+				manager.addUser(new User(
+					    request.getParameter("pseudo"),
+					    request.getParameter("prenom"),
+					    request.getParameter("nom"),
+					    request.getParameter("email"),
+					    request.getParameter("telephone"),
+					    request.getParameter("rue"),
+					    request.getParameter("codePostal"),
+					    request.getParameter("ville"),
+					    request.getParameter("motdepasse"),
+					    0,
+					    false // Un nouvel utilisateur ne devrait pas être un administrateur par défaut
+					));
+				request.setAttribute("message", "Inscription OK");
+			} catch (BLLException e) {
+				e.printStackTrace();
+				request.setAttribute("message", e.getMessage());
+			}
 		}
 
 		request.getRequestDispatcher("/WEB-INF/user/register.jsp").forward(request, response);
