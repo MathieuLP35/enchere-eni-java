@@ -20,6 +20,10 @@
                 <input type="text" class="form-control" id="prenom" name="prenom" placeholder="${user.prenom}" readonly>
             </div>
             <div class="form-group">
+                <label for="prenom">Nom :</label>
+                <input type="text" class="form-control" id="nom" name="prenom" placeholder="${user.nom}" readonly>
+            </div>            
+            <div class="form-group">
                 <label for="email">Email :</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="${user.email}" readonly>
             </div>

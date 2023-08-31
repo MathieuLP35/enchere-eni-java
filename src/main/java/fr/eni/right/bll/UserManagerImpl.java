@@ -101,4 +101,12 @@ public class UserManagerImpl implements UserManager {
 		return null;
 	}
 
+	@Override
+	public void delete(User user, Integer noUtilisateur) {
+		try {
+			dao.delete(user, noUtilisateur);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}	
+	}
 }

@@ -66,7 +66,17 @@ public class ModifyProfilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
-	    
+
+		if(request.getParameter("BTN_SAVE")!=null) {
+			doSave(request, response);
+		}
+		else if(request.getParameter("BTN_DELETE")!=null) {
+			doDelet(request,response);
+		}
+	}
+	
+	private void doSave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 	    HttpSession session = request.getSession(false);
 	    User user = (User) session.getAttribute("user");
 
@@ -93,7 +103,28 @@ public class ModifyProfilServlet extends HttpServlet {
 	        
 
 			request.getRequestDispatcher("/WEB-INF/home/profil.jsp").forward(request, response);
+			
+	}
+	
+	private void doDelet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	    HttpSession session = request.getSession(false);
+	    User user = (User) session.getAttribute("user");
+	    
+	    
+	    String motDePasse = request.getParameter("motdepasse");
+
+	    if(user.getMotdepasse().equals(motDePasse)) {
+        manager.delete(user, user.getNoUtilisateur());
+		session.invalidate();
+		request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
+
+	    }else {
+			request.setAttribute("motDePasseErreur", "Le mot de passe est incorrect");
+			doGet(request,response);
+	    }
+
+
 
 	}
-
 }
