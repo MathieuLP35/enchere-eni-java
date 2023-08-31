@@ -38,4 +38,14 @@ public class UserManagerImpl implements UserManager {
 		return null;
 	}
 
+	@Override
+	public void update(User user, Integer noUtilisateur){
+		try {
+			dao.update(user, noUtilisateur);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

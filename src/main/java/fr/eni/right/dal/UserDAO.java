@@ -8,4 +8,5 @@ import fr.eni.right.bo.User;
 public interface UserDAO {
 	public void insert(User user) throws DALException;
 	public List<User> findByLoginAndPassword(String login, String password) throws DALException;
+    public void update(User user, Integer noUtilisateur) throws DALException;
 }

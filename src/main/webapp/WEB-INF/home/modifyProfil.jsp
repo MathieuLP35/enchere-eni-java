@@ -34,13 +34,13 @@
                 <input type="email" class="form-control" id="email" name="email" placeholder="${user.email}">
             </div>
             <div class="mb-3">
-                <label for="telephone">Téléphone :</label>
-                <input type="text" class="form-control" id="telephone" name="telephone" placeholder="${user.telephone}">
-            </div>
+                <label for="motDePasse">Mot de passe actuel :</label>
+                <input type="password" class="form-control" id="motdepasse" name="motdepasse">
+            </div>            
             <div class="mb-3">
-                <label for="rue">Rue :</label>
-                <input type="text" class="form-control" id="rue" name="rue" placeholder="${user.rue}">
-            </div>
+                <label for="nouveauMotDePasse">Nouveau mot de passe :</label>
+                <input type="password" class="form-control" id="nouveauMotDePasse" name="nouveauMotDePasse">
+            </div>            
         </div>
         <!-- Colonne de droite -->
         <div class="col-md-6">
@@ -53,12 +53,12 @@
                 <input type="text" class="form-control" id="ville" name="ville" placeholder="${user.ville}">
             </div>
             <div class="mb-3">
-                <label for="motDePasse">Mot de passe actuel :</label>
-                <input type="password" class="form-control" id="motdepasse" name="motdepasse">
+                <label for="telephone">Téléphone :</label>
+                <input type="text" class="form-control" id="telephone" name="telephone" placeholder="${user.telephone}">
             </div>
             <div class="mb-3">
-                <label for="nouveauMotDePasse">Nouveau mot de passe :</label>
-                <input type="password" class="form-control" id="nouveauMotDePasse" name="nouveauMotDePasse">
+                <label for="rue">Rue :</label>
+                <input type="text" class="form-control" id="rue" name="rue" placeholder="${user.rue}">
             </div>
             <div class="mb-4 offset-mt-3">
             <br/>
@@ -82,6 +82,8 @@
 </form>
 
         ${message}
+
+        
     </div>
 </body>
 
