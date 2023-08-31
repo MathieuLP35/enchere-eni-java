@@ -73,16 +73,16 @@
     <!-- Boutons en bas de la page -->
     <div class="row">
         <div class="col-md-6 text-center">
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <button type="submit" name="BTN_SAVE" class="btn btn-primary">Enregistrer</button>
         </div>
         <div class="col-md-6 text-center">
-            <a href="${pageContext.request.contextPath}/AccueilServlet" class="btn btn-danger">Supprimer mon compte</a>
+            <button type="submit" name="BTN_DELETE" class="btn btn-primary">Supprimer</button>
         </div>
     </div>
 </form>
 
-        ${message}
-
+	${message}
+    ${motDePasseErreur}
         
     </div>
 </body>

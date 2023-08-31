@@ -13,4 +13,5 @@ public interface UserManager {
 	public User checkEmailUser(String emailUser);
 	public List<User> getAllUser();
 	public void update(User user, Integer noUtilisateur);
+	public void delete(User user, Integer noUtilisateur);
 }
