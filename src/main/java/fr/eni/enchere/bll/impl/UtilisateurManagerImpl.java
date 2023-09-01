@@ -86,7 +86,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
                 return null;
             }
         } catch (DALException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
@@ -97,7 +96,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		try {
 			dao.update(user, noUtilisateur);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -114,7 +112,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 				return null;
 			}
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -132,7 +129,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 				return null;
 			}
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
