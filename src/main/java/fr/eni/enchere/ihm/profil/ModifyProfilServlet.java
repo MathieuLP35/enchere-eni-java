@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import fr.eni.enchere.bll.exception.BLLException;
 import fr.eni.enchere.bll.manager.UtilisateurManager;
 import fr.eni.enchere.bll.sing.UtilisateurManagerSing;
 import fr.eni.enchere.bo.Utilisateur;
@@ -87,22 +88,49 @@ public class ModifyProfilServlet extends HttpServlet {
 	    String rue = request.getParameter("rue");
 	    String ville = request.getParameter("ville");
 	    String codePostal = request.getParameter("codePostal");
+	    String motDePasse = request.getParameter("motDePasse");
+	    String nouveauMotDePasse = request.getParameter("nouveauMotDePasse");
+	    String confirmationMotDePasse = request.getParameter("confirmationMotDePasse");
+
 
 	    // Mettez à jour les attributs de l'utilisateur avec les nouvelles valeurs
-	    if(!pseudo.isBlank()){user.setPseudo(pseudo);}
-	    if(!prenom.isBlank()){user.setPrenom(prenom);}
-	    if(!nom.isBlank()){user.setNom(nom);}
-	    if(!email.isBlank()){user.setEmail(email);}
-	    if(!telephone.isBlank()){user.setTelephone(telephone);}
-	    if(!rue.isBlank()){user.setRue(rue);}
-	    if(!ville.isBlank()){user.setVille(ville);}
-	    if(!codePostal.isBlank()){user.setCodePostal(codePostal);}
+	    user.setPseudo(pseudo);
+	    user.setPrenom(prenom);
+	    user.setNom(nom);
+	    user.setEmail(email);
+	    user.setTelephone(telephone);
+	    user.setRue(rue);
+	    user.setVille(ville);
+	    user.setCodePostal(codePostal);
 
-	        manager.update(user, user.getNoUtilisateur());
+
+	    
+	    if(!nouveauMotDePasse.isBlank() && !confirmationMotDePasse.isBlank()){
+	    		if(nouveauMotDePasse.equals(confirmationMotDePasse)){
+	    		    if(user.getMotdepasse().equals(motDePasse)) {
+	    		    	user.setMotdepasse(nouveauMotDePasse);
+	    		    	System.out.println("Les mots de passe sont bons");
+	    		    }else {
+		    			request.setAttribute("motDePasseErreur", "Le mots de passe actuel est incorrect");
+		    			doGet(request,response);
+	    		    }
+	    		}else {
+	    			request.setAttribute("motDePasseErreur", "Les mots de passe sont different");
+	    			doGet(request,response);
+	    		}
+	    }
+
+
+
+	        try {
+				manager.update(user, user.getNoUtilisateur());
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        
 
 			request.getRequestDispatcher("/WEB-INF/home/profil.jsp").forward(request, response);
-			
 	}
 	
 	private void doDelet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

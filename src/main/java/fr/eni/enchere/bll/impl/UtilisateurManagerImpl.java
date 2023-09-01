@@ -86,19 +86,36 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
                 return null;
             }
         } catch (DALException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
     }
 
 	@Override
-	public void update(Utilisateur user, Integer noUtilisateur){
-		try {
-			dao.update(user, noUtilisateur);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void update(Utilisateur user, Integer noUtilisateur) throws BLLException{
+
+		String regexTelephone = "[^0-9]";
+		Pattern patternTelephone = Pattern.compile(regexTelephone);
+		Matcher matcherTelephone = patternTelephone.matcher(user.getTelephone()); 
+		
+		String regexMail = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
+		Pattern patternMail = Pattern.compile(regexMail);
+		Matcher matcherMail = patternMail.matcher(user.getEmail());
+		
+
+		if(matcherTelephone.find()){
+	        throw new BLLException("Le numéro de téléphone n'est pas au format valide. (XXXXXXXXXX)"); 
+		} else if(user.getCodePostal().length() < 5 || user.getCodePostal().length() > 5){
+			throw new BLLException("Le code postal doit se composé de 5 chiffres."); 
+		} else if(matcherMail.find()){
+	        throw new BLLException("Le mail n'est pas valide. (xx@xxx.fr)"); 
+		} else {
+			try {
+				dao.update(user, noUtilisateur);
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -114,7 +131,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 				return null;
 			}
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -132,7 +148,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 				return null;
 			}
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

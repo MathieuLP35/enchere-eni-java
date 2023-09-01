@@ -12,6 +12,6 @@ public interface UtilisateurManager {
 	public Utilisateur checkIdUser(Integer idUser);
 	public Utilisateur checkEmailUser(String emailUser);
 	public List<Utilisateur> getAllUser();
-	public void update(Utilisateur user, Integer noUtilisateur);
+	public void update(Utilisateur user, Integer noUtilisateur) throws BLLException;
 	public void delete(Utilisateur user, Integer noUtilisateur);
 }

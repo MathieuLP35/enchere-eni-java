@@ -36,7 +36,7 @@
 	                     <a class="nav-link" href="${pageContext.request.contextPath}/LoginServlet">Enchère</a>
 	                </li>
 	                <li>
-	                     <a class="nav-link" href="${pageContext.request.contextPath}/RegisterServlet">Vendre un article</a>
+	                     <a class="nav-link" href="${pageContext.request.contextPath}/VenteEnchereServlet">Vendre un article</a>
 					</li> 
 					<li>
 	                     <a class="nav-link" href="${pageContext.request.contextPath}/ProfilServlet">Mon Profil</a>
