@@ -46,6 +46,11 @@ public class UserDAOMock implements UserDAO {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void delete(User user, Integer noUtilisateur) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

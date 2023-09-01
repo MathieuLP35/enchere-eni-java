@@ -140,7 +140,7 @@ public class UserManagerImpl implements UserManager {
 		try {
 			dao.delete(user, noUtilisateur);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}	
 	}
 }
