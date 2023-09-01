@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +26,16 @@ public class UserDAOImpl implements UserDAO {
 	final String FIND_BY_USER_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
 	
 	final String FIND_BY_USER_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ?";
+
+	final String UPDATE_PSEUDO = "UPDATE UTILISATEURS SET pseudo = ?  WHERE password = ?";
+	final String UPDATE_NOM = "UPDATE UTILISATEURS SET   nom = ?  WHERE password = ?";
+	final String UPDATE_PRENOM =  "UPDATE UTILISATEURS SET  prenom = ?  WHERE password = ?";
+	final String UPDATE_EMAIL =  "UPDATE UTILISATEURS SET  email = ?  WHERE password = ?";
+	final String UPDATE_TELEPHONE =  "UPDATE UTILISATEURS SET  telephone = ?  WHERE password = ?";
+	final String UPDATE_RUE =  "UPDATE UTILISATEURS SET  rue = ?  WHERE password = ?";
+	final String UPDATE_CODEPOSTAL =  "UPDATE UTILISATEURS SET  code_postal = ?  WHERE password = ?";
+	final String UPDATE_VILLE = "UPDATE UTILISATEURS SET  ville = ?  WHERE password = ?";
+	final String UPDATE_ALL = "UPDATE UTILISATEURS SET  pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ? WHERE no_utilisateur = ?";
 
 	@Override
 	public void insert(User user) throws DALException {
@@ -190,7 +199,6 @@ public class UserDAOImpl implements UserDAO {
 	    return user;
 	}
 
-
 	@Override
 	public User findByEmail(String emailUser) throws DALException {
 		User user = null;
@@ -222,5 +230,26 @@ public class UserDAOImpl implements UserDAO {
 	    
 	    return user;
 	}
+  
+  @Override
+  public void update(User user, Integer noUtilisateur) throws DALException {
+	    try (Connection con = ConnectionProvider.getConnection()){
+	        PreparedStatement stmt = con.prepareStatement(UPDATE_ALL);
+	        stmt.setString(1, user.getPseudo());
+	        stmt.setString(2, user.getNom());
+	        stmt.setString(3, user.getPrenom());
+	        stmt.setString(4, user.getEmail());
+	        stmt.setString(5, user.getTelephone());
+	        stmt.setString(6, user.getRue());
+	        stmt.setString(7, user.getCodePostal());
+	        stmt.setString(8, user.getVille());
+	        stmt.setInt(9, user.getNoUtilisateur());
+	        stmt.executeUpdate();
+	    }
+	    catch(SQLException e) {
+	        throw new DALException(e.getMessage());
+	    }
+	}
 
 }
+
