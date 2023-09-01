@@ -94,14 +94,14 @@ public class ModifyProfilServlet extends HttpServlet {
 
 
 	    // Mettez à jour les attributs de l'utilisateur avec les nouvelles valeurs
-	    if(!pseudo.isBlank()){user.setPseudo(pseudo);}
-	    if(!prenom.isBlank()){user.setPrenom(prenom);}
-	    if(!nom.isBlank()){user.setNom(nom);}
-	    if(!email.isBlank()){user.setEmail(email);}
-	    if(!telephone.isBlank()){user.setTelephone(telephone);}
-	    if(!rue.isBlank()){user.setRue(rue);}
-	    if(!ville.isBlank()){user.setVille(ville);}
-	    if(!codePostal.isBlank()){user.setCodePostal(codePostal);}
+	    user.setPseudo(pseudo);
+	    user.setPrenom(prenom);
+	    user.setNom(nom);
+	    user.setEmail(email);
+	    user.setTelephone(telephone);
+	    user.setRue(rue);
+	    user.setVille(ville);
+	    user.setCodePostal(codePostal);
 
 
 	    

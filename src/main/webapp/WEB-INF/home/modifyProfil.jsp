@@ -19,19 +19,19 @@
         <div class="col-md-6">
             <div class="mb-3">
                 <label for="pseudo">Pseudo :</label>
-                <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="${user.pseudo}">
+                <input type="text" class="form-control" id="pseudo" name="pseudo" value="${user.pseudo}">
             </div>
             <div class="mb-3">
                 <label for="nom">Nom :</label>
-                <input type="text" class="form-control" id="nom" name="nom" placeholder="${user.nom}">
+                <input type="text" class="form-control" id="nom" name="nom" value="${user.nom}">
             </div>
             <div class="mb-3">
                 <label for="prenom">Prénom :</label>
-                <input type="text" class="form-control" id="prenom" name="prenom" placeholder="${user.prenom}">
+                <input type="text" class="form-control" id="prenom" name="prenom" value="${user.prenom}">
             </div>
             <div class="mb-3">
                 <label for="email">Email :</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="${user.email}">
+                <input type="email" class="form-control" id="email" name="email" value="${user.email}">
             </div>
             <div class="mb-3">
                 <label for="motDePasse">Mot de passe actuel :</label>
@@ -46,19 +46,19 @@
         <div class="col-md-6">
             <div class="mb-3">
                 <label for="codePostal">Code Postal :</label>
-                <input type="text" class="form-control" id="codePostal" name="codePostal" placeholder="${user.codePostal}">
+                <input type="text" class="form-control" id="codePostal" name="codePostal" value="${user.codePostal}">
             </div>
             <div class="mb-3">
                 <label for="ville">Ville :</label>
-                <input type="text" class="form-control" id="ville" name="ville" placeholder="${user.ville}">
+                <input type="text" class="form-control" id="ville" name="ville" value="${user.ville}">
             </div>
             <div class="mb-3">
                 <label for="telephone">Téléphone :</label>
-                <input type="text" class="form-control" id="telephone" name="telephone" placeholder="${user.telephone}">
+                <input type="text" class="form-control" id="telephone" name="telephone" value="${user.telephone}">
             </div>
             <div class="mb-3">
                 <label for="rue">Rue :</label>
-                <input type="text" class="form-control" id="rue" name="rue" placeholder="${user.rue}">
+                <input type="text" class="form-control" id="rue" name="rue" value="${user.rue}">
             </div>
             <div class="mb-4 offset-mt-3">
             <br/>
