@@ -74,19 +74,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	        
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            while (rs.next()) {
-	                Utilisateur user = new Utilisateur();
-	                user.setNoUtilisateur(rs.getInt("no_utilisateur"));
-	                user.setPseudo(rs.getString("pseudo"));
-	                user.setNom(rs.getString("nom"));
-	                user.setPrenom(rs.getString("prenom"));
-	                user.setEmail(rs.getString("email"));
-	                user.setTelephone(rs.getString("telephone"));
-	                user.setRue(rs.getString("rue"));
-	                user.setCodePostal(rs.getString("code_postal"));
-	                user.setVille(rs.getString("ville"));
-	                user.setMotdepasse(rs.getString("mot_de_passe"));
-	                user.setCredit(rs.getInt("credit"));
-	                user.setAdministrateur(rs.getBoolean("administrateur"));
+	                Utilisateur user = mapUtilisateur(rs);
 	                users.add(user);
 	            }
 	        }
@@ -96,6 +84,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	    
 	    return users;
 	}
+	
 	
 	@Override
 	public Utilisateur findByPseudo(String pseudo) throws DALException {
@@ -107,19 +96,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	        
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            if (rs.next()) {
-	                user = new Utilisateur();
-	                user.setNoUtilisateur(rs.getInt("no_utilisateur"));
-	                user.setPseudo(rs.getString("pseudo"));
-	                user.setNom(rs.getString("nom"));
-	                user.setPrenom(rs.getString("prenom"));
-	                user.setEmail(rs.getString("email"));
-	                user.setTelephone(rs.getString("telephone"));
-	                user.setRue(rs.getString("rue"));
-	                user.setCodePostal(rs.getString("code_postal"));
-	                user.setVille(rs.getString("ville"));
-	                user.setMotdepasse(rs.getString("mot_de_passe"));
-	                user.setCredit(rs.getInt("credit"));
-	                user.setAdministrateur(rs.getBoolean("administrateur"));
+	                user = mapUtilisateur(rs);
 	            }
 	        }
 	    } catch (SQLException e) {
@@ -140,20 +117,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	         ResultSet rs = stmt.executeQuery(GET_ALL_USERS)) {
 	        
 	        while (rs.next()) {
-	            Utilisateur user = new Utilisateur();
-	            user.setNoUtilisateur(rs.getInt("no_utilisateur"));
-	            user.setPseudo(rs.getString("pseudo"));
-	            user.setNom(rs.getString("nom"));
-	            user.setPrenom(rs.getString("prenom"));
-	            user.setEmail(rs.getString("email"));
-	            user.setTelephone(rs.getString("telephone"));
-	            user.setRue(rs.getString("rue"));
-	            user.setCodePostal(rs.getString("code_postal"));
-	            user.setVille(rs.getString("ville"));
-	            user.setMotdepasse(rs.getString("mot_de_passe"));
-	            user.setCredit(rs.getInt("credit"));
-	            user.setAdministrateur(rs.getBoolean("administrateur"));
-	            user.setIsActive(rs.getBoolean("activer"));
+	        	Utilisateur user = mapUtilisateur(rs);
 	            users.add(user);
 	        }
 	    } catch (SQLException e) {
@@ -174,20 +138,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	        
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            if (rs.next()) {
-	                user = new Utilisateur();
-	                user.setNoUtilisateur(rs.getInt("no_utilisateur"));
-	                user.setPseudo(rs.getString("pseudo"));
-	                user.setNom(rs.getString("nom"));
-	                user.setPrenom(rs.getString("prenom"));
-	                user.setEmail(rs.getString("email"));
-	                user.setTelephone(rs.getString("telephone"));
-	                user.setRue(rs.getString("rue"));
-	                user.setCodePostal(rs.getString("code_postal"));
-	                user.setVille(rs.getString("ville"));
-	                user.setMotdepasse(rs.getString("mot_de_passe"));
-	                user.setCredit(rs.getInt("credit"));
-	                user.setAdministrateur(rs.getBoolean("administrateur"));
-	                user.setIsActive(rs.getBoolean("activer"));
+	                user = mapUtilisateur(rs);
 	            }
 	        }
 	    } catch (SQLException e) {
@@ -207,19 +158,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	        
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            if (rs.next()) {
-	                user = new Utilisateur();
-	                user.setNoUtilisateur(rs.getInt("no_utilisateur"));
-	                user.setPseudo(rs.getString("pseudo"));
-	                user.setNom(rs.getString("nom"));
-	                user.setPrenom(rs.getString("prenom"));
-	                user.setEmail(rs.getString("email"));
-	                user.setTelephone(rs.getString("telephone"));
-	                user.setRue(rs.getString("rue"));
-	                user.setCodePostal(rs.getString("code_postal"));
-	                user.setVille(rs.getString("ville"));
-	                user.setMotdepasse(rs.getString("mot_de_passe"));
-	                user.setCredit(rs.getInt("credit"));
-	                user.setAdministrateur(rs.getBoolean("administrateur"));
+	            	user = mapUtilisateur(rs);
 	            }
 	        }
 	    } catch (SQLException e) {
@@ -259,6 +198,24 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	    catch(SQLException e) {
 	        throw new DALException(e.getMessage());
 	    }	
+	}
+	
+	private Utilisateur mapUtilisateur(ResultSet rs) throws SQLException {
+		Utilisateur user = new Utilisateur();
+		user.setNoUtilisateur(rs.getInt("no_utilisateur"));
+		user.setPseudo(rs.getString("pseudo"));
+		user.setNom(rs.getString("nom"));
+		user.setPrenom(rs.getString("prenom"));
+		user.setEmail(rs.getString("email"));
+		user.setTelephone(rs.getString("telephone"));
+		user.setRue(rs.getString("rue"));
+		user.setCodePostal(rs.getString("code_postal"));
+		user.setVille(rs.getString("ville"));
+		user.setMotdepasse(rs.getString("mot_de_passe"));
+		user.setCredit(rs.getInt("credit"));
+		user.setAdministrateur(rs.getBoolean("administrateur"));
+		user.setIsActive(rs.getBoolean("activer"));
+		return user;
 	}
 
 }

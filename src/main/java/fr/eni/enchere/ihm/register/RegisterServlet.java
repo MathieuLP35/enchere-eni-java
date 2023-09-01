@@ -47,7 +47,7 @@ public class RegisterServlet extends HttpServlet {
 			request.setAttribute("message", "Le mot de passe doit être identique au mot de passe de confirmation");
 		} else {
 			try {
-				manager.addUser(new Utilisateur(
+				Utilisateur utilisateur = new Utilisateur(
 					    request.getParameter("pseudo"),
 					    request.getParameter("prenom"),
 					    request.getParameter("nom"),
@@ -60,8 +60,13 @@ public class RegisterServlet extends HttpServlet {
 					    0,
 					    false, // Un nouvel utilisateur ne devrait pas être un administrateur par défaut
 					    true // Un nouvel utilisateur est activer par default. 
-					));
-				request.setAttribute("message", "Inscription OK");
+				 );
+				manager.addUser(utilisateur);
+				// On met l'utilisateur en session
+	            request.getSession().setAttribute("user", utilisateur);
+	            //request.getSession().setMaxInactiveInterval(300);
+	            request.getRequestDispatcher("/AccueilServlet").forward(request, response);
+	            
 			} catch (BLLException e) {
 				e.printStackTrace();
 				request.setAttribute("message", e.getMessage());
