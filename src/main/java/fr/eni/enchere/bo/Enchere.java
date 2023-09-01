@@ -2,8 +2,6 @@ package fr.eni.enchere.bo;
 
 import java.time.LocalDateTime;
 
-import fr.eni.right.bo.Utilisateur;
-
 public class Enchere {
 	private Integer noEnchere;
 	private LocalDateTime dateEnchere;

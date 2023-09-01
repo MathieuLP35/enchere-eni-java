@@ -2,8 +2,6 @@ package fr.eni.enchere.bo;
 
 import java.util.Date;
 
-import fr.eni.right.bo.Utilisateur;
-
 public class ArticleVendu {
 	private Integer noArticle;
 	private String nomArticle;
