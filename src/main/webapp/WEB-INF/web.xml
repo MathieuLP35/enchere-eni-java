@@ -11,7 +11,7 @@
     <description></description>
     <display-name>GestionUtilisateurServlet</display-name>
     <servlet-name>GestionUtilisateurServlet</servlet-name>
-    <servlet-class>fr.eni.enchere.ihm.GestionUtilisateurServlet</servlet-class>
+    <servlet-class>fr.eni.enchere.ihm.admin.GestionUtilisateurServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>GestionUtilisateurServlet</servlet-name>
@@ -21,7 +21,7 @@
     <description></description>
     <display-name>GestionCategorieServlet</display-name>
     <servlet-name>GestionCategorieServlet</servlet-name>
-    <servlet-class>fr.eni.enchere.ihm.GestionCategorieServlet</servlet-class>
+    <servlet-class>fr.eni.enchere.ihm.admin.GestionCategorieServlet</servlet-class>
   </servlet>
   <servlet>
     <description></description>
@@ -32,5 +32,15 @@
   <servlet-mapping>
     <servlet-name>ModifyProfilServlet</servlet-name>
     <url-pattern>/ModifyProfilServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VenteEnchereServlet</display-name>
+    <servlet-name>VenteEnchereServlet</servlet-name>
+    <servlet-class>fr.eni.enchere.ihm.enchere.VenteEnchereServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VenteEnchereServlet</servlet-name>
+    <url-pattern>/VenteEnchereServlet</url-pattern>
   </servlet-mapping>
 </web-app>
