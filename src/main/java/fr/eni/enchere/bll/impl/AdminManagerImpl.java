@@ -16,7 +16,6 @@ public class AdminManagerImpl implements AdminManager {
 		try {
 			dao.removeUser(idUser);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -26,7 +25,6 @@ public class AdminManagerImpl implements AdminManager {
 		try {
 			dao.desactivateUser(idUser);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}

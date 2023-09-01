@@ -86,7 +86,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
                 return null;
             }
         } catch (DALException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
@@ -135,7 +134,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 				return null;
 			}
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -153,7 +151,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 				return null;
 			}
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

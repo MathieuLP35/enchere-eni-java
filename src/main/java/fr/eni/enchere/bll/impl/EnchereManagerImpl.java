@@ -53,7 +53,6 @@ public class EnchereManagerImpl implements EnchereManager{
 
 	@Override
 	public List<Retrait> getAllRetrait() throws DALException {
-		// TODO Auto-generated method stub
 		return dao.getAllRetrait();
 	}
 }
