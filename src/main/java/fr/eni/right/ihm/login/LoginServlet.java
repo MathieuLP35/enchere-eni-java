@@ -7,9 +7,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import fr.eni.right.bll.UserManager;
-import fr.eni.right.bll.UserManagerSing;
-import fr.eni.right.bo.User;
+import fr.eni.right.bll.UtilisateurManager;
+import fr.eni.right.bll.UtilisateurManagerSing;
+import fr.eni.right.bo.Utilisateur;
 
 /**
  * Servlet implementation class LoginServlet
@@ -17,7 +17,7 @@ import fr.eni.right.bo.User;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private UserManager manager = UserManagerSing.getInstance();
+    private UtilisateurManager manager = UtilisateurManagerSing.getInstance();
     
 
     /**
@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
         String login = request.getParameter("pseudo");
         String password = request.getParameter("motdepasse");
         
-        User user = manager.check(login, password);
+        Utilisateur user = manager.check(login, password);
         if(user==null) {
             request.setAttribute("message", "utilisteur inconnu");
             request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);

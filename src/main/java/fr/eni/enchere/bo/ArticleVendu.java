@@ -2,7 +2,7 @@ package fr.eni.enchere.bo;
 
 import java.util.Date;
 
-import fr.eni.right.bo.User;
+import fr.eni.right.bo.Utilisateur;
 
 public class ArticleVendu {
 	private Integer noArticle;
@@ -15,7 +15,7 @@ public class ArticleVendu {
 
 	private Categorie categorieArticle;
 	
-	private User utilisateur;
+	private Utilisateur utilisateur;
 	
 	private Retrait lieuRetrait;
 	
@@ -109,11 +109,11 @@ public class ArticleVendu {
 		this.lieuRetrait = lieuRetrait;
 	}
 
-	public User getUtilisateur() {
+	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
 
-	public void setUtilisateur(User utilisateur) {
+	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
 

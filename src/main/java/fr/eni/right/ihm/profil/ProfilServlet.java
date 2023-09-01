@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-import fr.eni.right.bo.User;
+import fr.eni.right.bo.Utilisateur;
 
 /**
  * Servlet implementation class ProfilServlet
@@ -36,7 +36,7 @@ public class ProfilServlet extends HttpServlet {
 
         if (session != null) {
             // Récupérer l'utilisateur depuis la session
-            User user = (User) session.getAttribute("user");
+            Utilisateur user = (Utilisateur) session.getAttribute("user");
 
             if (user != null) {
                 // Vous pouvez maintenant accéder aux propriétés de l'utilisateur

@@ -4,50 +4,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.enchere.dal.DALException;
-import fr.eni.right.bo.User;
+import fr.eni.right.bo.Utilisateur;
 
-public class UserDAOMock implements UserDAO {
-	private static List<User> lst = new ArrayList<>();
+public class UtilisateurDAOMock implements UtilisateurDAO {
+	private static List<Utilisateur> lst = new ArrayList<>();
 	private static Integer cpt=0;
 	@Override
-	public void insert(User user) {
+	public void insert(Utilisateur user) {
 		user.setNoUtilisateur(cpt++);
 		lst.add(user);
 	}
 	@Override
-	public List<User> findByLoginAndPassword(String login, String password) {
+	public List<Utilisateur> findByLoginAndPassword(String login, String password) {
 		return lst.stream()
 				.filter(u->u.getPseudo().equals(login))
 				.filter(u->u.getMotdepasse().equals(password))
 				.toList();
 	}
 	@Override
-	public List<User> getAllUsers() throws DALException {
+	public List<Utilisateur> getAllUsers() throws DALException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public User findByPseudo(String pseudo) throws DALException {
+	public Utilisateur findByPseudo(String pseudo) throws DALException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public User findById(Integer idUser) throws DALException {
+	public Utilisateur findById(Integer idUser) throws DALException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public User findByEmail(String emailUser) throws DALException {
+	public Utilisateur findByEmail(String emailUser) throws DALException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public void update(User user, Integer noUtilisateur) throws DALException {
+	public void update(Utilisateur user, Integer noUtilisateur) throws DALException {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void delete(User user, Integer noUtilisateur) throws DALException {
+	public void delete(Utilisateur user, Integer noUtilisateur) throws DALException {
 		// TODO Auto-generated method stub
 		
 	}
