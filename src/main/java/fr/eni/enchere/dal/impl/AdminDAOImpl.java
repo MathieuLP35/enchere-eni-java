@@ -30,10 +30,10 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public void desactivateUser(Integer idUser) throws DALException {
+	public void desactivateUser(Integer idUser, Boolean isActive) throws DALException {
 	    try (Connection con = ConnectionProvider.getConnection();
 	        PreparedStatement stmt = con.prepareStatement(DESACTIVATE_USER)) {
-	    	stmt.setInt(1, 0);
+	    	stmt.setBoolean(1, isActive);
 	        stmt.setInt(2, idUser);
 	        int rowsAffected = stmt.executeUpdate();
 	        
