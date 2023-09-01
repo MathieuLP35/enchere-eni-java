@@ -2,15 +2,17 @@ package fr.eni.enchere.bo;
 
 import java.time.LocalDateTime;
 
-import fr.eni.right.bo.User;
+import fr.eni.right.bo.Utilisateur;
 
 public class Enchere {
 	private Integer noEnchere;
 	private LocalDateTime dateEnchere;
 	private Integer montant;
 	
-	private User user;
+	private Utilisateur utilisateurVente;
 	private ArticleVendu articleVendu;
+	
+	private Utilisateur encherisseur;
 	
 	
 	public Enchere() {
@@ -18,11 +20,11 @@ public class Enchere {
 	}
 
 
-	public Enchere(LocalDateTime dateEnchere, Integer montant, User user, ArticleVendu articleVendu) {
+	public Enchere(LocalDateTime dateEnchere, Integer montant, Utilisateur utilisateurVente, ArticleVendu articleVendu) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montant = montant;
-		this.user = user;
+		this.utilisateurVente = utilisateurVente;
 		this.articleVendu = articleVendu;
 	}
 
@@ -56,13 +58,13 @@ public class Enchere {
 		this.montant = montant;
 	}
 	
-	public User getUser() {
-		return user;
+	public Utilisateur getUser() {
+		return utilisateurVente;
 	}
 
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(Utilisateur user) {
+		this.utilisateurVente = user;
 	}
 
 
@@ -76,10 +78,20 @@ public class Enchere {
 	}
 
 
+	public Utilisateur getEncherisseur() {
+		return encherisseur;
+	}
+
+
+	public void setEncherisseur(Utilisateur encherisseur) {
+		this.encherisseur = encherisseur;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Enchere [noEnchere=" + noEnchere
-				+ ", dateEnchere=" + dateEnchere + ", montant=" + montant + ", user=" + user.toString() + ", articleVendu="
+				+ ", dateEnchere=" + dateEnchere + ", montant=" + montant + ", user=" + utilisateurVente.toString() + ", articleVendu="
 				+ articleVendu.toString() + "]";
 	}
 

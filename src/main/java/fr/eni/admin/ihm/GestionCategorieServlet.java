@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import fr.eni.right.bo.User;
-import fr.eni.right.dal.UserDAOImpl;
+import fr.eni.right.bo.Utilisateur;
+import fr.eni.right.dal.UtilisateurDAOImpl;
 
 /**
  * Servlet implementation class GestionCategorieServlet
@@ -27,7 +27,7 @@ public class GestionCategorieServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Boolean isAdmin = ((User) request.getSession().getAttribute("user")).getAdministrateur();
+		Boolean isAdmin = ((Utilisateur) request.getSession().getAttribute("user")).getAdministrateur();
 		if (isAdmin) {
 			request.getRequestDispatcher("/WEB-INF/admin/gestionCategorie.jsp").forward(request, response);
 		} else {
@@ -39,7 +39,7 @@ public class GestionCategorieServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Boolean isAdmin = ((User) request.getSession().getAttribute("user")).getAdministrateur();
+		Boolean isAdmin = ((Utilisateur) request.getSession().getAttribute("user")).getAdministrateur();
 		if (isAdmin) {
 			request.getRequestDispatcher("/WEB-INF/admin/gestionCategorie.jsp").forward(request, response);
 		} else {

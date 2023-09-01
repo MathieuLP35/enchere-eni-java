@@ -8,11 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.right.bo.User;
+import fr.eni.right.bo.Utilisateur;
 import fr.eni.enchere.dal.DALException;
 import fr.eni.enchere.dal.util.ConnectionProvider;
 
-public class UserDAOImpl implements UserDAO {
+public class UtilisateurDAOImpl implements UtilisateurDAO {
 	
 	final String GET_ALL_USERS = "SELECT * FROM UTILISATEURS";
 	
@@ -38,7 +38,7 @@ public class UserDAOImpl implements UserDAO {
 	final String UPDATE_ALL = "UPDATE UTILISATEURS SET  pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ? WHERE no_utilisateur = ?";
 
 	@Override
-	public void insert(User user) throws DALException {
+	public void insert(Utilisateur user) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()){
 			PreparedStatement stmt = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, user.getPseudo());
@@ -67,8 +67,8 @@ public class UserDAOImpl implements UserDAO {
 
 
 	@Override
-	public List<User> findByLoginAndPassword(String identifier, String password) throws DALException {
-	    List<User> users = new ArrayList<>();
+	public List<Utilisateur> findByLoginAndPassword(String identifier, String password) throws DALException {
+	    List<Utilisateur> users = new ArrayList<>();
 
 	    try (Connection con = ConnectionProvider.getConnection();
 	        PreparedStatement stmt = con.prepareStatement(FIND_BY_LOGIN_AND_PASSWORD)) {
@@ -78,7 +78,7 @@ public class UserDAOImpl implements UserDAO {
 	        
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            while (rs.next()) {
-	                User user = new User();
+	                Utilisateur user = new Utilisateur();
 	                user.setNoUtilisateur(rs.getInt("no_utilisateur"));
 	                user.setPseudo(rs.getString("pseudo"));
 	                user.setNom(rs.getString("nom"));
@@ -102,8 +102,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
-	public User findByPseudo(String pseudo) throws DALException {
-	    User user = null;
+	public Utilisateur findByPseudo(String pseudo) throws DALException {
+	    Utilisateur user = null;
 	    
 	    try (Connection con = ConnectionProvider.getConnection();
 	         PreparedStatement stmt = con.prepareStatement(FIND_BY_PSEUDO)) {
@@ -111,7 +111,7 @@ public class UserDAOImpl implements UserDAO {
 	        
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            if (rs.next()) {
-	                user = new User();
+	                user = new Utilisateur();
 	                user.setNoUtilisateur(rs.getInt("no_utilisateur"));
 	                user.setPseudo(rs.getString("pseudo"));
 	                user.setNom(rs.getString("nom"));
@@ -136,15 +136,15 @@ public class UserDAOImpl implements UserDAO {
 
 
 	@Override
-	public List<User> getAllUsers() throws DALException {
-	    List<User> users = new ArrayList<>();
+	public List<Utilisateur> getAllUsers() throws DALException {
+	    List<Utilisateur> users = new ArrayList<>();
 
 	    try (Connection con = ConnectionProvider.getConnection();
 	         Statement stmt = con.createStatement();
 	         ResultSet rs = stmt.executeQuery(GET_ALL_USERS)) {
 	        
 	        while (rs.next()) {
-	            User user = new User();
+	            Utilisateur user = new Utilisateur();
 	            user.setNoUtilisateur(rs.getInt("no_utilisateur"));
 	            user.setPseudo(rs.getString("pseudo"));
 	            user.setNom(rs.getString("nom"));
@@ -168,8 +168,8 @@ public class UserDAOImpl implements UserDAO {
 
 
 	@Override
-	public User findById(Integer idUser) throws DALException {
-		User user = null;
+	public Utilisateur findById(Integer idUser) throws DALException {
+		Utilisateur user = null;
 	    
 	    try (Connection con = ConnectionProvider.getConnection();
 	         PreparedStatement stmt = con.prepareStatement(FIND_BY_USER_ID)) {
@@ -177,7 +177,7 @@ public class UserDAOImpl implements UserDAO {
 	        
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            if (rs.next()) {
-	                user = new User();
+	                user = new Utilisateur();
 	                user.setNoUtilisateur(rs.getInt("no_utilisateur"));
 	                user.setPseudo(rs.getString("pseudo"));
 	                user.setNom(rs.getString("nom"));
@@ -200,8 +200,8 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User findByEmail(String emailUser) throws DALException {
-		User user = null;
+	public Utilisateur findByEmail(String emailUser) throws DALException {
+		Utilisateur user = null;
 	    
 	    try (Connection con = ConnectionProvider.getConnection();
 	         PreparedStatement stmt = con.prepareStatement(FIND_BY_USER_EMAIL)) {
@@ -209,7 +209,7 @@ public class UserDAOImpl implements UserDAO {
 	        
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            if (rs.next()) {
-	                user = new User();
+	                user = new Utilisateur();
 	                user.setNoUtilisateur(rs.getInt("no_utilisateur"));
 	                user.setPseudo(rs.getString("pseudo"));
 	                user.setNom(rs.getString("nom"));
@@ -232,7 +232,7 @@ public class UserDAOImpl implements UserDAO {
 	}
   
   @Override
-  public void update(User user, Integer noUtilisateur) throws DALException {
+  public void update(Utilisateur user, Integer noUtilisateur) throws DALException {
 	    try (Connection con = ConnectionProvider.getConnection()){
 	        PreparedStatement stmt = con.prepareStatement(UPDATE_ALL);
 	        stmt.setString(1, user.getPseudo());
