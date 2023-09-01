@@ -10,6 +10,17 @@
 </head>
 <body>
 	<jsp:include page="../headerBanner.jsp"/>
-	
+	<div class="container">
+		<div class="col-md-4">
+			
+		</div>
+		<div class="col-md-8">
+			<form>
+				<input type="text">
+				<input type="text">
+				<input type="upload">
+			</form>
+		</div>
+	</div>
 </body>
 </html>
