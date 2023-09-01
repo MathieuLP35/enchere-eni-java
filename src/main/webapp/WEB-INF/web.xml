@@ -2,12 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" version="6.0">
   <display-name>enchere-eni-java</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>AccueilServlet</welcome-file>
   </welcome-file-list>
   <session-config>
     <session-timeout>0</session-timeout>
@@ -16,7 +11,7 @@
     <description></description>
     <display-name>GestionUtilisateurServlet</display-name>
     <servlet-name>GestionUtilisateurServlet</servlet-name>
-    <servlet-class>fr.eni.enchere.ihm.GestionUtilisateurServlet</servlet-class>
+    <servlet-class>fr.eni.enchere.ihm.admin.GestionUtilisateurServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>GestionUtilisateurServlet</servlet-name>
@@ -26,7 +21,7 @@
     <description></description>
     <display-name>GestionCategorieServlet</display-name>
     <servlet-name>GestionCategorieServlet</servlet-name>
-    <servlet-class>fr.eni.enchere.ihm.GestionCategorieServlet</servlet-class>
+    <servlet-class>fr.eni.enchere.ihm.admin.GestionCategorieServlet</servlet-class>
   </servlet>
   <servlet>
     <description></description>
@@ -37,5 +32,15 @@
   <servlet-mapping>
     <servlet-name>ModifyProfilServlet</servlet-name>
     <url-pattern>/ModifyProfilServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VenteEnchereServlet</display-name>
+    <servlet-name>VenteEnchereServlet</servlet-name>
+    <servlet-class>fr.eni.enchere.ihm.enchere.VenteEnchereServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VenteEnchereServlet</servlet-name>
+    <url-pattern>/VenteEnchereServlet</url-pattern>
   </servlet-mapping>
 </web-app>
