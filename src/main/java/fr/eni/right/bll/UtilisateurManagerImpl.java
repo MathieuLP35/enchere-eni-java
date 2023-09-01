@@ -5,15 +5,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fr.eni.enchere.dal.DALException;
-import fr.eni.right.bo.User;
+import fr.eni.right.bo.Utilisateur;
 import fr.eni.right.dal.DAOFact;
-import fr.eni.right.dal.UserDAO;
+import fr.eni.right.dal.UtilisateurDAO;
 
-public class UserManagerImpl implements UserManager {
-	private UserDAO dao = DAOFact.getUserDAO();
+public class UtilisateurManagerImpl implements UtilisateurManager {
+	private UtilisateurDAO dao = DAOFact.getUserDAO();
 	
 	@Override
-	public void addUser(User user) throws BLLException {
+	public void addUser(Utilisateur user) throws BLLException {
 
 		String regexTelephone = "[^0-9]";
 		Pattern patternTelephone = Pattern.compile(regexTelephone);
@@ -44,8 +44,8 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Override
-	public User check(String login, String password) {
-		List<User> users;
+	public Utilisateur check(String login, String password) {
+		List<Utilisateur> users;
 		try {
 			users = dao.findByLoginAndPassword(login, password);
 			if(users.size()>0) {
@@ -60,7 +60,7 @@ public class UserManagerImpl implements UserManager {
 		return null;
 	}
 
-	public List<User> getAllUser() {
+	public List<Utilisateur> getAllUser() {
 	    try {
 	        return dao.getAllUsers();
 	    } catch (DALException e) {
@@ -73,8 +73,8 @@ public class UserManagerImpl implements UserManager {
 
     @Override
 
-    public User checkUser(String pseudo) {
-        User user;
+    public Utilisateur checkUser(String pseudo) {
+        Utilisateur user;
         try {
             user = dao.findByPseudo(pseudo);
             if(user != null) {
@@ -91,7 +91,7 @@ public class UserManagerImpl implements UserManager {
     }
 
 	@Override
-	public void update(User user, Integer noUtilisateur){
+	public void update(Utilisateur user, Integer noUtilisateur){
 		try {
 			dao.update(user, noUtilisateur);
 		} catch (DALException e) {
@@ -101,8 +101,8 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Override
-	public User checkIdUser(Integer idUser) {
-		User user;
+	public Utilisateur checkIdUser(Integer idUser) {
+		Utilisateur user;
 		try {
 			user = dao.findById(idUser);
 			if(user != null) {
@@ -119,8 +119,8 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Override
-	public User checkEmailUser(String emailUser) {
-		User user;
+	public Utilisateur checkEmailUser(String emailUser) {
+		Utilisateur user;
 		try {
 			user = dao.findByEmail(emailUser);
 			if(user != null) {
@@ -136,4 +136,11 @@ public class UserManagerImpl implements UserManager {
 		return null;
 	}
 
+	public void delete(Utilisateur user, Integer noUtilisateur) {
+		try {
+			dao.delete(user, noUtilisateur);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
 }

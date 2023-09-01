@@ -10,7 +10,7 @@ import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.bo.Retrait;
 import fr.eni.enchere.dal.util.ConnectionProvider;
-import fr.eni.right.bo.User;
+import fr.eni.right.bo.Utilisateur;
 
 
 public class AdminDAOImpl implements AdminDAO {
@@ -33,7 +33,6 @@ public class AdminDAOImpl implements AdminDAO {
 	    }
 	}
 
-
 	@Override
 	public void desactivateUser(Integer idUser) throws DALException {
 	    try (Connection con = ConnectionProvider.getConnection();
@@ -49,8 +48,5 @@ public class AdminDAOImpl implements AdminDAO {
 	        throw new DALException(e.getMessage());
 	    }
 	}
-
-	
-
 	
 }

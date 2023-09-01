@@ -1,6 +1,10 @@
 package fr.eni.right.bo;
 
-public class User {
+import java.util.List;
+
+import fr.eni.enchere.bo.Enchere;
+
+public class Utilisateur {
 	private Integer noUtilisateur;
 	private String pseudo;
 	private String prenom;
@@ -14,11 +18,14 @@ public class User {
 	private Integer credit;
 	private Boolean administrateur;
 	
-	public User() {
+	private List<Enchere> listeEncheres;
+	
+
+	public Utilisateur() {
 		super();
 	}
 	
-	public User(String pseudo, String prenom, String nom, String email, String telephone, String rue, String codePostal,
+	public Utilisateur(String pseudo, String prenom, String nom, String email, String telephone, String rue, String codePostal,
 			String ville, String motdepasse, Integer credit, Boolean administrateur) {
 		super();
 		this.pseudo = pseudo;
@@ -108,11 +115,26 @@ public class User {
 		this.administrateur = administrateur;
 	}
 	
+	public List<Enchere> getEncheres() {
+		return listeEncheres;
+	}
+
+	public void setEncheres(List<Enchere> listeEncheres) {
+		this.listeEncheres = listeEncheres;
+	}
+	
+	public void ajouterEnchere(Enchere e) {
+		listeEncheres.add(e);
+		e.setEncherisseur(this);
+	}
+
 	@Override
 	public String toString() {
-		return "Utilisateur [noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", prenom=" + prenom + ", email="
-				+ email + ", telephone=" + telephone + ", rue=" + rue + ", codePostal=" + codePostal + ", ville="
-				+ ville + ", motdepasse=" + motdepasse + ", credit=" + credit + ", administrateur=" + administrateur
-				+ "]";
+		return "User [noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", prenom=" + prenom + ", nom=" + nom
+				+ ", email=" + email + ", telephone=" + telephone + ", rue=" + rue + ", codePostal=" + codePostal
+				+ ", ville=" + ville + ", motdepasse=" + motdepasse + ", credit=" + credit + ", administrateur="
+				+ administrateur + ", encheres=" + listeEncheres.toString() + "]";
 	}
+	
+	
 }

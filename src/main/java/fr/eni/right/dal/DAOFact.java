@@ -1,7 +1,7 @@
 package fr.eni.right.dal;
 
 public class DAOFact {
-	public static UserDAO getUserDAO() {
-		return new UserDAOImpl();
+	public static UtilisateurDAO getUserDAO() {
+		return new UtilisateurDAOImpl();
 	}
 }

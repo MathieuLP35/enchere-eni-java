@@ -8,9 +8,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import fr.eni.right.bll.BLLException;
-import fr.eni.right.bll.UserManager;
-import fr.eni.right.bll.UserManagerSing;
-import fr.eni.right.bo.User;
+import fr.eni.right.bll.UtilisateurManager;
+import fr.eni.right.bll.UtilisateurManagerSing;
+import fr.eni.right.bo.Utilisateur;
 
 /**
  * Servlet implementation class RecordServlet
@@ -18,7 +18,7 @@ import fr.eni.right.bo.User;
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserManager manager = UserManagerSing.getInstance();
+	private UtilisateurManager manager = UtilisateurManagerSing.getInstance();
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -47,7 +47,7 @@ public class RegisterServlet extends HttpServlet {
 			request.setAttribute("message", "Le mot de passe doit être identique au mot de passe de confirmation");
 		} else {
 			try {
-				manager.addUser(new User(
+				manager.addUser(new Utilisateur(
 					    request.getParameter("pseudo"),
 					    request.getParameter("prenom"),
 					    request.getParameter("nom"),

@@ -11,7 +11,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 
-import fr.eni.right.bo.User;
+import fr.eni.right.bo.Utilisateur;
 
 /**
  * Servlet Filter implementation class LoginFilter
@@ -24,7 +24,7 @@ public class LoginFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		User user = (User) ((HttpServletRequest) request).getSession().getAttribute("user");
+		Utilisateur user = (Utilisateur) ((HttpServletRequest) request).getSession().getAttribute("user");
 		if (user == null) {
 			String urlPattern = ((HttpServletRequest) request).getServletPath();
 			((HttpServletRequest) request).getSession().setAttribute("urlPattern", urlPattern);

@@ -2,7 +2,7 @@ package fr.eni.admin.dal;
 
 import java.util.List;
 
-import fr.eni.right.bo.User;
+import fr.eni.right.bo.Utilisateur;
 
 
 public interface AdminDAO {

@@ -9,15 +9,15 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-import fr.eni.right.bll.UserManager;
-import fr.eni.right.bll.UserManagerSing;
-import fr.eni.right.bo.User;
+import fr.eni.right.bll.UtilisateurManager;
+import fr.eni.right.bll.UtilisateurManagerSing;
+import fr.eni.right.bo.Utilisateur;
 
 /**
  * Servlet implementation class ModifyProfilServlet
  */
 public class ModifyProfilServlet extends HttpServlet {
-	private UserManager manager = UserManagerSing.getInstance();
+	private UtilisateurManager manager = UtilisateurManagerSing.getInstance();
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -31,7 +31,7 @@ public class ModifyProfilServlet extends HttpServlet {
 
         if (session != null) {
             // Récupérer l'utilisateur depuis la session
-            User user = (User) session.getAttribute("user");
+            Utilisateur user = (Utilisateur) session.getAttribute("user");
 
             if (user != null) {
                 // Vous pouvez maintenant accéder aux propriétés de l'utilisateur
@@ -66,9 +66,19 @@ public class ModifyProfilServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
-	    
+
+		if(request.getParameter("BTN_SAVE")!=null) {
+			doSave(request, response);
+		}
+		else if(request.getParameter("BTN_DELETE")!=null) {
+			doDelet(request,response);
+		}
+	}
+	
+	private void doSave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 	    HttpSession session = request.getSession(false);
-	    User user = (User) session.getAttribute("user");
+	    Utilisateur user = (Utilisateur) session.getAttribute("user");
 
 	    String pseudo = request.getParameter("pseudo");
 	    String prenom = request.getParameter("prenom");
@@ -93,7 +103,28 @@ public class ModifyProfilServlet extends HttpServlet {
 	        
 
 			request.getRequestDispatcher("/WEB-INF/home/profil.jsp").forward(request, response);
+			
+	}
+	
+	private void doDelet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	    HttpSession session = request.getSession(false);
+	    Utilisateur user = (Utilisateur) session.getAttribute("user");
+	    
+	    
+	    String motDePasse = request.getParameter("motdepasse");
+
+	    if(user.getMotdepasse().equals(motDePasse)) {
+        manager.delete(user, user.getNoUtilisateur());
+		session.invalidate();
+		request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
+
+	    }else {
+			request.setAttribute("motDePasseErreur", "Le mot de passe est incorrect");
+			doGet(request,response);
+	    }
+
+
 
 	}
-
 }
