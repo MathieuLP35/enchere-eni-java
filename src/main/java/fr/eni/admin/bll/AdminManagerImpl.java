@@ -2,7 +2,7 @@ package fr.eni.admin.bll;
 
 import java.util.List;
 
-import fr.eni.enchere.dal.DALException;
+import fr.eni.admin.dal.DALException;
 import fr.eni.right.bo.Utilisateur;
 import fr.eni.admin.dal.DAOFact;
 import fr.eni.admin.dal.AdminDAO;
