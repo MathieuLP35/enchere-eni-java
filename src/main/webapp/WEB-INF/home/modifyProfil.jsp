@@ -35,7 +35,7 @@
             </div>
             <div class="mb-3">
                 <label for="motDePasse">Mot de passe actuel :</label>
-                <input type="password" class="form-control" id="motdepasse" name="motdepasse">
+                <input type="password" class="form-control" id="motDePasse" name="motDePasse">
             </div>            
             <div class="mb-3">
                 <label for="nouveauMotDePasse">Nouveau mot de passe :</label>

@@ -88,6 +88,10 @@ public class ModifyProfilServlet extends HttpServlet {
 	    String rue = request.getParameter("rue");
 	    String ville = request.getParameter("ville");
 	    String codePostal = request.getParameter("codePostal");
+	    String motDePasse = request.getParameter("motDePasse");
+	    String nouveauMotDePasse = request.getParameter("nouveauMotDePasse");
+	    String confirmationMotDePasse = request.getParameter("confirmationMotDePasse");
+
 
 	    // Mettez à jour les attributs de l'utilisateur avec les nouvelles valeurs
 	    if(!pseudo.isBlank()){user.setPseudo(pseudo);}
@@ -99,11 +103,29 @@ public class ModifyProfilServlet extends HttpServlet {
 	    if(!ville.isBlank()){user.setVille(ville);}
 	    if(!codePostal.isBlank()){user.setCodePostal(codePostal);}
 
+
+	    
+	    if(!nouveauMotDePasse.isBlank() && !confirmationMotDePasse.isBlank()){
+	    		if(nouveauMotDePasse.equals(confirmationMotDePasse)){
+	    		    if(user.getMotdepasse().equals(motDePasse)) {
+	    		    	user.setMotdepasse(nouveauMotDePasse);
+	    		    	System.out.println("Les mots de passe sont bons");
+	    		    }else {
+		    			request.setAttribute("motDePasseErreur", "Le mots de passe actuel est incorrect");
+		    			doGet(request,response);
+	    		    }
+	    		}else {
+	    			request.setAttribute("motDePasseErreur", "Les mots de passe sont different");
+	    			doGet(request,response);
+	    		}
+	    }
+
+
+
 	        manager.update(user, user.getNoUtilisateur());
 	        
 
 			request.getRequestDispatcher("/WEB-INF/home/profil.jsp").forward(request, response);
-			
 	}
 	
 	private void doDelet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
