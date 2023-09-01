@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import fr.eni.enchere.bll.exception.BLLException;
 import fr.eni.enchere.bll.manager.UtilisateurManager;
 import fr.eni.enchere.bll.sing.UtilisateurManagerSing;
 import fr.eni.enchere.bo.Utilisateur;
@@ -121,7 +122,12 @@ public class ModifyProfilServlet extends HttpServlet {
 
 
 
-	        manager.update(user, user.getNoUtilisateur());
+	        try {
+				manager.update(user, user.getNoUtilisateur());
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        
 
 			request.getRequestDispatcher("/WEB-INF/home/profil.jsp").forward(request, response);
