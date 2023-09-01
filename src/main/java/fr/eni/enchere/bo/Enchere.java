@@ -2,6 +2,7 @@ package fr.eni.enchere.bo;
 
 import java.time.LocalDateTime;
 
+
 public class Enchere {
 	private Integer noEnchere;
 	private LocalDateTime dateEnchere;
@@ -81,8 +82,8 @@ public class Enchere {
 	}
 
 
-	public void setEncherisseur(Utilisateur encherisseur) {
-		this.encherisseur = encherisseur;
+	public void setEncherisseur(Utilisateur utilisateur) {
+		this.encherisseur = utilisateur;
 	}
 
 

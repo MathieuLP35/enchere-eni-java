@@ -17,8 +17,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	
 	final String GET_ALL_USERS = "SELECT * FROM UTILISATEURS";
 	
-	final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur, activer) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	final String FIND_BY_LOGIN_AND_PASSWORD = "SELECT * FROM UTILISATEURS WHERE (pseudo = ? OR email = ?) AND mot_de_passe = ?";
 	
@@ -47,6 +47,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			stmt.setString(9, user.getMotdepasse());
 			stmt.setInt(10, user.getCredit());
 			stmt.setBoolean(11,user.getAdministrateur()?true:false);
+			stmt.setBoolean(12, user.getIsActive()?true:false);
 			int nb = stmt.executeUpdate();
 			if(nb>0) {
 				ResultSet rs= stmt.getGeneratedKeys();
@@ -152,6 +153,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	            user.setMotdepasse(rs.getString("mot_de_passe"));
 	            user.setCredit(rs.getInt("credit"));
 	            user.setAdministrateur(rs.getBoolean("administrateur"));
+	            user.setIsActive(rs.getBoolean("activer"));
 	            users.add(user);
 	        }
 	    } catch (SQLException e) {
@@ -185,6 +187,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	                user.setMotdepasse(rs.getString("mot_de_passe"));
 	                user.setCredit(rs.getInt("credit"));
 	                user.setAdministrateur(rs.getBoolean("administrateur"));
+	                user.setIsActive(rs.getBoolean("activer"));
 	            }
 	        }
 	    } catch (SQLException e) {

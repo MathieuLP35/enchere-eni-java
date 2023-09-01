@@ -58,7 +58,8 @@ public class RegisterServlet extends HttpServlet {
 					    request.getParameter("ville"),
 					    request.getParameter("motdepasse"),
 					    0,
-					    false // Un nouvel utilisateur ne devrait pas être un administrateur par défaut
+					    false, // Un nouvel utilisateur ne devrait pas être un administrateur par défaut
+					    true // Un nouvel utilisateur est activer par default. 
 					));
 				request.setAttribute("message", "Inscription OK");
 			} catch (BLLException e) {

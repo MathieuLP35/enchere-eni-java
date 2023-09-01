@@ -8,5 +8,5 @@ import fr.eni.enchere.bo.Utilisateur;
 
 public interface AdminDAO {
 	public void removeUser(Integer idUser) throws DALException;
-	public void desactivateUser(Integer idUser) throws DALException;
+	public void desactivateUser(Integer idUser, Boolean isActive) throws DALException;
 }

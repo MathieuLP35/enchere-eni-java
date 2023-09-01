@@ -40,12 +40,13 @@
                         <td>${u.credit}</td>
                         <td>
                         	<c:if test="${u.administrateur}"><span class="text-success">Oui</span></c:if>
-                        	<c:if test="${!u.administrateur}"><span class="text-error">Non</span></c:if>
+                        	<c:if test="${!u.administrateur}"><span class="text-danger">Non</span></c:if>
 						</td>
                         <td>
 							<form action="GestionUtilisateurServlet" method="post" class="d-flex flex-nowrap">
 								<input type="hidden" name="idUser" value="${u.noUtilisateur}" />
-	                            <button href="#" class="btn btn-primary mx-1" name="BT_DESACTIVATE">Désactiver</button>
+								<c:if test="${u.isActive}"><button href="#" class="btn btn-warning mx-1" name="BT_DESACTIVATE">Désactiver</button></c:if>
+								<c:if test="${!u.isActive}"><button href="#" class="btn btn-primary mx-1" name="BT_DESACTIVATE">Activer</button></c:if>
 	                            <button href="#" class="btn btn-danger mx-1" name="BT_REMOVE">Supprimer</button>
 							</form>
                         </td>
