@@ -2,8 +2,10 @@ package fr.eni.enchere.ihm;
 
 import java.io.IOException;
 
-import fr.eni.enchere.bll.EnchereManager;
-import fr.eni.enchere.bll.EnchereSing;
+import fr.eni.enchere.bll.manager.EnchereManager;
+import fr.eni.enchere.bll.sing.EnchereSing;
+import fr.eni.enchere.ihm.model.AccueilModel;
+
 import java.nio.file.Path;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
