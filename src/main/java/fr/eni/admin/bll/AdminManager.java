@@ -6,4 +6,5 @@ import fr.eni.right.bo.Utilisateur;
 
 public interface AdminManager {
 	public void removeUser(Integer idUser);
+	public void desactivateUser(Integer idUser);
 }

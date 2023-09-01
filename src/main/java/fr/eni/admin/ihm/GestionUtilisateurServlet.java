@@ -58,14 +58,18 @@ public class GestionUtilisateurServlet extends HttpServlet {
 	}
 	
 	private void doDesactivate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		managerAdmin.desactivateUser(Integer.parseInt(request.getParameter("idUser")));
+		
+		request.setAttribute("message", "L'utilisateur ID: " + request.getParameter("idUser") + " à été désactiver.");
 		request.setAttribute("users", manager.getAllUser());
+		
 		request.getRequestDispatcher("/WEB-INF/admin/gestionUtilisateur.jsp").forward(request, response);
 	}
 	
 	private void doRemove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		managerAdmin.removeUser(Integer.parseInt(request.getParameter("idUser")));
 		
-		request.setAttribute("message", "L'utilisateur ID:" + request.getParameter("idUser") + "à été supprimé.");
+		request.setAttribute("message", "L'utilisateur ID: " + request.getParameter("idUser") + " à été supprimé.");
 		request.setAttribute("users", manager.getAllUser());
 		
 		request.getRequestDispatcher("/WEB-INF/admin/gestionUtilisateur.jsp").forward(request, response);
