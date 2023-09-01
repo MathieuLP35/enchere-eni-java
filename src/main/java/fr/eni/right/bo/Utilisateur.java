@@ -20,6 +20,8 @@ public class Utilisateur {
 	
 	private List<Enchere> listeEncheres;
 	
+	private Boolean isActive;
+	
 
 	public Utilisateur() {
 		super();
@@ -115,26 +117,37 @@ public class Utilisateur {
 		this.administrateur = administrateur;
 	}
 	
-	public List<Enchere> getEncheres() {
-		return listeEncheres;
-	}
-
-	public void setEncheres(List<Enchere> listeEncheres) {
-		this.listeEncheres = listeEncheres;
-	}
 	
 	public void ajouterEnchere(Enchere e) {
 		listeEncheres.add(e);
 		e.setEncherisseur(this);
 	}
+	
+	public List<Enchere> getListeEncheres() {
+		return listeEncheres;
+	}
+
+	public void setListeEncheres(List<Enchere> listeEncheres) {
+		this.listeEncheres = listeEncheres;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
 
 	@Override
 	public String toString() {
-		return "User [noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", prenom=" + prenom + ", nom=" + nom
-				+ ", email=" + email + ", telephone=" + telephone + ", rue=" + rue + ", codePostal=" + codePostal
+		return "Utilisateur [noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", prenom=" + prenom + ", nom="
+				+ nom + ", email=" + email + ", telephone=" + telephone + ", rue=" + rue + ", codePostal=" + codePostal
 				+ ", ville=" + ville + ", motdepasse=" + motdepasse + ", credit=" + credit + ", administrateur="
-				+ administrateur + ", encheres=" + listeEncheres.toString() + "]";
+				+ administrateur + ", listeEncheres=" + listeEncheres + ", isActive=" + isActive + "]";
 	}
+
+	
 	
 	
 }
