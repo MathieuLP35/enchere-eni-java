@@ -58,9 +58,17 @@ public class GestionUtilisateurServlet extends HttpServlet {
 	}
 	
 	private void doDesactivate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Utilisateur user = manager.checkIdUser(Integer.parseInt(request.getParameter("idUser")));
+		
 		managerAdmin.desactivateUser(Integer.parseInt(request.getParameter("idUser")));
 		
-		request.setAttribute("message", "L'utilisateur ID: " + request.getParameter("idUser") + " à été désactiver.");
+		if(user.getIsActive()) {
+			request.setAttribute("message", "L'utilisateur ID: " + request.getParameter("idUser") + " à été désactiver.");
+		} else {
+			request.setAttribute("message", "L'utilisateur ID: " + request.getParameter("idUser") + " à été activer.");
+		}
+		
 		request.setAttribute("users", manager.getAllUser());
 		
 		request.getRequestDispatcher("/WEB-INF/admin/gestionUtilisateur.jsp").forward(request, response);

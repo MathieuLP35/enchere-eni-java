@@ -26,7 +26,7 @@ public class Utilisateur {
 	}
 	
 	public Utilisateur(String pseudo, String prenom, String nom, String email, String telephone, String rue, String codePostal,
-			String ville, String motdepasse, Integer credit, Boolean administrateur) {
+			String ville, String motdepasse, Integer credit, Boolean administrateur, Boolean isActive) {
 		super();
 		this.pseudo = pseudo;
 		this.prenom = prenom;
@@ -39,6 +39,7 @@ public class Utilisateur {
 		this.motdepasse = motdepasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
+		this.isActive = isActive;
 	}
 	public Integer getNoUtilisateur() {
 		return noUtilisateur;
