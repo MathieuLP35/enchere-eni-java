@@ -23,6 +23,10 @@
     <servlet-name>GestionCategorieServlet</servlet-name>
     <servlet-class>fr.eni.enchere.ihm.admin.GestionCategorieServlet</servlet-class>
   </servlet>
+   <servlet-mapping>
+    <servlet-name>GestionCategorieServlet</servlet-name>
+    <url-pattern>/GestionCategorieServlet</url-pattern>
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>ModifyProfilServlet</display-name>
