@@ -6,8 +6,8 @@ import fr.eni.enchere.bo.ArticleVendu;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.bo.Retrait;
-import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.dal.exception.DALException;
+import fr.eni.enchere.bll.exception.BLLException;
 
 public interface EnchereManager {
 
@@ -22,4 +22,10 @@ public interface EnchereManager {
 	
 	public void addRetrait(Retrait retrait, ArticleVendu articleVendu) throws DALException;
 	public List<Retrait> getAllRetrait() throws DALException;
+	
+	public Categorie getCategorieById(Integer idCat) throws DALException;
+	
+	public void updateCategorie(Categorie categorie, Integer idCat) throws DALException;
+	
+	public void removeCategorie(Integer idCat) throws BLLException;
 }

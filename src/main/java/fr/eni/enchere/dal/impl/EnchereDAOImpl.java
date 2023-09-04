@@ -57,6 +57,16 @@ public class EnchereDAOImpl implements EnchereDAO {
 	
 	final String INSERT_ENCHERES = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,?,?)";
 	
+	// GET
+	final String GET_CATEGORIE_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_categorie = ?";
+	
+	// UPDATE
+	final String UPDATE_CATEGORIES = "UPDATE CATEGORIES SET libelle = ? WHERE no_categorie = ?";
+	
+	// DELETE
+	final String REMOVE_CATEGORIE = "DELETE FROM CATEGORIES WHERE no_categorie = ?";
+
+	
 
 	@Override
 	public void insertArticleVendu(ArticleVendu articleVendu) throws DALException {
@@ -298,6 +308,51 @@ public class EnchereDAOImpl implements EnchereDAO {
 		}
 		
 		return retrait;
+	}
+
+	@Override
+	public void updateCategorie(Categorie categorie, Integer idCat) throws DALException {
+	    try (Connection con = ConnectionProvider.getConnection()){
+	        PreparedStatement stmt = con.prepareStatement(UPDATE_CATEGORIES);
+	        stmt.setString(1, categorie.getLibelle());
+	        stmt.setInt(2, idCat);
+	        stmt.executeUpdate();
+	    }
+	    catch(SQLException e) {
+	        throw new DALException(e.getMessage());
+	    }
+	}
+
+	@Override
+	public void removeCategorie(Integer idCat) throws DALException {
+	    try (Connection con = ConnectionProvider.getConnection()){
+	        PreparedStatement stmt = con.prepareStatement(REMOVE_CATEGORIE);
+	        stmt.setInt(1, idCat);
+	        stmt.executeUpdate();
+	    }
+	    catch(SQLException e) {
+	        throw new DALException(e.getMessage());
+	    }
+	}
+
+	@Override
+	public Categorie getCategorieById(Integer idCat) throws DALException {
+		Categorie categorie = null;
+	    
+	    try (Connection con = ConnectionProvider.getConnection();
+	         PreparedStatement stmt = con.prepareStatement(GET_CATEGORIE_BY_ID)) {
+	        stmt.setInt(1, idCat);
+	        
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next() && categorie != null) {
+	            	categorie.setNoCategorie(idCat);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        throw new DALException(e.getMessage());
+	    }
+	    
+	    return categorie;
 	}
 
 	

@@ -2,6 +2,9 @@ package fr.eni.enchere.bll.impl;
 
 import java.util.List;
 
+import org.eclipse.tags.shaded.org.apache.xalan.xsltc.compiler.sym;
+
+import fr.eni.enchere.bll.exception.BLLException;
 import fr.eni.enchere.bll.manager.EnchereManager;
 import fr.eni.enchere.bo.ArticleVendu;
 import fr.eni.enchere.bo.Categorie;
@@ -42,7 +45,6 @@ public class EnchereManagerImpl implements EnchereManager{
 
 	@Override
 	public List<Enchere> getAllEnchere() throws DALException {
-		System.out.println(dao.getAllEnchere());
 		return dao.getAllEnchere();
 	}
 
@@ -54,5 +56,35 @@ public class EnchereManagerImpl implements EnchereManager{
 	@Override
 	public List<Retrait> getAllRetrait() throws DALException {
 		return dao.getAllRetrait();
+	}
+
+	@Override
+	public void updateCategorie(Categorie categorie, Integer idCat) throws DALException {
+		dao.updateCategorie(categorie, idCat);
+	}
+
+	@Override
+	public void removeCategorie(Integer idCat) throws BLLException {
+		if(getCategorieById(idCat) != null) {
+			throw new BLLException("Cette catégorie contient des articles et ne peut pas être supprimé.");
+		} else {
+			try {
+				dao.removeCategorie(idCat);
+			} catch (DALException e) {
+				e.printStackTrace();
+				throw new BLLException("Cette catégorie contient des articles et ne peut pas être supprimé.");
+			}
+		}
+	}
+
+	@Override
+	public Categorie getCategorieById(Integer idCat){
+		try {
+			return dao.getCategorieById(idCat);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

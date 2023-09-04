@@ -18,7 +18,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Pseudo</th>
                     <th scope="col">Nom</th>
-                    <th scope="col">Prenom</th>
+                    <th scope="col">Prénom</th>
                     <th scope="col">Email</th>
                     <th scope="col">Téléphone</th>
                     <th scope="col">Adresse</th>
