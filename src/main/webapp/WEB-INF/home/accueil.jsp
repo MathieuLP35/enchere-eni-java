@@ -12,9 +12,9 @@
 	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
 	crossorigin="anonymous">
 </head>
-<body>
+<body class="bg-light">
 	<jsp:include page="../headerBanner.jsp" />
-	<div class="container mt-5 w-100 justify-content-center">
+	<div class="container mt-5 bg-white rounded p-4 shadow">
 		<div class="row">
 			<div class="col text-center">
 				<h1>Liste des enchères</h1>
