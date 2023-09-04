@@ -7,6 +7,9 @@ import fr.eni.enchere.bll.sing.EnchereSing;
 import fr.eni.enchere.ihm.model.AccueilModel;
 
 import java.nio.file.Path;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -32,6 +35,9 @@ public class AccueilServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Locale.setDefault(request.getLocale());
+		ResourceBundle bundle = ResourceBundle.getBundle("fr.eni.enchere.bundles.message", request.getLocale());
 		
 		AccueilModel model = new AccueilModel();
 		

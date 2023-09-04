@@ -103,7 +103,11 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		Matcher matcherMail = patternMail.matcher(user.getEmail());
 		
 
-		if(matcherTelephone.find()){
+		if(checkUser(user.getPseudo()) != null && !user.getNoUtilisateur().equals(noUtilisateur)) {
+			throw new BLLException("Ce pseudo est déjà utilisé.");
+		} else if(checkEmailUser(user.getEmail()) != null && !user.getNoUtilisateur().equals(noUtilisateur)){
+			throw new BLLException("Cette email est déjà utilisé.");
+		} else if(matcherTelephone.find()){
 	        throw new BLLException("Le numéro de téléphone n'est pas au format valide. (XXXXXXXXXX)"); 
 		} else if(user.getCodePostal().length() < 5 || user.getCodePostal().length() > 5){
 			throw new BLLException("Le code postal doit se composé de 5 chiffres."); 

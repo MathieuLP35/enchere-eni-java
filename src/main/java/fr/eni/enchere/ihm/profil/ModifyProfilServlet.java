@@ -94,6 +94,7 @@ public class ModifyProfilServlet extends HttpServlet {
 
 
 	    // Mettez à jour les attributs de l'utilisateur avec les nouvelles valeurs
+	    if(user.getMotdepasse().equals(motDePasse)) {
 	    user.setPseudo(pseudo);
 	    user.setPrenom(prenom);
 	    user.setNom(nom);
@@ -102,10 +103,13 @@ public class ModifyProfilServlet extends HttpServlet {
 	    user.setRue(rue);
 	    user.setVille(ville);
 	    user.setCodePostal(codePostal);
+	    }else {
+			request.setAttribute("motDePasseErreur", "Le mots de passe actuel est incorrect");
+			doGet(request,response);
+	    }
 
-
-	    
-	    if(!nouveauMotDePasse.isBlank() && !confirmationMotDePasse.isBlank()){
+        try {	    
+	    if((!nouveauMotDePasse.isBlank() && !confirmationMotDePasse.isBlank()) || (nouveauMotDePasse.isBlank() && !confirmationMotDePasse.isBlank()) || (!nouveauMotDePasse.isBlank() && confirmationMotDePasse.isBlank())){
 	    		if(nouveauMotDePasse.equals(confirmationMotDePasse)){
 	    		    if(user.getMotdepasse().equals(motDePasse)) {
 	    		    	user.setMotdepasse(nouveauMotDePasse);
@@ -122,11 +126,12 @@ public class ModifyProfilServlet extends HttpServlet {
 
 
 
-	        try {
+
 				manager.update(user, user.getNoUtilisateur());
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				request.setAttribute("message", e.getMessage());
+    			doGet(request,response);
 			}
 	        
 
