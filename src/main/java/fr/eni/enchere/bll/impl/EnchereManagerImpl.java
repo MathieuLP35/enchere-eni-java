@@ -87,4 +87,9 @@ public class EnchereManagerImpl implements EnchereManager{
 		}
 		return null;
 	}
+
+	@Override
+	public List<Enchere> getEncheresFilter(Integer idCat, String nomArticle) throws DALException {
+		return dao.getEncheresFilter(idCat, nomArticle);
+	}
 }

@@ -84,6 +84,7 @@ public class GestionCategorieServlet extends HttpServlet {
 		Categorie categorie = new Categorie(request.getParameter("libelleCategorie"));
 		try {
 			managerEnchere.addCategorie(categorie);
+			request.setAttribute("categories", managerEnchere.getAllCategorie());
 			request.setAttribute("message", "La catégorie " + categorie.getLibelle() + " à été ajouter.");
 		} catch (DALException e) {
 			e.printStackTrace();

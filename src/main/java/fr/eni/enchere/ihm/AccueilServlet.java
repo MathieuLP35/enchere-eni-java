@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import fr.eni.enchere.bll.manager.EnchereManager;
 import fr.eni.enchere.bll.sing.EnchereSing;
+import fr.eni.enchere.dal.exception.DALException;
 import fr.eni.enchere.ihm.model.AccueilModel;
 
 import java.nio.file.Path;
@@ -23,6 +24,8 @@ import jakarta.servlet.http.HttpServletResponse;
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EnchereManager manager = EnchereSing.getInstance();
+	
+	AccueilModel model = new AccueilModel();
 
     /**
      * Default constructor. 
@@ -39,8 +42,6 @@ public class AccueilServlet extends HttpServlet {
 		Locale.setDefault(request.getLocale());
 		ResourceBundle bundle = ResourceBundle.getBundle("fr.eni.enchere.bundles.message", request.getLocale());
 		
-		AccueilModel model = new AccueilModel();
-		
 		try {
 			model.setLstCategories(manager.getAllCategorie());
 		} catch (Exception e) {
@@ -49,12 +50,10 @@ public class AccueilServlet extends HttpServlet {
 		
 		try {
 			model.setLstEncheres(manager.getAllEnchere());
-			System.out.println(manager.getAllEnchere());
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.setMessage(e.getMessage());
 		}
-		System.out.println(model.getLstEncheres());
 		request.setAttribute("model", model);
 		request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
 	}
@@ -63,8 +62,28 @@ public class AccueilServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
-		doGet(request, response);
+		
+		String nomArticle = request.getParameter("nomArticle") != null ? request.getParameter("nomArticle") : "";
+		Integer idCat = request.getParameter("categorie") != null ? Integer.parseInt(request.getParameter("categorie")): 0;
+		
+		
+		try {
+			model.setLstCategories(manager.getAllCategorie());
+		} catch (Exception e) {
+			model.setMessage(e.getMessage());
+		}
+		
+		try {
+			model.setLstEncheres(manager.getEncheresFilter(idCat, nomArticle));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		request.setAttribute("model", model);
+		request.getRequestDispatcher("/WEB-INF/home/accueil.jsp").forward(request, response);
 	}
 
 }

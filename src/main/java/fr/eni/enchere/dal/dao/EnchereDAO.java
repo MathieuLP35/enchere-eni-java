@@ -24,6 +24,8 @@ public interface EnchereDAO {
 	public void insertEnchere(Enchere enchere) throws DALException;
 	public List<Enchere> getAllEnchere() throws DALException;
 	
+	public List<Enchere> getEncheresFilter(Integer idCat, String nomArticle) throws DALException;
+	
 	public Categorie getCategorieById(Integer idCat) throws DALException;
 	
 	public void updateCategorie(Categorie categorie, Integer idCat) throws DALException;
