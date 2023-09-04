@@ -23,7 +23,6 @@ public class ProfilServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/home/profil.jsp").forward(request, response);
-
 	}
 
 	/**
