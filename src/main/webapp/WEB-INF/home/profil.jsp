@@ -43,7 +43,7 @@
                 <label for="ville">Ville :</label>
                 <input type="text" class="form-control" id="ville" name="ville" placeholder="${user.ville}" readonly>
             </div>
-			<div class="d-flex justify-content-center">
+			<div class="d-flex justify-content-center mt-4">
 				<a href="${pageContext.request.contextPath}/ModifyProfilServlet" class="btn btn-primary">Modifier</a>
 			</div>            
         </form>
