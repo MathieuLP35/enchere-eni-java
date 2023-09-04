@@ -10,6 +10,7 @@ public class ArticleVendu {
 	private Date dateFinEnchere;
 	private Integer prixInitial;
 	private Integer prixVente;
+	private String lienImg;
 
 	private Categorie categorieArticle;
 	
@@ -22,7 +23,7 @@ public class ArticleVendu {
 	}
 
 	public ArticleVendu(String nomArticle, String description, Date dateDebutEnchere, Date dateFinEnchere,
-			Integer prixInitial, Integer prixVente) {
+			Integer prixInitial, Integer prixVente, String lienImg) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -30,6 +31,7 @@ public class ArticleVendu {
 		this.dateFinEnchere = dateFinEnchere;
 		this.prixInitial = prixInitial;
 		this.prixVente = prixVente;
+		this.lienImg = lienImg;
 
 	}
 
@@ -113,6 +115,14 @@ public class ArticleVendu {
 
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
+	}
+
+	public String getLienImg() {
+		return lienImg;
+	}
+
+	public void setLienImg(String lienImg) {
+		this.lienImg = lienImg;
 	}
 
 	@Override
