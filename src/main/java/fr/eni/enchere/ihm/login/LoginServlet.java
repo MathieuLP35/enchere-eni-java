@@ -1,6 +1,9 @@
 package fr.eni.enchere.ihm.login;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,6 +26,10 @@ public class LoginServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	Locale.setDefault(request.getLocale());
+		ResourceBundle bundle = ResourceBundle.getBundle("fr.eni.enchere.bundles.message", request.getLocale());
+    	
         request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
     }
 
