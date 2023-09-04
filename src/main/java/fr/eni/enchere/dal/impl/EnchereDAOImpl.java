@@ -51,7 +51,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 	
 	final String INSERT_CATEGORIES = "INSERT INTO CATEGORIES (libelle) VALUES (?)";
 	
-	final String INSERT_ARTICLES_VENDUS = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES (?,?,?,?,?,?,?,?)";
+	final String INSERT_ARTICLES_VENDUS = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, lienImg) VALUES (?,?,?,?,?,?,?,?,?)";
 	
 	final String INSERT_RETRAITS = "INSERT INTO RETRAITS (no_article, rue, code_postal, ville) VALUES (?,?,?,?)";
 	
@@ -71,7 +71,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 	@Override
 	public void insertArticleVendu(ArticleVendu articleVendu) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()){
-			PreparedStatement stmt = con.prepareStatement(INSERT_CATEGORIES, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt = con.prepareStatement(INSERT_ARTICLES_VENDUS, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, articleVendu.getNomArticle());
 			stmt.setString(2, articleVendu.getDescription());
 			stmt.setDate(3, (java.sql.Date) articleVendu.getDateDebutEnchere());
@@ -80,6 +80,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			stmt.setInt(6, articleVendu.getPrixVente());
 			stmt.setInt(7, articleVendu.getUtilisateur().getNoUtilisateur());
 			stmt.setInt(8, articleVendu.getCategorie().getNoCategorie());
+			stmt.setString(9, articleVendu.getLienImg());
 			int nb = stmt.executeUpdate();
 			if(nb>0) {
 				ResultSet rs= stmt.getGeneratedKeys();
@@ -90,6 +91,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 		}
 		catch(SQLException e) {
 			System.out.println(e.getMessage());
+			e.printStackTrace();
 			throw new DALException("ms_insertArticleVendu");
 		}
 		
@@ -104,7 +106,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
 				ArticleVendu articleVendu = new ArticleVendu(rs.getString("nomArticle"), rs.getString("description"), rs.getDate("dateDebutEnchere"), rs.getDate("dateFinEnchere"),
-						rs.getInt("prixInitial"), rs.getInt("prixVente"));
+						rs.getInt("prixInitial"), rs.getInt("prixVente"), rs.getString("lienImg"));
 				result.add(articleVendu);
 			}
 		}
@@ -126,9 +128,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
 				articleVendu = new ArticleVendu(rs.getString("nomArticle"), rs.getString("description"), rs.getDate("dateDebutEnchere"), rs.getDate("dateFinEnchere"),
-						rs.getInt("prixInitial"), rs.getInt("prixVente"));
-			 // TODO 
-			
+						rs.getInt("prixInitial"), rs.getInt("prixVente"), rs.getString("lienImg"));
 			}
 		}
 		catch(SQLException e) {

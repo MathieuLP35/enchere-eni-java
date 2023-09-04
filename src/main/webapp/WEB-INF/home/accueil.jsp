@@ -16,7 +16,6 @@
                 <h1>Liste des enchères</h1>
             </div>
         </div>
-        ${user}
         <div class="row mt-4">
             <div class="col">
                 <h4>Filtres:</h4>
