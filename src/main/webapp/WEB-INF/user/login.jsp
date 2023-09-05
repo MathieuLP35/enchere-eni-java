@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +10,14 @@
 </head>
 <body class="bg-light">
 	<jsp:include page="../headerBanner.jsp"/>
-	<div class="d-flex justify-content-center align-items-center mt-5">
-		<div class="card border-none text-center w-50">
+	<div class="d-flex justify-content-center align-items-center mt-5 bg-white rounded p-4 shadow container py-5">
+		<div class="card border-0 text-center w-50">
+			<h3 class="mx-2">Connexion</h3>
+			<c:if test="${message != null}">
+				<div class="alert alert-primary my-2" role="alert">
+				  ${message}
+				</div>
+			</c:if>
 			<div class="card-body">
 				<form class="mb-4" action="LoginServlet" method="post">
 					<div class="mb-3 d-flex">
@@ -41,7 +48,6 @@
 				
 				<a href="${pageContext.request.contextPath}/RegisterServlet" class="btn btn-secondary btn-lg btn-block">Créer un compte</a>
 			</div>
-			${message}
 		</div>
 	</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

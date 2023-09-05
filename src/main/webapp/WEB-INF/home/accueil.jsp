@@ -14,14 +14,10 @@
 </head>
 <body class="bg-light">
 	<jsp:include page="../headerBanner.jsp" />
-	<div class="container mt-5 bg-white rounded p-4 shadow">
-		<div class="row">
-			<div class="col text-center">
-				<h1>Liste des enchères</h1>
-			</div>
-		</div>
+	<div class="container mt-5 bg-white rounded p-4 shadow d-flex aligns-items-center">
 		<form action="AccueilServlet" method="post">
 			<div class="row mt-4">
+				<h1 class="mb-5">Listes des enchères</h1>
 				<div class="col">
 					<h4>Filtres:</h4>
 					<input class="form-control" type="text" name="nomArticle"
