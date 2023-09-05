@@ -19,7 +19,9 @@ public interface EnchereManager {
 	
 	public void addEnchere(Enchere enchere) throws DALException;
 	public List<Enchere> getAllEnchere() throws DALException;
-	public List<Enchere> getEncheresFilter(Integer idCat, String nomArticle) throws DALException;
+	public List<Enchere> getEncheresFilter(Integer idCat, String nomArticle, 
+			Boolean enchereOuverteFilter, Boolean enchereEnCoursFilter, Boolean enchereRemporterFilter, 
+			Boolean venteEnchereEnCours, Boolean venteEnchereNonDébutées, Boolean venteEnchereTerminées, Integer idUtilisateur) throws DALException;
 	
 	public void addRetrait(Retrait retrait, ArticleVendu articleVendu) throws DALException;
 	public List<Retrait> getAllRetrait() throws DALException;

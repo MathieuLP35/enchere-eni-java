@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 
 	final String SELECT_ENCHERES = """
 				SELECT no_enchere, ENCHERES.no_utilisateur AS idUser, ENCHERES.no_article AS idArticle, date_enchere, montant_enchere,
-				ARTICLES_VENDUS.nom_article AS nomArticle, ARTICLES_VENDUS.prix_vente AS prixVenteArticle, ARTICLES_VENDUS.date_fin_encheres AS dateFinEnchere,
+				ARTICLES_VENDUS.nom_article AS nomArticle, ARTICLES_VENDUS.prix_vente AS prixVenteArticle, ARTICLES_VENDUS.date_debut_encheres AS dateDebutEnchere, ARTICLES_VENDUS.date_fin_encheres AS dateFinEnchere,
 				UTILISATEURS.nom AS nomUser, UTILISATEURS.prenom AS prenomUser FROM ENCHERES
 				INNER JOIN UTILISATEURS ON ENCHERES.no_utilisateur = UTILISATEURS.no_utilisateur
 				INNER JOIN ARTICLES_VENDUS ON ENCHERES.no_article = ARTICLES_VENDUS.no_article
@@ -62,7 +63,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 
 	final String GET_ENCHERES_FILTER = """
 		    SELECT no_enchere, ENCHERES.no_utilisateur AS idUser, ENCHERES.no_article AS idArticle, date_enchere, montant_enchere,
-		    ARTICLES_VENDUS.nom_article AS nomArticle, ARTICLES_VENDUS.prix_vente AS prixVenteArticle, ARTICLES_VENDUS.date_fin_encheres AS dateFinEnchere,
+		    ARTICLES_VENDUS.nom_article AS nomArticle, ARTICLES_VENDUS.prix_vente AS prixVenteArticle, ARTICLES_VENDUS.date_debut_encheres AS dateDebutEnchere, ARTICLES_VENDUS.date_fin_encheres AS dateFinEnchere,
 		    UTILISATEURS.nom AS nomUser, UTILISATEURS.prenom AS prenomUser FROM ENCHERES
 		    INNER JOIN UTILISATEURS ON ENCHERES.no_utilisateur = UTILISATEURS.no_utilisateur
 		    INNER JOIN ARTICLES_VENDUS ON ENCHERES.no_article = ARTICLES_VENDUS.no_article
@@ -255,6 +256,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 				articleVendu.setNoArticle(rs.getInt("idArticle"));
 				articleVendu.setNomArticle(rs.getString("nomArticle"));
 				articleVendu.setPrixVente(rs.getInt("prixVenteArticle"));
+				articleVendu.setDateDebutEnchere(Date.valueOf(rs.getString("dateDebutEnchere")));
 				articleVendu.setDateFinEnchere(Date.valueOf(rs.getString("dateFinEnchere")));
 				Enchere enchere = new Enchere(rs.getTimestamp("date_enchere").toLocalDateTime(),
 						rs.getInt("montant_enchere"), user, articleVendu);
@@ -352,32 +354,60 @@ public class EnchereDAOImpl implements EnchereDAO {
 	}
 
 	@Override
-	public List<Enchere> getEncheresFilter(Integer idCat, String nomArticle) throws DALException {
+	public List<Enchere> getEncheresFilter(Integer idCat, String nomArticle, Boolean enchereOuverteFilter, Boolean enchereEnCoursFilter, Boolean enchereRemporterFilter, Boolean venteEnchereEnCours, Boolean venteEnchereNonDébutées, Boolean venteEnchereTerminées, Integer idUtilisateur) throws DALException {
 	    List<Enchere> result = new ArrayList<>();
 
 	    try (Connection con = ConnectionProvider.getConnection()) {
 	        String whereClause = "";
-	        System.out.println("COUCOU !");
 	        if (idCat != null && idCat != 0) {
 	            whereClause += " AND ARTICLES_VENDUS.no_categorie = ?";
 	        }
 	        if (nomArticle != null && !nomArticle.isEmpty()) {
 	            whereClause += " AND ARTICLES_VENDUS.nom_article LIKE ?";
 	        }
-
+	        if(enchereOuverteFilter) {
+	        	whereClause += " AND CAST(GETDATE() AS DATE) >= CAST(date_debut_encheres AS DATE)\r\n"
+	        			+ "AND CAST(GETDATE() AS DATE) <= CAST(date_fin_encheres AS DATE)";
+	        }
+	        if(enchereEnCoursFilter){
+	        	whereClause += " AND CAST(GETDATE() AS DATE) >= CAST(date_debut_encheres AS DATE)\r\n"
+	        			+ "AND CAST(GETDATE() AS DATE) <= CAST(date_fin_encheres AS DATE) AND ENCHERES.no_utilisateur = ?";
+	        }
+	        if(enchereRemporterFilter){
+	        	whereClause += " AND CAST(GETDATE() AS DATE) >= CAST(date_fin_encheres AS DATE) AND ARTICLES_VENDUS.no_article IN (SELECT ENCHERES.no_article FROM ENCHERES WHERE date_enchere = (SELECT MAX(date_enchere) FROM ENCHERES) AND ENCHERES.no_utilisateur = ?)";
+	        }
+	        if (venteEnchereEnCours) {
+	            whereClause += " AND ARTICLES_VENDUS.no_utilisateur = ?\r\n"
+	                        + "AND CAST(GETDATE() AS DATE) >= CAST(date_debut_encheres AS DATE)\r\n"
+	                        + "AND CAST(GETDATE() AS DATE) <= CAST(date_fin_encheres AS DATE)";
+	        }
+	        if(venteEnchereNonDébutées){
+	        	whereClause += " AND CAST(GETDATE() AS DATE) < CAST(date_debut_encheres AS DATE)";
+	        }
+	        if(venteEnchereTerminées){
+	        	whereClause += " AND CAST(GETDATE() AS DATE) >= CAST(date_fin_encheres AS DATE)";
+	        }
 	        String query = String.format(GET_ENCHERES_FILTER, whereClause);
 	        PreparedStatement stmt = con.prepareStatement(query);
 	        int paramIndex = 1;
 
 	        if (idCat != null && idCat != 0) {
-	        	System.out.println(idCat);
 	            stmt.setInt(paramIndex++, idCat);
 	        }
 	        if (nomArticle != null && !nomArticle.isEmpty()) {
-	        	System.out.println(nomArticle);
-	            stmt.setString(paramIndex, "%" + nomArticle + "%");
+	            stmt.setString(paramIndex++, "%" + nomArticle + "%");
 	        }
-
+	        
+	        if(enchereEnCoursFilter){
+	        	stmt.setInt(paramIndex++, idUtilisateur);
+	        }
+	        if(enchereRemporterFilter){
+	        	stmt.setInt(paramIndex++, idUtilisateur);
+	        }
+	        if (venteEnchereEnCours) {
+	            stmt.setInt(paramIndex++, idUtilisateur);
+	        }
+	        
 	        ResultSet rs = stmt.executeQuery();
 	        while (rs.next()) {
 				Utilisateur user = new Utilisateur();
@@ -388,6 +418,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 				articleVendu.setNoArticle(rs.getInt("idArticle"));
 				articleVendu.setNomArticle(rs.getString("nomArticle"));
 				articleVendu.setPrixVente(rs.getInt("prixVenteArticle"));
+				articleVendu.setDateDebutEnchere(Date.valueOf(rs.getString("dateDebutEnchere")));
 				articleVendu.setDateFinEnchere(Date.valueOf(rs.getString("dateFinEnchere")));
 				Enchere enchere = new Enchere(rs.getTimestamp("date_enchere").toLocalDateTime(),
 						rs.getInt("montant_enchere"), user, articleVendu);
