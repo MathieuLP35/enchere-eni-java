@@ -36,7 +36,7 @@ public class VenteEnchereServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		doGet(request, response);
+		request.getRequestDispatcher("/WEB-INF/enchere/vente.jsp").forward(request, response);
 	}
 
 }
