@@ -17,6 +17,9 @@
 					</li>                
 				</c:if>
 				<c:if test="${user != null}">
+					<li class="nav-item">
+						<a class="nav-link">Bienvenue ${user.prenom} ${user.nom }</a>
+					</li>
 					<c:if test="${user.administrateur}">
 						<div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
 					      <ul class="navbar-nav">
