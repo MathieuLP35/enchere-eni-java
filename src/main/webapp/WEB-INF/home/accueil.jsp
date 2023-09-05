@@ -12,9 +12,9 @@
 	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
 	crossorigin="anonymous">
 </head>
-<body>
+<body class="bg-light">
 	<jsp:include page="../headerBanner.jsp" />
-	<div class="container mt-5 w-100 justify-content-center">
+	<div class="container mt-5 bg-white rounded p-4 shadow">
 		<div class="row">
 			<div class="col text-center">
 				<h1>Liste des enchères</h1>
@@ -43,17 +43,17 @@
 											class="form-check-label" for="achats">Achats</label>
 										<div class="ms-2">
 											<div class="form-check">
-												<input type="checkbox" class="form-check-input" id="achat1">
+												<input type="checkbox" class="form-check-input" id="achat1" name="achat1" disabled>
 												<label class="form-check-label" for="achat1">enchères
 													ouvertes</label>
 											</div>
 											<div class="form-check">
-												<input type="checkbox" class="form-check-input" id="achat2">
+												<input type="checkbox" class="form-check-input" id="achat2" name="achat2" disabled>
 												<label class="form-check-label" for="achat2">mes
 													enchères en cours</label>
 											</div>
 											<div class="form-check">
-												<input type="checkbox" class="form-check-input" id="achat3">
+												<input type="checkbox" class="form-check-input" id="achat3" name="achat3" disabled>
 												<label class="form-check-label" for="achat3">mes
 													enchères remportées</label>
 											</div>
@@ -67,17 +67,17 @@
 											class="form-check-label" for="ventes">Mes ventes</label>
 										<div class="ms-2">
 											<div class="form-check">
-												<input type="checkbox" class="form-check-input" id="vente1">
+												<input type="checkbox" class="form-check-input" id="vente1" name="vente1" disabled>
 												<label class="form-check-label" for="vente1">mes
 													ventes en cours</label>
 											</div>
 											<div class="form-check">
-												<input type="checkbox" class="form-check-input" id="vente2">
+												<input type="checkbox" class="form-check-input" id="vente2" name="vente2" disabled>
 												<label class="form-check-label" for="vente2">ventes
 													non débutées</label>
 											</div>
 											<div class="form-check">
-												<input type="checkbox" class="form-check-input" id="vente3">
+												<input type="checkbox" class="form-check-input" id="vente3" name="vente3" disabled>
 												<label class="form-check-label" for="vente3">ventes
 													terminées</label>
 											</div>
@@ -105,6 +105,8 @@
 								<h5 class="card-title text-decoration-underline"></form><a href="FaireEnchereServlet/${enchere.noEnchere}">${enchere.articleVendu.nomArticle }</a></h5>
 								<p class="card-text">Prix :
 									${enchere.articleVendu.prixVente}</p>
+								<p class="card-text">Début de l'enchère :
+									${enchere.articleVendu.dateDebutEnchere}</p>
 								<p class="card-text">Fin de l'enchère :
 									${enchere.articleVendu.dateFinEnchere}</p>
 								<p class="card-text">Vendeur : ${enchere.user.nom }
@@ -120,6 +122,47 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous">
+		
+	</script>
+	<script>
+		const achats = document.getElementById("achats");
+		const achat1 = document.getElementById("achat1");
+		const achat2 = document.getElementById("achat2");
+		const achat3 = document.getElementById("achat3");
+		
+		const ventes = document.getElementById("ventes");
+		const vente1 = document.getElementById("vente1");
+		const vente2 = document.getElementById("vente2");
+		const vente3 = document.getElementById("vente3");
+
+		achats.addEventListener("click", function() {
+			achat1.disabled = false;
+			achat2.disabled = false;
+			achat3.disabled = false;
+			
+			vente1.disabled = true;
+			vente2.disabled = true;
+			vente3.disabled = true;
+			
+			vente1.checked = false;
+			vente2.checked = false;
+			vente3.checked = false;
+		});
+		
+		ventes.addEventListener("click", function() {
+			vente1.disabled = false;
+			vente2.disabled = false;
+			vente3.disabled = false;
+			
+			achat1.disabled = true;
+			achat2.disabled = true;
+			achat3.disabled = true;
+			
+			achat1.checked = false;
+			achat2.checked = false;
+			achat3.checked = false;
+		});
+	</script>
 </body>
 </html>

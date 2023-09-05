@@ -9,9 +9,9 @@
     <!-- Ajoutez le lien vers Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 	<jsp:include page="../headerBanner.jsp"/>
-    <div class="container text-center">
+    <div class="container text-center mt-5 bg-white rounded p-4 shadow">
         <h3>Mon Profil</h3>
         <form action="RegisterServlet" method="post">
             <table class="table">

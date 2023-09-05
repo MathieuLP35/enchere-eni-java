@@ -4,12 +4,15 @@ import java.io.IOException;
 
 import fr.eni.enchere.bll.manager.EnchereManager;
 import fr.eni.enchere.bll.sing.EnchereSing;
+import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.dal.exception.DALException;
 import fr.eni.enchere.ihm.model.AccueilModel;
 
 import java.nio.file.Path;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import org.eclipse.tags.shaded.org.apache.xpath.operations.And;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -66,6 +69,18 @@ public class AccueilServlet extends HttpServlet {
 		String nomArticle = request.getParameter("nomArticle") != null ? request.getParameter("nomArticle") : "";
 		Integer idCat = request.getParameter("categorie") != null ? Integer.parseInt(request.getParameter("categorie")): 0;
 		
+		Boolean enchereOuverteFilter = request.getParameter("achat1") != null ? true : false;
+		Boolean enchereEnCoursFilter = request.getParameter("achat2") != null ? true : false;
+		Boolean enchereRemporterFilter = request.getParameter("achat3") != null ? true : false;
+		
+		Boolean venteEnchereEnCours = request.getParameter("vente1") != null ? true : false;
+		Boolean venteEnchereNonDébutées = request.getParameter("vente2") != null ? true : false;
+		Boolean venteEnchereTerminées = request.getParameter("vente3") != null ? true : false;
+		
+		Integer idUtilisateur = 0;
+		if(request.getSession().getAttribute("user") != null){
+			idUtilisateur = ((Utilisateur) request.getSession().getAttribute("user")).getNoUtilisateur();
+		}
 		
 		try {
 			model.setLstCategories(manager.getAllCategorie());
@@ -74,7 +89,9 @@ public class AccueilServlet extends HttpServlet {
 		}
 		
 		try {
-			model.setLstEncheres(manager.getEncheresFilter(idCat, nomArticle));
+			model.setLstEncheres(manager.getEncheresFilter(idCat, nomArticle, 
+					enchereOuverteFilter, enchereEnCoursFilter, enchereRemporterFilter, 
+					venteEnchereEnCours, venteEnchereNonDébutées, venteEnchereTerminées, idUtilisateur));
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

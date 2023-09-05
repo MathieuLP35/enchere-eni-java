@@ -89,7 +89,11 @@ public class EnchereManagerImpl implements EnchereManager{
 	}
 
 	@Override
-	public List<Enchere> getEncheresFilter(Integer idCat, String nomArticle) throws DALException {
-		return dao.getEncheresFilter(idCat, nomArticle);
+	public List<Enchere> getEncheresFilter(Integer idCat, String nomArticle, 
+			Boolean enchereOuverteFilter, Boolean enchereEnCoursFilter, Boolean enchereRemporterFilter, 
+			Boolean venteEnchereEnCours, Boolean venteEnchereNonDébutées, Boolean venteEnchereTerminées, Integer idUtilisateur) throws DALException {
+		return dao.getEncheresFilter(idCat, nomArticle, 
+				enchereOuverteFilter, enchereEnCoursFilter, enchereRemporterFilter, 
+				venteEnchereEnCours, venteEnchereNonDébutées, venteEnchereTerminées, idUtilisateur);
 	}
 }

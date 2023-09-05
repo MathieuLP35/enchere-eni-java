@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 	<jsp:include page="../headerBanner.jsp"/>
     <div class="container">
         <h3>Modifier mon profil</h3>
