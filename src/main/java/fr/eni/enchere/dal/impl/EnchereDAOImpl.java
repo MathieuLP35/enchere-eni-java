@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +91,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			stmt.setInt(7, articleVendu.getUtilisateur().getNoUtilisateur());
 			stmt.setInt(8, articleVendu.getCategorie().getNoCategorie());
 			stmt.setString(9, articleVendu.getLienImg());
+			
 			int nb = stmt.executeUpdate();
 			if (nb > 0) {
 				ResultSet rs = stmt.getGeneratedKeys();
@@ -102,6 +104,14 @@ public class EnchereDAOImpl implements EnchereDAO {
 			e.printStackTrace();
 			throw new DALException("ms_insertArticleVendu");
 		}
+		
+		insertRetrait(articleVendu.getLieuRetrait(), articleVendu);
+		Enchere enchere = new Enchere();
+		enchere.setArticleVendu(articleVendu);
+		enchere.setUser(articleVendu.getUtilisateur());
+		enchere.setMontant(articleVendu.getPrixInitial());
+		enchere.setDateEnchere(LocalDateTime.now());
+		insertEnchere(enchere);
 
 	}
 
