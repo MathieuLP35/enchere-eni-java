@@ -11,7 +11,9 @@
 <body class="bg-light">
 	<jsp:include page="../headerBanner.jsp"/>
     <div class="container mt-5 bg-white rounded p-4 shadow">
-    	${message}
+		<c:if test="${message != null}">
+			<div class="alert alert-primary my-2" role="alert">${message}</div>
+		</c:if>
 		<div class="accordion accordion-flush border" id="accordionFlushExample">
 		  <div class="accordion-item">
 		    <h2 class="accordion-header">
