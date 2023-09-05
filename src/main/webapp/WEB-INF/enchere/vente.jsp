@@ -72,19 +72,19 @@
     		  	<div class="form-group row">
 				  <label for="rue" class="col-sm-2 col-form-label">Rue</label>
 				  <div class="col-sm-10">
-				     <input type="text" class="form-control" id="rue" value="${model.lieuRetrait.rue}">
+				     <input type="text" class="form-control" id="rue" name="rue" value="${model.lieuRetrait.rue}">
 				  </div>
 			 	</div>
     		  	<div class="form-group row">
 				  <label for="codePostal" class="col-sm-2 col-form-label">Code Postal</label>
 				  <div class="col-sm-10">
-				     <input type="text" class="form-control" id="codePostal" value="${model.lieuRetrait.codePostal}">
+				     <input type="text" class="form-control" id="codePostal" name="codePostal" value="${model.lieuRetrait.codePostal}">
 				  </div>
 			 	</div>
 			 	<div class="form-group row">
 				  <label for="ville" class="col-sm-2 col-form-label">Ville</label>
 				  <div class="col-sm-10">
-				     <input type="text" class="form-control" id="ville" value="${model.lieuRetrait.ville}">
+				     <input type="text" class="form-control" id="ville" name="ville" value="${model.lieuRetrait.ville}">
 				  </div>
 			 	</div>
     		  

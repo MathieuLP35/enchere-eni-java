@@ -27,8 +27,8 @@ public class LoginServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
-    	Locale.setDefault(request.getLocale());
-		ResourceBundle bundle = ResourceBundle.getBundle("fr.eni.enchere.bundles.message", request.getLocale());
+    	//Locale.setDefault(request.getLocale());
+		//ResourceBundle bundle = ResourceBundle.getBundle("fr.eni.enchere.bundles.message", request.getLocale());
     	
         request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
     }
