@@ -20,7 +20,6 @@
 				<h1>Liste des enchères</h1>
 			</div>
 		</div>
-		${user}
 		<form action="AccueilServlet" method="post">
 			<div class="row mt-4">
 				<div class="col">
