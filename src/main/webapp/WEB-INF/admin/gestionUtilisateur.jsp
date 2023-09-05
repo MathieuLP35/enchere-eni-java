@@ -8,9 +8,9 @@
 	<title>Administration - Gestion utilisateur</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
-<body>
+<body class="bg-light">
 	<jsp:include page="../headerBanner.jsp"/>
-    <div class="container mt-5">
+    <div class="container mt-5 bg-white rounded p-4 shadow">
     	${message}
         <table class="table mt-5">
             <thead>

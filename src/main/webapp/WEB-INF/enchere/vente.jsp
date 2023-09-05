@@ -1,16 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<title>Vente Enchere</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
-<body>
+<body class="bg-light">
 	<jsp:include page="../headerBanner.jsp"/>
-	<div class="container">
+	<div class="container mt-5 bg-white rounded p-4 shadow">
 		<div class="col-md-4">
 			
 		</div>
@@ -32,7 +32,7 @@
 			    </div>
 			  </div>
 			  <div class="form-group row">
-			    <label for="categorie" class="col-sm-2 col-form-label">Catégorie</label>
+			    <label for="categorie" class="col-sm-2 col-form-label">CatÃ©gorie</label>
 			    <div class="col-sm-10">
 			      <select id="categorie" class="form-control" required name="categorie">
                 	<c:forEach items="${model.lstCategories}" var="categorie">
@@ -48,7 +48,7 @@
 			    </div>
 			  </div>
 			  <div class="form-group row">
-			    <label for="miseAPrix" class="col-sm-2 col-form-label">Mise à prix</label>
+			    <label for="miseAPrix" class="col-sm-2 col-form-label">Mise Ã  prix</label>
 			    <div class="col-sm-10">
 			      <input type="number" required class="form-control" id="miseAPrix" name="miseAPrix" value="">
 			    </div>

@@ -96,7 +96,7 @@ public class VenteEnchereServlet extends HttpServlet {
 		Part filePart = request.getPart("file");
 	    String fileName = filePart.getSubmittedFileName();
 	    for (Part part : request.getParts()) {
-	      part.write("E:\\projet\\enchere-eni-java\\src\\main\\webapp\\upload\\" + fileName);
+	      part.write("E:\\ENI\\JAVA\\JAVA EE\\TP\\enchere-eni-java\\src\\main\\webapp\\upload\\" + fileName);
 	    }
 		articleVendu.setLienImg(fileName);
 		
