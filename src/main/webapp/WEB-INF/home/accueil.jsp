@@ -20,7 +20,6 @@
 				<h1>Liste des enchères</h1>
 			</div>
 		</div>
-		${user}
 		<form action="AccueilServlet" method="post">
 			<div class="row mt-4">
 				<div class="col">
@@ -108,7 +107,7 @@
 						</div>
 						<div class="col">
 							<div class="card-body">
-								<h5 class="card-title text-decoration-underline">${enchere.articleVendu.nomArticle }</h5>
+								<h5 class="card-title text-decoration-underline"></form><a href="FaireEnchereServlet/${enchere.noEnchere}">${enchere.articleVendu.nomArticle }</a></h5>
 								<p class="card-text">Prix :
 									${enchere.articleVendu.prixVente}</p>
 								<p class="card-text">Début de l'enchère :
