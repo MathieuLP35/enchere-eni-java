@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,10 +16,10 @@
 </head>
 <body class="bg-light">
 	<jsp:include page="../headerBanner.jsp" />
-	<div class="container">
+	<div class="container mt-5 bg-white rounded p-4 shadow">
 		<h3>Modifier mon profil</h3>
-		<c:if test="${message != null}">
-			<div class="alert alert-primary my-2" role="alert">${message} ${motDePasseErreur}</div>
+		<c:if test="${message != null || motDePasseErreur != null}">
+			<div class="alert alert-primary my-4" role="alert">${message} ${motDePasseErreur}</div>
 		</c:if>
 		<form action="ModifyProfilServlet" method="post">
 			<div class="row">
