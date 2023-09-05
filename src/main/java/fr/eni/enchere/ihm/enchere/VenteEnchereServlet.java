@@ -1,5 +1,6 @@
 package fr.eni.enchere.ihm.enchere;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,7 +9,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
@@ -75,8 +80,7 @@ public class VenteEnchereServlet extends HttpServlet {
 		ArticleVendu articleVendu = new ArticleVendu();
 		
 		String message = "";
-		
-
+		 
 		articleVendu.setNomArticle(request.getParameter("nomArticle"));
 		articleVendu.setDescription(request.getParameter("description"));
 		Categorie categorie = new Categorie();
@@ -94,9 +98,9 @@ public class VenteEnchereServlet extends HttpServlet {
 		articleVendu.setUtilisateur(utilisateur);
 		
 		Part filePart = request.getPart("file");
-	    String fileName = filePart.getSubmittedFileName();
+		String fileName = filePart.getSubmittedFileName();
 	    for (Part part : request.getParts()) {
-	      part.write("E:\\projet\\enchere-eni-java\\src\\main\\webapp\\upload\\" + fileName);
+	      part.write("E:\\projet\\enchere-eni-java\\src\\main\\webapp\\upload\\" +  fileName);
 	    }
 		articleVendu.setLienImg(fileName);
 		
