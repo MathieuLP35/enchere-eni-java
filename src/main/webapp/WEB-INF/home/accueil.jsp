@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Accueil</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
@@ -17,7 +17,7 @@
 	<div class="container mt-5 bg-white rounded p-4 shadow">
 		<div class="row">
 			<div class="col text-center">
-				<h1>Liste des enchères</h1>
+				<h1>Liste des enchÃ¨res</h1>
 			</div>
 		</div>
 		<form action="AccueilServlet" method="post">
@@ -25,12 +25,17 @@
 				<div class="col">
 					<h4>Filtres:</h4>
 					<input class="form-control" type="text" name="nomArticle"
-						placeholder="Le nom de l'article contient" /> <label
-						for="categorie" class="mt-3">Catégorie:</label> <select
+						placeholder="Le nom de l'article contient" value="${nomArticle}" /> <label
+						for="categorie" class="mt-3">CatÃ©gorie:</label> <select
 						class="form-control" id="categorie" name="categorie">
 						<option value="0">Toutes</option>
 						<c:forEach items="${model.lstCategories}" var="categorie">
-							<option value="${categorie.noCategorie}">${categorie.libelle}</option>
+							<c:if test="${idCat != 0 && categorie.noCategorie == idCat}">
+								<option value="${categorie.noCategorie}" selected>${categorie.libelle}</option>
+							</c:if>
+							<c:if test="${categorie.noCategorie != idCat}">
+								<option value="${categorie.noCategorie}">${categorie.libelle}</option>
+							</c:if>
 						</c:forEach>
 					</select>
 					<c:if test="${user != null}">
@@ -38,32 +43,32 @@
 							<div class="row">
 								<div class="col">
 									<div class="form-check">
-										<input type="radio" class="form-check-input" name="choix"
-											id="achats" value="achats"> <label
+										<input type="radio" class="form-check-input" name="achats"
+											id="achats" ${achats }> <label
 											class="form-check-label" for="achats">Achats</label>
 										<div class="ms-2">
 											<div class="form-check">
 												<input type="checkbox" class="form-check-input" id="achat1" name="achat1" disabled>
-												<label class="form-check-label" for="achat1">enchères
+												<label class="form-check-label" for="achat1" >enchÃ¨res
 													ouvertes</label>
 											</div>
 											<div class="form-check">
 												<input type="checkbox" class="form-check-input" id="achat2" name="achat2" disabled>
 												<label class="form-check-label" for="achat2">mes
-													enchères en cours</label>
+													enchÃ¨res en cours</label>
 											</div>
 											<div class="form-check">
 												<input type="checkbox" class="form-check-input" id="achat3" name="achat3" disabled>
 												<label class="form-check-label" for="achat3">mes
-													enchères remportées</label>
+													enchÃ¨res remportÃ©es</label>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="col">
 									<div class="form-check">
-										<input type="radio" class="form-check-input" name="choix"
-											id="ventes" value="ventes"> <label
+										<input type="radio" class="form-check-input" name="ventes"
+											id="ventes" ${ventes }> <label
 											class="form-check-label" for="ventes">Mes ventes</label>
 										<div class="ms-2">
 											<div class="form-check">
@@ -74,12 +79,12 @@
 											<div class="form-check">
 												<input type="checkbox" class="form-check-input" id="vente2" name="vente2" disabled>
 												<label class="form-check-label" for="vente2">ventes
-													non débutées</label>
+													non dÃ©butÃ©es</label>
 											</div>
 											<div class="form-check">
 												<input type="checkbox" class="form-check-input" id="vente3" name="vente3" disabled>
 												<label class="form-check-label" for="vente3">ventes
-													terminées</label>
+													terminÃ©es</label>
 											</div>
 										</div>
 									</div>
@@ -105,9 +110,9 @@
 								<h5 class="card-title text-decoration-underline"></form><a href="FaireEnchereServlet/${enchere.noEnchere}">${enchere.articleVendu.nomArticle }</a></h5>
 								<p class="card-text">Prix :
 									${enchere.articleVendu.prixVente}</p>
-								<p class="card-text">Début de l'enchère :
+								<p class="card-text">DÃ©but de l'enchÃ¨re :
 									${enchere.articleVendu.dateDebutEnchere}</p>
-								<p class="card-text">Fin de l'enchère :
+								<p class="card-text">Fin de l'enchÃ¨re :
 									${enchere.articleVendu.dateFinEnchere}</p>
 								<p class="card-text">Vendeur : ${enchere.user.nom }
 									${enchere.user.prenom}</p>
@@ -145,6 +150,7 @@
 			vente2.disabled = true;
 			vente3.disabled = true;
 			
+			ventes.checked = false;
 			vente1.checked = false;
 			vente2.checked = false;
 			vente3.checked = false;
@@ -159,6 +165,7 @@
 			achat2.disabled = true;
 			achat3.disabled = true;
 			
+			achats.checked = false
 			achat1.checked = false;
 			achat2.checked = false;
 			achat3.checked = false;
