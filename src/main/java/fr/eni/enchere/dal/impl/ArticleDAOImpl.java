@@ -46,11 +46,10 @@ public class ArticleDAOImpl implements ArticleDAO {
 	final String SELECT_UTILISATEUR_BY_ARTICLE = "SELECT * FROM UTILISATEURS INNER JOIN ARTICLES_VENDUS ON UTILISATEURS.no_utilisateur = ARTICLES_VENDUS.no_utilisateur WHERE ARTICLES_VENDUS.no_article = ?";
 	
 	final String GET_ENCHERES_FILTER = """
-		    SELECT no_enchere, ENCHERES.no_utilisateur AS idUser, ENCHERES.no_article AS idArticle, date_enchere, montant_enchere,
-		    ARTICLES_VENDUS.nom_article AS nomArticle, ARTICLES_VENDUS.prix_vente AS prixVenteArticle, ARTICLES_VENDUS.date_debut_encheres AS dateDebutEnchere, ARTICLES_VENDUS.date_fin_encheres AS dateFinEnchere,
-		    UTILISATEURS.nom AS nomUser, UTILISATEURS.prenom AS prenomUser FROM ENCHERES
-		    INNER JOIN UTILISATEURS ON ENCHERES.no_utilisateur = UTILISATEURS.no_utilisateur
-		    INNER JOIN ARTICLES_VENDUS ON ENCHERES.no_article = ARTICLES_VENDUS.no_article
+			SELECT ARTICLES_VENDUS.no_article, nom_article as nomArticle, description, date_debut_encheres AS dateDebutEnchere, date_fin_encheres AS dateFinEnchere, prix_initial as prixInitial, prix_vente as prixVente, lienImg, UTILISATEURS.*, CATEGORIES.*, RETRAITS.* FROM ARTICLES_VENDUS
+		 	INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur
+		 	INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie
+		 	INNER JOIN RETRAITS ON ARTICLES_VENDUS.no_article = RETRAITS.no_article
 		    WHERE 1=1
 		    %s
 	""";
@@ -225,7 +224,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	@Override
 	public List<ArticleVendu> getArticlesFilter(Integer idCat, String nomArticle, Boolean enchereOuverteFilter, Boolean enchereEnCoursFilter, Boolean enchereRemporterFilter, Boolean venteEnchereEnCours, Boolean venteEnchereNonDébutées, Boolean venteEnchereTerminées, Integer idUtilisateur) throws DALException {
 	    List<ArticleVendu> result = new ArrayList<>();
-
+	  
 	    try (Connection con = ConnectionProvider.getConnection()) {
 	        String whereClause = "";
 	        if (idCat != null && idCat != 0) {
@@ -266,7 +265,6 @@ public class ArticleDAOImpl implements ArticleDAO {
 	        if (nomArticle != null && !nomArticle.isEmpty()) {
 	            stmt.setString(paramIndex++, "%" + nomArticle + "%");
 	        }
-	        
 	        if(enchereEnCoursFilter){
 	        	stmt.setInt(paramIndex++, idUtilisateur);
 	        }
@@ -279,20 +277,17 @@ public class ArticleDAOImpl implements ArticleDAO {
 	        
 	        ResultSet rs = stmt.executeQuery();
 	        while (rs.next()) {
-				Utilisateur user = new Utilisateur();
-				user.setNoUtilisateur(rs.getInt("idUser"));
-				user.setNom(rs.getString("nomUser"));
-				user.setPrenom(rs.getString("prenomUser"));
-				ArticleVendu articleVendu = new ArticleVendu();
-				articleVendu.setNoArticle(rs.getInt("idArticle"));
-				articleVendu.setNomArticle(rs.getString("nomArticle"));
-				articleVendu.setPrixVente(rs.getInt("prixVenteArticle"));
-				articleVendu.setUtilisateur(user);
-				articleVendu.setDateDebutEnchere(Date.valueOf(rs.getString("dateDebutEnchere")));
-				articleVendu.setDateFinEnchere(Date.valueOf(rs.getString("dateFinEnchere")));
-			
+				ArticleVendu articleVendu = new ArticleVendu(rs.getString("nomArticle"), rs.getString("description"), rs.getDate("dateDebutEnchere"), rs.getDate("dateFinEnchere"),
+						rs.getInt("prixInitial"), rs.getInt("prixVente"), rs.getString("lienImg"));
+				articleVendu.setNoArticle(rs.getInt("no_article"));
 				articleVendu.setLstEncheres(getAllEnchereByArticle(articleVendu.getNoArticle()));
+				articleVendu.setUtilisateur(getUtilisateurByArticle(articleVendu.getNoArticle()));
+				articleVendu.setLieuRetrait(getLieuRetraitByArticle(articleVendu.getNoArticle()));
+				articleVendu.setCategorie(getCategorieByArticle(articleVendu.getNoArticle()));
+				System.out.println(articleVendu.toString());
 				result.add(articleVendu);
+				
+				
 	        }
 	    } catch (SQLException e) {
 	        System.out.println(e.getMessage());

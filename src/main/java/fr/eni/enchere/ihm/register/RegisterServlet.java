@@ -73,6 +73,7 @@ public class RegisterServlet extends HttpServlet {
 	            
 			} catch (BLLException e) {
 				e.printStackTrace();
+				persistentRegisterInfos(request);
 				request.setAttribute("message", e.getMessage());
 			}
 		}

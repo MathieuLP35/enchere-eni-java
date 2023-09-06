@@ -29,8 +29,8 @@ public class ArticleManagerImpl implements ArticleManager {
 
 	@Override
 	public List<ArticleVendu> getArticlesFilter(Integer idCat, String nomArticle, 
-			Boolean enchereOuverteFilter, Boolean enchereEnCoursFilter, Boolean enchereRemporterFilter, 
-			Boolean venteEnchereEnCours, Boolean venteEnchereNonDébutées, Boolean venteEnchereTerminées, Integer idUtilisateur) throws DALException {
+		Boolean enchereOuverteFilter, Boolean enchereEnCoursFilter, Boolean enchereRemporterFilter, 
+		Boolean venteEnchereEnCours, Boolean venteEnchereNonDébutées, Boolean venteEnchereTerminées, Integer idUtilisateur) throws DALException {
 		return dao.getArticlesFilter(idCat, nomArticle, 
 				enchereOuverteFilter, enchereEnCoursFilter, enchereRemporterFilter, 
 				venteEnchereEnCours, venteEnchereNonDébutées, venteEnchereTerminées, idUtilisateur);
