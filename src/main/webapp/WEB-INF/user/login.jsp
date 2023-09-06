@@ -36,7 +36,7 @@
 						</div>
 						<div class="col">
 							<div class="form-check d-flex justify-content-center">
-								<input type="checkbox" class="form-check-input" id="rememberMe"/>
+								<input type="checkbox" class="form-check-input" name="rememberMe" id="rememberMe"/>
 								<label class="form-check-label ms-2 text-nowrap" for="rememberMe">Se souvenir de moi</label>
 							</div>
 							<div class="mt-2">

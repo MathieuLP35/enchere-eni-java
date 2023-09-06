@@ -110,7 +110,6 @@ public class ArticleDAOImpl implements ArticleDAO {
 			e.printStackTrace();
 			throw new DALException("ms_insertArticleVendu");
 		}
-
 	}
 
 	@Override
@@ -121,6 +120,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 			PreparedStatement stmt = con.prepareStatement(SELECT_ARTICLES_VENDUS);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
+				System.out.println(rs);
 				ArticleVendu articleVendu = new ArticleVendu(rs.getString("nomArticle"), rs.getString("description"), rs.getDate("dateDebutEnchere"), rs.getDate("dateFinEnchere"),
 						rs.getInt("prixInitial"), rs.getInt("prixVente"), rs.getString("lienImg"));
 				articleVendu.setNoArticle(rs.getInt("no_article"));

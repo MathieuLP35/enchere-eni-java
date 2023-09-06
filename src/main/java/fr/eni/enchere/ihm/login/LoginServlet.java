@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,11 +42,17 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("motdepasse");
         
         Utilisateur user = manager.check(login, password);
-        if(user==null) {
-            request.setAttribute("message", "utilisteur inconnu");
+        
+        if(user == null) {
+            request.setAttribute("message", "Le login ou le mot de passe est incorrect");
             request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
         }
         else {
+        	if(request.getParameter("rememberMe") != null) {
+        		Cookie rememberMeCookie = new Cookie("rememberMe", "true");
+        		rememberMeCookie.setMaxAge(30*24*60*60);
+        		response.addCookie(rememberMeCookie);
+        	}
             // On met l'utilisateur en session
             request.getSession().setAttribute("user", user);
             
