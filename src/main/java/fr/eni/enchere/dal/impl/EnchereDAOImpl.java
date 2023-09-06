@@ -57,6 +57,9 @@ public class EnchereDAOImpl implements EnchereDAO {
 	
 	final String INSERT_ENCHERES = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,?,?)";
 	
+	
+	final String UPDATE_PRIX_ARTICLES_VENDUS = "UPDATE ARTICLES_VENDUS SET prix_vente = ? WHERE no_article = ?";
+
 
 	@Override
 	public void insertArticleVendu(ArticleVendu articleVendu) throws DALException {
@@ -115,8 +118,8 @@ public class EnchereDAOImpl implements EnchereDAO {
 			stmt.setInt(1, idArticle);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				articleVendu = new ArticleVendu(rs.getString("nomArticle"), rs.getString("description"), rs.getDate("dateDebutEnchere"), rs.getDate("dateFinEnchere"),
-						rs.getInt("prixInitial"), rs.getInt("prixVente"));
+				articleVendu = new ArticleVendu(rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres"), rs.getDate("date_fin_encheres"),
+						rs.getInt("prix_initial"), rs.getInt("prix_vente"));
 			 // TODO 
 			
 			}
@@ -288,7 +291,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 			stmt.setInt(1, idArticle);
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				retrait = new Retrait(rs.getString("rue"), rs.getString("codePostal"), rs.getString("ville"));
+				retrait = new Retrait(rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));
 			
 			}
 		}
@@ -299,7 +302,19 @@ public class EnchereDAOImpl implements EnchereDAO {
 		
 		return retrait;
 	}
+	
+	@Override
+	public ArticleVendu insertPrixArticleVendu(Enchere enchere, Integer montant) throws DALException {
+		
+	    try (Connection con = ConnectionProvider.getConnection()){
+	        PreparedStatement stmt = con.prepareStatement(UPDATE_PRIX_ARTICLES_VENDUS);
+	        stmt.setInt(1, montant);
+	        stmt.executeUpdate();
+	    }
+	    catch(SQLException e) {
+			throw new DALException("ms_updatePrixArticleVendu");
+	    }
+		return null;
+	}
 
-	
-	
 }

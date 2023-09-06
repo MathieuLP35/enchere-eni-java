@@ -44,6 +44,7 @@ public class FaireEnchereServlet extends HttpServlet {
         ArticleVendu articleVendu = null;
         try {
 			articleVendu = manager.findByIdArticleVendu(productId);
+			System.out.println(articleVendu);
 			request.setAttribute("idArticle", articleVendu.getNoArticle());
 			request.setAttribute("nomArticle", articleVendu.getNomArticle());
 			request.setAttribute("description", articleVendu.getDescription());
@@ -56,6 +57,7 @@ public class FaireEnchereServlet extends HttpServlet {
 //			request.setAttribute("lieuRetraitCP", articleVendu.getLieuRetrait().getCodePostal());
 //			request.setAttribute("lieuRetraitVille", articleVendu.getLieuRetrait().getVille());
 			request.setAttribute("utilisateur", articleVendu.getUtilisateur());
+			System.out.println(articleVendu.getUtilisateur().getNoUtilisateur());
 			
 			
 		} catch (DALException e) {
@@ -87,10 +89,25 @@ public class FaireEnchereServlet extends HttpServlet {
 		System.out.println("qdqzdqzd");
 		
 		//System.out.println(request.getParameter("idArticle"));
-
-		manager.insertPrixArticleVendu(null, request.getParameter("montant"));
-
 		
+/*		Enchere enchere = new Enchere(
+				
+		        request.getParameter("montant"),
+		        request.getParameter("idArticle"),
+		        request.getParameter("montant"),
+		        
+				
+				
+				
+				);
+		
+		enchere.getNoEnchere();
+		
+
+		manager.insertPrixArticleVendu(enchere, montant);
+
+		System.out.println(manager.insertPrixArticleVendu(enchere, montant));
+		*/
 		
 //		int productId = Integer.parseInt(request.getParameter("id"));
 //        ArticleVendu articleVendu = manager.findByIdArticleVendu(productId);

@@ -23,5 +23,5 @@ public interface EnchereDAO {
 	public Retrait findByIdRetrait(Integer idRetrait) throws DALException;
 	public void insertEnchere(Enchere enchere) throws DALException;
 	public List<Enchere> getAllEnchere() throws DALException;
-
+	public ArticleVendu insertPrixArticleVendu(Enchere enchere, Integer montant) throws DALException;
 }

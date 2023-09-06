@@ -92,23 +92,24 @@ public class ModifyProfilServlet extends HttpServlet {
 	    String nouveauMotDePasse = request.getParameter("nouveauMotDePasse");
 	    String confirmationMotDePasse = request.getParameter("confirmationMotDePasse");
 
-
+        	
 	    // Mettez à jour les attributs de l'utilisateur avec les nouvelles valeurs
 	    if(user.getMotdepasse().equals(motDePasse)) {
-	    user.setPseudo(pseudo);
-	    user.setPrenom(prenom);
-	    user.setNom(nom);
-	    user.setEmail(email);
-	    user.setTelephone(telephone);
-	    user.setRue(rue);
-	    user.setVille(ville);
-	    user.setCodePostal(codePostal);
+		    user.setPseudo(pseudo);
+		    user.setPrenom(prenom);
+		    user.setNom(nom);
+		    user.setEmail(email);
+		    user.setTelephone(telephone);
+		    user.setRue(rue);
+		    user.setVille(ville);
+		    user.setCodePostal(codePostal);
 	    }else {
 			request.setAttribute("motDePasseErreur", "Le mots de passe actuel est incorrect");
 			doGet(request,response);
 	    }
 
-        try {	    
+        try {
+    
 	    if((!nouveauMotDePasse.isBlank() && !confirmationMotDePasse.isBlank()) || (nouveauMotDePasse.isBlank() && !confirmationMotDePasse.isBlank()) || (!nouveauMotDePasse.isBlank() && confirmationMotDePasse.isBlank())){
 	    		if(nouveauMotDePasse.equals(confirmationMotDePasse)){
 	    		    if(user.getMotdepasse().equals(motDePasse)) {
@@ -144,7 +145,7 @@ public class ModifyProfilServlet extends HttpServlet {
 	    Utilisateur user = (Utilisateur) session.getAttribute("user");
 	    
 	    
-	    String motDePasse = request.getParameter("motdepasse");
+	    String motDePasse = request.getParameter("motDePasse");
 
 	    if(user.getMotdepasse().equals(motDePasse)) {
         manager.delete(user, user.getNoUtilisateur());

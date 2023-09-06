@@ -85,7 +85,7 @@
 	                		</div>
 	                		<div class="col">
 			                    <div class="card-body">
-			                        <h5 class="card-title text-decoration-underline">${enchere.articleVendu.nomArticle }</h5>
+			                        <h5 class="card-title text-decoration-underline"><a href="${pageContext.request.contextPath}/FaireEnchereServlet?id=${enchere.articleVendu.noArticle}">${enchere.articleVendu.nomArticle}</a></h5>
 			                        <p class="card-text">Prix : ${enchere.articleVendu.prixVente}</p>
 			                        <p class="card-text">Fin de l'enchère : ${enchere.articleVendu.dateFinEnchere}</p>
 			                        <p class="card-text">Vendeur : ${enchere.user.nom } ${enchere.user.prenom}</p>

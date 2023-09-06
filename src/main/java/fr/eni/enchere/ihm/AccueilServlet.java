@@ -10,6 +10,9 @@ import java.nio.file.Path;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.apache.catalina.User;
+import org.apache.tomcat.util.modeler.modules.ModelerSource;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -40,6 +43,7 @@ public class AccueilServlet extends HttpServlet {
 		ResourceBundle bundle = ResourceBundle.getBundle("fr.eni.enchere.bundles.message", request.getLocale());
 		
 		AccueilModel model = new AccueilModel();
+		
 		
 		try {
 			model.setLstCategories(manager.getAllCategorie());

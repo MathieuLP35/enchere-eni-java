@@ -74,7 +74,7 @@
 					    </div>
 					</c:if>
 	                <li class="nav-item">
-	                     <a class="nav-link" href="${pageContext.request.contextPath}/LoginServlet">Enchère</a>
+	                     <a class="nav-link" href="${pageContext.request.contextPath}/FaireEnchereServlet">Enchère</a>
 	                </li>
 	                <li>
 	                     <a class="nav-link" href="${pageContext.request.contextPath}/VenteEnchereServlet">Vendre un article</a>

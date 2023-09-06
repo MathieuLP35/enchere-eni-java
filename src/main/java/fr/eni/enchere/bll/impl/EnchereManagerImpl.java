@@ -55,4 +55,21 @@ public class EnchereManagerImpl implements EnchereManager{
 	public List<Retrait> getAllRetrait() throws DALException {
 		return dao.getAllRetrait();
 	}
+
+	@Override
+	public ArticleVendu findByIdArticleVendu(Integer idArticleVendu) throws DALException {
+		return dao.findByIdArticle(idArticleVendu);
+	}
+
+	@Override
+	public Retrait findByIdRetrait(Integer idArticle) throws DALException {
+		// TODO Auto-generated method stub
+		return dao.findByIdRetrait(idArticle);
+	}
+
+	@Override
+	public ArticleVendu insertPrixArticleVendu(Enchere enchere, Integer montant) throws DALException {
+		return dao.insertPrixArticleVendu(enchere, montant);
+	}
+
 }
