@@ -6,11 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Accueil</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-	crossorigin="anonymous">
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+		crossorigin="anonymous">	
 </head>
 <body class="bg-light">
 	<jsp:include page="../headerBanner.jsp" />
@@ -104,16 +104,14 @@
 			<c:forEach items="${model.lstArticlesVendus}" var="article">
 				<div class="col-md-3">
 					<div class="card mb-3">
-						<img src="https://picsum.photos/100?random=${article.noArticle}"
+						<img src="https://picsum.photos/200?random=${article.noArticle}"
 							class="card-img-top" alt="Photo de l'article">
 						<div class="card-body">
 							<h5 class="card-title">
-								<a
-									href="${pageContext.request.contextPath}/FaireEnchereServlet?id=${article.noArticle}">${article.nomArticle}</a>
+								<a class="link-secondary" href="${pageContext.request.contextPath}/FaireEnchereServlet?id=${article.noArticle}">${article.nomArticle}</a>
+								<p class="fs-6">${article.categorie.libelle}</p>
 							</h5>
 							<p class="card-text">Prix : ${article.prixVente}</p>
-							<p class="card-text">Début de l'enchère :
-								${article.dateDebutEnchere}</p>
 							<p class="card-text">Fin de l'enchère :
 								${article.dateFinEnchere}</p>
 							<p class="card-text">Vendeur : ${article.utilisateur.nom}
