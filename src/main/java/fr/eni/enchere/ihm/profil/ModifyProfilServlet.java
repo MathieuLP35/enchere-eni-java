@@ -93,6 +93,9 @@ public class ModifyProfilServlet extends HttpServlet {
 		String motDePasse = request.getParameter("motDePasse");
 		String nouveauMotDePasse = request.getParameter("nouveauMotDePasse");
 		String confirmationMotDePasse = request.getParameter("confirmationMotDePasse");
+		
+		// le pseudo ne doit contenir que des caractères alphanumériques
+		String regexPseudo = "^[a-zA-Z0-9]+$"; // Cette regex accepte uniquement des lettres (majuscules et minuscules) et des chiffres.
 
 		// Mettez à jour les attributs de l'utilisateur avec les nouvelles valeurs
 		if (user.getMotdepasse().equals(motDePasse)) {
@@ -128,6 +131,14 @@ public class ModifyProfilServlet extends HttpServlet {
 				}
 			}
 
+			if (pseudo == null || pseudo.isBlank()) {
+			    request.setAttribute("message", "Le login doit être rempli");
+			    doGet(request, response);
+			} else if (!pseudo.matches(regexPseudo)) {
+			    request.setAttribute("message", "Le pseudo ne doit contenir que des caractères alphanumériques");
+			    doGet(request, response);
+			} 
+			
 			manager.update(user, user.getNoUtilisateur());
 		} catch (BLLException e) {
 			e.printStackTrace();

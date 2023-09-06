@@ -40,7 +40,7 @@
 								<label class="form-check-label ms-2 text-nowrap" for="rememberMe">Se souvenir de moi</label>
 							</div>
 							<div class="mt-2">
-								<a href="#" class="text-muted text-nowrap">Mot de passe oublié</a>
+								<a href="${pageContext.request.contextPath}/ForgotPasswordServlet" class="text-muted text-nowrap">Mot de passe oublié</a>
 							</div>
 						</div>
 					</div>
