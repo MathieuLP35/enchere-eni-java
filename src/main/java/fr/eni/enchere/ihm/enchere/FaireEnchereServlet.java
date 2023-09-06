@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import fr.eni.enchere.bll.manager.ArticleManager;
-import fr.eni.enchere.bll.manager.EnchereManager;
 import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.ArticleVendu;
 import fr.eni.enchere.bo.Enchere;
@@ -20,7 +19,6 @@ import fr.eni.enchere.dal.exception.DALException;
  */
 public class FaireEnchereServlet extends HttpServlet {
 	private ArticleManager managerArticle = ManagerSing.getInstanceArticle();
-	private EnchereManager managerEnchere = ManagerSing.getInstanceEnchere();
 
 	private static final long serialVersionUID = 1L;
 	
@@ -51,7 +49,7 @@ public class FaireEnchereServlet extends HttpServlet {
 			request.setAttribute("idArticle", articleVendu.getNoArticle());
 			request.setAttribute("nomArticle", articleVendu.getNomArticle());
 			request.setAttribute("description", articleVendu.getDescription());
-			request.setAttribute("categorie", articleVendu.getCategorie());
+			request.setAttribute("categorie", articleVendu.getCategorie().getLibelle());
 			request.setAttribute("prixVente", articleVendu.getPrixVente());
 			request.setAttribute("prixInitial", articleVendu.getPrixInitial());
 			request.setAttribute("debutEnchere", articleVendu.getDateDebutEnchere());
@@ -111,18 +109,40 @@ public class FaireEnchereServlet extends HttpServlet {
 			articleVendu
 		   );
 		
+       
 		System.out.println(articleVendu + "ddqzd");
 		System.out.println(enchere);
 		
 		if(prixInitial < montant) {
-		managerArticle.insertPrixArticleVendu(enchere, montant);
-		managerArticle.updateMontantArticleVendu(articleVendu, montant);
+			managerArticle.insertPrixArticleVendu(enchere, montant);
+			managerArticle.updateMontantArticleVendu(articleVendu, montant);
 		}else {
 			request.setAttribute("message", "Tu dois renseigner une valeur supérieur au prix de vente");
 			System.out.println("Tu dois renseigner une valeur supérieur au prix de vente");
-			doGet(request, response);
 		}
 		
+		try {
+			articleVendu = managerArticle.findByIdArticleVendu(articleVendu.getNoArticle());
+			System.out.println(articleVendu);
+			request.setAttribute("idArticle", articleVendu.getNoArticle());
+			request.setAttribute("nomArticle", articleVendu.getNomArticle());
+			request.setAttribute("description", articleVendu.getDescription());
+			request.setAttribute("categorie", articleVendu.getCategorie());
+			request.setAttribute("prixVente", articleVendu.getPrixVente());
+			request.setAttribute("prixInitial", articleVendu.getPrixInitial());
+			request.setAttribute("debutEnchere", articleVendu.getDateDebutEnchere());
+			request.setAttribute("finEnchere", articleVendu.getDateFinEnchere());
+			request.setAttribute("lieuRetraitRue", articleVendu.getLieuRetrait().getRue());
+			request.setAttribute("lieuRetraitCP", articleVendu.getLieuRetrait().getCodePostal());
+			request.setAttribute("lieuRetraitVille", articleVendu.getLieuRetrait().getVille());
+			request.setAttribute("utilisateur", articleVendu.getUtilisateur());
+			request.setAttribute("utilisateur", articleVendu.getUtilisateur().getNoUtilisateur());
+			
+			
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher("/WEB-INF/enchere/creation.jsp").forward(request, response);
 
 	}
 }
