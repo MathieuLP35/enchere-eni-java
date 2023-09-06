@@ -4,11 +4,13 @@ import fr.eni.enchere.bll.impl.AdminManagerImpl;
 import fr.eni.enchere.bll.impl.ArticleManagerImpl;
 import fr.eni.enchere.bll.impl.CategorieManagerImpl;
 import fr.eni.enchere.bll.impl.EnchereManagerImpl;
+import fr.eni.enchere.bll.impl.RetraitManagerImpl;
 import fr.eni.enchere.bll.impl.UtilisateurManagerImpl;
 import fr.eni.enchere.bll.manager.AdminManager;
 import fr.eni.enchere.bll.manager.ArticleManager;
 import fr.eni.enchere.bll.manager.CategorieManager;
 import fr.eni.enchere.bll.manager.EnchereManager;
+import fr.eni.enchere.bll.manager.RetraitManager;
 import fr.eni.enchere.bll.manager.UtilisateurManager;
 
 public class ManagerSing {
@@ -22,6 +24,8 @@ public class ManagerSing {
 	private static CategorieManager instanceCategorie;
 	
 	private static UtilisateurManager instanceUtilisateur;
+	
+	private static RetraitManager instanceRetrait;
 	
 	public static AdminManager getInstanceAdmin() {
 		if(instanceAdmin==null) {
@@ -58,5 +62,12 @@ public class ManagerSing {
 			instanceUtilisateur = new UtilisateurManagerImpl();
 		}
 		return instanceUtilisateur;
+	}
+	
+	public static RetraitManager getInstanceRetrait() {
+		if(instanceRetrait==null) {
+			instanceRetrait = new RetraitManagerImpl();
+		}
+		return instanceRetrait;
 	}
 }
