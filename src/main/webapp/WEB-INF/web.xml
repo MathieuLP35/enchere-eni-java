@@ -23,7 +23,7 @@
     <servlet-name>GestionCategorieServlet</servlet-name>
     <servlet-class>fr.eni.enchere.ihm.admin.GestionCategorieServlet</servlet-class>
   </servlet>
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>GestionCategorieServlet</servlet-name>
     <url-pattern>/GestionCategorieServlet</url-pattern>
   </servlet-mapping>
@@ -57,4 +57,14 @@
     <url-pattern>/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MesEncheresRemportéesServlet</display-name>
+    <servlet-name>MesEncheresRemportéesServlet</servlet-name>
+    <servlet-class>fr.eni.enchere.ihm.enchere.MesEncheresRemportéesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MesEncheresRemportéesServlet</servlet-name>
+    <url-pattern>/MesEncheresRemportéesServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
