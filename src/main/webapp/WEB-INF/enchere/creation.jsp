@@ -50,11 +50,12 @@
                         <p class="product-label">Catégorie :</p>
                         <p>${categorie}</p>
                     </div>
-
-                    <div class="mb-3">
-                        <p class="product-label">Meilleure Offre :</p>
-                        <p>${prixVente}</p>
-                    </div>
+                    <form action="FaireEnchereServlet" method="post">
+					<div class="mb-3">
+					    <p class="product-label">Meilleure Offre :</p>
+					    <input type="hidden" name="prixVente" value="${prixVente}" id="${prixVente}">
+					    <p id="prixVente">${prixVente}</p>
+					</div>
 
                     <div class="mb-3">
                         <p class="product-label">Mise à Prix :</p>
@@ -75,18 +76,17 @@
                         <p class="product-label">Retrait :</p>
                         <p>${lieuRetraitRue} ${lieuRetraitCP} ${lieuRetraitVille}</p>
                     </div>
-                    
                     <div class="mb-3 d-none">
-                    	 <input type="number" class="form-control" name="${idArticle}" id="${idArticle}">
+                    	<input type="number" class="form-control" name="idArticle" id="idArticle" value="${idArticle}">
                     </div>                    
 
                     <div class="mb-3 form-outline">
-                        <form action="FaireEnchereServlet" method="post">
 	                        <p class="product-label font-weight-bold">Proposition de Prix :</p>
-	                        <input type="number" class="form-control" name="encherir" id="encherir">
+	                        <input type="number" class="form-control" name="montant" id="montant">
 	                        <button type="submit" name="BTN_SAVE" class="btn btn-primary">Enchérir</button>
-                        </form>
                     </div>
+                    </form>  
+                    ${message}                  
                 </div>
             </div>
         </div>

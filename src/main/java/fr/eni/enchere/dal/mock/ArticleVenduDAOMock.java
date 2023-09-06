@@ -41,4 +41,10 @@ public class ArticleVenduDAOMock implements ArticleDAO {
 		return null;
 	}
 
+	@Override
+	public ArticleVendu updateMontantArticleVendu(ArticleVendu articleVendu, Integer montant) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

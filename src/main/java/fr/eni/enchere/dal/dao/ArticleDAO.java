@@ -15,5 +15,6 @@ public interface ArticleDAO {
 			Boolean enchereOuverteFilter, Boolean enchereEnCoursFilter, Boolean enchereRemporterFilter, 
 			Boolean venteEnchereEnCours, Boolean venteEnchereNonDébutées, Boolean venteEnchereTerminées, Integer idUtilisateur) throws DALException;
 	public ArticleVendu insertPrixArticleVendu(Enchere enchere, Integer montant) throws DALException;
+	public ArticleVendu updateMontantArticleVendu(ArticleVendu articleVendu, Integer montant) throws DALException;
 
 }
