@@ -284,9 +284,8 @@ public class ArticleDAOImpl implements ArticleDAO {
 				articleVendu.setUtilisateur(getUtilisateurByArticle(articleVendu.getNoArticle()));
 				articleVendu.setLieuRetrait(getLieuRetraitByArticle(articleVendu.getNoArticle()));
 				articleVendu.setCategorie(getCategorieByArticle(articleVendu.getNoArticle()));
-				System.out.println(articleVendu.toString());
-				result.add(articleVendu);
 				
+				result.add(articleVendu);
 				
 	        }
 	    } catch (SQLException e) {

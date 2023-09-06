@@ -39,7 +39,7 @@
 	                     <a class="nav-link" href="${pageContext.request.contextPath}/FaireEnchereServlet">Enchère</a>
 	                </li>
 	                <li>
-	                     <a class="nav-link" href="${pageContext.request.contextPath}/VenteEnchereServlet">Vendre un article</a>
+	                     <a class="nav-link" href="${pageContext.request.contextPath}/VenteArticleServlet">Vendre un article</a>
 					</li> 
 					<li>
 	                     <a class="nav-link" href="${pageContext.request.contextPath}/ProfilServlet">Mon Profil</a>
