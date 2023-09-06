@@ -28,15 +28,15 @@ public class ArticleVenduDAOMock implements ArticleDAO {
 	}
 
 	@Override
-	public List<ArticleVendu> getArticlesFilter(Integer idCat, String nomArticle, Boolean enchereOuverteFilter,
-			Boolean enchereEnCoursFilter, Boolean enchereRemporterFilter, Boolean venteEnchereEnCours,
-			Boolean venteEnchereNonDébutées, Boolean venteEnchereTerminées, Integer idUtilisateur) throws DALException {
-		
+	public ArticleVendu insertPrixArticleVendu(Enchere enchere, Integer montant) throws DALException {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArticleVendu insertPrixArticleVendu(Enchere enchere, Integer montant) throws DALException {
+	public List<ArticleVendu> getArticlesFilter(Integer idCat, String nomArticle, Boolean enchereOuverteFilter,
+			Boolean enchereEnCoursFilter, Boolean enchereRemporterFilter, Boolean venteEnchereEnCours,
+			Boolean venteEnchereNonDébutées, Boolean venteEnchereTerminées, Integer idUtilisateur) throws DALException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -46,5 +46,6 @@ public class ArticleVenduDAOMock implements ArticleDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
