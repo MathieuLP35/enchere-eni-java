@@ -79,12 +79,12 @@
   </filter-mapping>
   <servlet>
     <description></description>
-    <display-name>MesEncheresRemportéesServlet</display-name>
-    <servlet-name>MesEncheresRemportéesServlet</servlet-name>
-    <servlet-class>fr.eni.enchere.ihm.enchere.MesEncheresRemportéesServlet</servlet-class>
+    <display-name>MesEncheresRemporteesServlet</display-name>
+    <servlet-name>MesEncheresRemporteesServlet</servlet-name>
+    <servlet-class>fr.eni.enchere.ihm.enchere.MesEncheresRemporteesServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>MesEncheresRemportéesServlet</servlet-name>
-    <url-pattern>/MesEncheresRemportéesServlet</url-pattern>
+    <servlet-name>MesEncheresRemporteesServlet</servlet-name>
+    <url-pattern>/MesEncheresRemporteesServlet</url-pattern>
   </servlet-mapping>
 </web-app>

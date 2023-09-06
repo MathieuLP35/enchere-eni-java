@@ -110,9 +110,9 @@
 							class="card-img-top" alt="Photo de l'article">
 						<div class="card-body">
 							<h5 class="card-title bg-primary py-2 rounded-3 text-center px-2">
-								<a class="link-light"
+								<a class="link-light d-inline-block text-truncate articleCardTitle"
 									href="${pageContext.request.contextPath}/FaireEnchereServlet?id=${article.noArticle}">${article.nomArticle}</a>
-								<span class="text-white categoriePills mt-1 mb-2">${article.categorie.libelle }</span>
+								<span class="text-white categoriePills d-block mt-1 mb-2">${article.categorie.libelle }</span>
 							</h5>
 							<hr />
 							<p class="card-text">Prix : ${article.prixVente}</p>
@@ -125,6 +125,9 @@
 				</div>
 			</c:forEach>
 		</div>
+		<c:if test="${model.message != ''}">
+			<div class="alert alert-primary my-2" role="alert">${model.message}</div>
+		</c:if>
 	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

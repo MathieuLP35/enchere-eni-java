@@ -55,6 +55,11 @@ public class AccueilServlet extends HttpServlet {
 		
 		try {
 			model.setLstArticlesVendus(managerArticleVendu.getAllArticleVendu());
+			
+			if(model.getLstArticlesVendus().size() <= 0) {
+				model.setMessage("Aucune enchère n'est disponible pour le moment.");
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.setMessage(e.getMessage());
@@ -105,6 +110,10 @@ public class AccueilServlet extends HttpServlet {
 			model.setLstArticlesVendus(managerArticleVendu.getArticlesFilter(idCat, nomArticle, 
 					enchereOuverteFilter, enchereEnCoursFilter, enchereRemporterFilter, 
 					venteEnchereEnCours, venteEnchereNonDébutées, venteEnchereTerminées, idUtilisateur));
+			
+			if(model.getLstArticlesVendus().size() <= 0) {
+				model.setMessage("Aucune enchère n'est disponible avec les filtres renseignés.");
+			}
 			
 			request.setAttribute("idCat", idCat);
 			request.setAttribute("nomArticle", nomArticle);
