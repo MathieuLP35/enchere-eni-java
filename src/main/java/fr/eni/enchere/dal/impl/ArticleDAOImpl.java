@@ -287,6 +287,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 				articleVendu.setNoArticle(rs.getInt("idArticle"));
 				articleVendu.setNomArticle(rs.getString("nomArticle"));
 				articleVendu.setPrixVente(rs.getInt("prixVenteArticle"));
+				articleVendu.setUtilisateur(user);
 				articleVendu.setDateDebutEnchere(Date.valueOf(rs.getString("dateDebutEnchere")));
 				articleVendu.setDateFinEnchere(Date.valueOf(rs.getString("dateFinEnchere")));
 			
