@@ -77,8 +77,6 @@ public class RegisterServlet extends HttpServlet {
 				request.setAttribute("message", e.getMessage());
 			}
 		}
-
-		request.getRequestDispatcher("/WEB-INF/user/register.jsp").forward(request, response);
 	}
 
 	private void persistentRegisterInfos(HttpServletRequest request) {
