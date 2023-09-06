@@ -1,4 +1,4 @@
-package fr.eni.enchere.ihm.enchere;
+package fr.eni.enchere.ihm.article;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.Date;
 import fr.eni.enchere.bll.manager.ArticleManager;
 import fr.eni.enchere.bll.manager.CategorieManager;
+import fr.eni.enchere.bll.manager.RetraitManager;
 import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.ArticleVendu;
 import fr.eni.enchere.bo.Categorie;
@@ -26,15 +27,16 @@ import fr.eni.enchere.ihm.model.VenteArticleModel;
   maxFileSize = 1024 * 1024 * 10,      // 10 MB
   maxRequestSize = 1024 * 1024 * 100   // 100 MB
 )
-public class VenteEnchereServlet extends HttpServlet {
+public class VenteArticleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleManager managerArticle = ManagerSing.getInstanceArticle();
 	private CategorieManager managerCategorie = ManagerSing.getInstanceCategorie();
+	private RetraitManager managerRetrait = ManagerSing.getInstanceRetrait();
 	private VenteArticleModel model = new VenteArticleModel();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VenteEnchereServlet() {
+    public VenteArticleServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -60,7 +62,7 @@ public class VenteEnchereServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("model", model);
-		request.getRequestDispatcher("/WEB-INF/enchere/vente.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/article/vente.jsp").forward(request, response);
 	}
 
 	/**
@@ -90,7 +92,7 @@ public class VenteEnchereServlet extends HttpServlet {
 		
 		Part filePart = request.getPart("file");
 		String fileName = filePart.getSubmittedFileName();
-	    for (Part part : request.getParts()) {
+		for (Part part : request.getParts()) {
 	    	if(utilisateur.getPseudo().equals("axelmdev2")) {
 	    		part.write("E:\\projet\\enchere-eni-java\\src\\main\\webapp\\upload\\" +  fileName);
 	    	} else if(utilisateur.getPseudo().equals("mathieu")) {
@@ -98,11 +100,11 @@ public class VenteEnchereServlet extends HttpServlet {
 	    	}
 	    }
 	    
-	     
 		articleVendu.setLienImg(fileName);
 		
 		try {
 			managerArticle.addArticle(articleVendu);
+			managerRetrait.addRetrait(articleVendu.getLieuRetrait(), articleVendu);
 			model.setMessage("Ajout d'article effectué");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -110,7 +112,7 @@ public class VenteEnchereServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("model", model);
-		request.getRequestDispatcher("/WEB-INF/enchere/vente.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/article/vente.jsp").forward(request, response);
 	}
 
 }

@@ -39,13 +39,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>VenteEnchereServlet</display-name>
-    <servlet-name>VenteEnchereServlet</servlet-name>
-    <servlet-class>fr.eni.enchere.ihm.enchere.VenteEnchereServlet</servlet-class>
+    <display-name>VenteArticleServlet</display-name>
+    <servlet-name>VenteArticleServlet</servlet-name>
+    <servlet-class>fr.eni.enchere.ihm.article.VenteArticleServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>VenteEnchereServlet</servlet-name>
-    <url-pattern>/VenteEnchereServlet</url-pattern>
+    <servlet-name>VenteArticleServlet</servlet-name>
+    <url-pattern>/VenteArticleServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

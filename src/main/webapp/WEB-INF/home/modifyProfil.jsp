@@ -78,8 +78,10 @@
 							class="form-control" id="rue" name="rue" value="${user.rue}"
 							required>
 					</div>
-					<div class="mb-4 offset-mt-3">
-						<br /> <br />
+					<div class="mb-3 mt-3">
+						<label for="credit">Crédit :</label> <input type="number"
+							class="form-control" id="credit" name="credit" value="${user.credit}"
+							required>
 					</div>
 					<div class="mb-3 mt-3">
 						<label for="confirmationMotDePasse">Confirmation :</label> <input
