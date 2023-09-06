@@ -112,10 +112,17 @@ public class FaireEnchereServlet extends HttpServlet {
        
 		System.out.println(articleVendu + "ddqzd");
 		System.out.println(enchere);
-		
 		if(prixInitial < montant) {
-			managerArticle.insertPrixArticleVendu(enchere, montant);
-			managerArticle.updateMontantArticleVendu(articleVendu, montant);
+			if(montant <= utilisateur.getCredit()) {
+				managerArticle.insertPrixArticleVendu(enchere, montant);
+				managerArticle.updateMontantArticleVendu(articleVendu, montant);
+				/** si une enchere existe **/
+				/** du coup update credit **/
+				/** update Credit **/
+			} else {
+				request.setAttribute("message", "Tu n'as pas assez de crédit sur ton compte");
+				System.out.println("Tu n'as pas assez de crédit sur ton compte");
+			}
 		}else {
 			request.setAttribute("message", "Tu dois renseigner une valeur supérieur au prix de vente");
 			System.out.println("Tu dois renseigner une valeur supérieur au prix de vente");
