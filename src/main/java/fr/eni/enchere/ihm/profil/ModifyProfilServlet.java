@@ -10,14 +10,14 @@ import java.io.IOException;
 
 import fr.eni.enchere.bll.exception.BLLException;
 import fr.eni.enchere.bll.manager.UtilisateurManager;
-import fr.eni.enchere.bll.sing.UtilisateurManagerSing;
+import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.Utilisateur;
 
 /**
  * Servlet implementation class ModifyProfilServlet
  */
 public class ModifyProfilServlet extends HttpServlet {
-	private UtilisateurManager manager = UtilisateurManagerSing.getInstance();
+	private UtilisateurManager manager = ManagerSing.getInstanceUtilisateur();
 	private static final long serialVersionUID = 1L;
 	
 	/**

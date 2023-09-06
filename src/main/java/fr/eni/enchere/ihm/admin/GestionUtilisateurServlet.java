@@ -8,8 +8,7 @@ import java.io.IOException;
 
 import fr.eni.enchere.bll.manager.AdminManager;
 import fr.eni.enchere.bll.manager.UtilisateurManager;
-import fr.eni.enchere.bll.sing.AdminManagerSing;
-import fr.eni.enchere.bll.sing.UtilisateurManagerSing;
+import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.Utilisateur;
 
 /**
@@ -17,8 +16,8 @@ import fr.eni.enchere.bo.Utilisateur;
  */
 public class GestionUtilisateurServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurManager manager = UtilisateurManagerSing.getInstance();
-	private AdminManager managerAdmin = AdminManagerSing.getInstance();
+	private UtilisateurManager manager = ManagerSing.getInstanceUtilisateur();
+	private AdminManager managerAdmin = ManagerSing.getInstanceAdmin();
        
     /**
      * @see HttpServlet#HttpServlet()

@@ -6,15 +6,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import org.apache.catalina.Manager;
-
 import fr.eni.enchere.bll.exception.BLLException;
-import fr.eni.enchere.bll.manager.AdminManager;
-import fr.eni.enchere.bll.manager.EnchereManager;
+import fr.eni.enchere.bll.manager.CategorieManager;
 import fr.eni.enchere.bll.manager.UtilisateurManager;
-import fr.eni.enchere.bll.sing.AdminManagerSing;
-import fr.eni.enchere.bll.sing.EnchereSing;
-import fr.eni.enchere.bll.sing.UtilisateurManagerSing;
+import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.dal.exception.DALException;
@@ -24,8 +19,8 @@ import fr.eni.enchere.dal.exception.DALException;
  */
 public class GestionCategorieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private EnchereManager managerEnchere = EnchereSing.getInstance();
-	private UtilisateurManager managerUtilisateur = UtilisateurManagerSing.getInstance();
+	private CategorieManager managerCategorie = ManagerSing.getInstanceCategorie();
+	private UtilisateurManager managerUtilisateur = ManagerSing.getInstanceUtilisateur();
 	
        
     /**
@@ -42,8 +37,8 @@ public class GestionCategorieServlet extends HttpServlet {
 		Boolean isAdmin = ((Utilisateur) request.getSession().getAttribute("user")).getAdministrateur();
 		if (isAdmin) {
 			try {
-				System.out.println(managerEnchere.getAllCategorie());
-				request.setAttribute("categories", managerEnchere.getAllCategorie());
+				System.out.println(managerCategorie.getAllCategorie());
+				request.setAttribute("categories", managerCategorie.getAllCategorie());
 			} catch (DALException e) {
 				e.printStackTrace();
 			}
@@ -69,7 +64,7 @@ public class GestionCategorieServlet extends HttpServlet {
 				doRemove(request,response);
 			}
 			try {
-				request.setAttribute("categories", managerEnchere.getAllCategorie());
+				request.setAttribute("categories", managerCategorie.getAllCategorie());
 			} catch (DALException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -83,8 +78,8 @@ public class GestionCategorieServlet extends HttpServlet {
 	private void doAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Categorie categorie = new Categorie(request.getParameter("libelleCategorie"));
 		try {
-			managerEnchere.addCategorie(categorie);
-			request.setAttribute("categories", managerEnchere.getAllCategorie());
+			managerCategorie.addCategorie(categorie);
+			request.setAttribute("categories", managerCategorie.getAllCategorie());
 			request.setAttribute("message", "La catégorie " + categorie.getLibelle() + " à été ajouter.");
 		} catch (DALException e) {
 			e.printStackTrace();
@@ -96,7 +91,7 @@ public class GestionCategorieServlet extends HttpServlet {
 		Categorie categorie = new Categorie(request.getParameter("libelleCategorie"));
 		Integer noCategorie = Integer.parseInt(request.getParameter("idCat"));
 		try {
-			managerEnchere.updateCategorie(categorie, noCategorie);
+			managerCategorie.updateCategorie(categorie, noCategorie);
 			request.setAttribute("message", "La catégorie " + request.getParameter("libelleCategorie") + " à été modifier.");
 		} catch (DALException e) {
 			e.printStackTrace();
@@ -107,7 +102,7 @@ public class GestionCategorieServlet extends HttpServlet {
 		Integer noCategorie = Integer.parseInt(request.getParameter("idCat"));
 
 		try {
-			managerEnchere.removeCategorie(noCategorie);
+			managerCategorie.removeCategorie(noCategorie);
 			request.setAttribute("message", "La catégorie " + request.getParameter("libelleCategorie") + " à été supprimer.");
 		} catch (BLLException e) {
 			request.setAttribute("message", e.getMessage());
