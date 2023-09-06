@@ -12,7 +12,6 @@ import fr.eni.enchere.ihm.model.AccueilModel;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -46,6 +45,8 @@ public class AccueilServlet extends HttpServlet {
 		Locale.setDefault(request.getLocale());
 		ResourceBundle bundle = ResourceBundle.getBundle("fr.eni.enchere.bundles.message", request.getLocale());
 		
+		AccueilModel model = new AccueilModel();
+
 		try {
 			model.setLstCategories(managerCategorie.getAllCategorie());
 		} catch (Exception e) {

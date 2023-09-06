@@ -68,7 +68,6 @@ public class VenteEnchereServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
 		
 		ArticleVendu articleVendu = new ArticleVendu();

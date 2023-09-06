@@ -47,6 +47,26 @@
     <servlet-name>VenteEnchereServlet</servlet-name>
     <url-pattern>/VenteEnchereServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CreerEnchereServlet</display-name>
+    <servlet-name>CreerEnchereServlet</servlet-name>
+    <servlet-class>fr.eni.enchere.ihm.enchere.CreerEnchereServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreerEnchereServlet</servlet-name>
+    <url-pattern>/CreerEnchereServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FaireEnchereServlet</display-name>
+    <servlet-name>FaireEnchereServlet</servlet-name>
+    <servlet-class>fr.eni.enchere.ihm.enchere.FaireEnchereServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FaireEnchereServlet</servlet-name>
+    <url-pattern>/FaireEnchereServlet</url-pattern>
+  </servlet-mapping>
   <filter>
     <display-name>EnchereFilter</display-name>
     <filter-name>EnchereFilter</filter-name>

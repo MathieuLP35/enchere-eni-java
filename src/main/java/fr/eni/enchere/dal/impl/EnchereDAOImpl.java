@@ -30,7 +30,8 @@ public class EnchereDAOImpl implements EnchereDAO {
 	
 	
 	final String INSERT_ENCHERES = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,?,?)";
-
+	
+	
 
 	@Override
 	public void insertEnchere(Enchere enchere) throws DALException {
@@ -85,8 +86,4 @@ public class EnchereDAOImpl implements EnchereDAO {
 	}
 
 	
-
-
-	
-
 }

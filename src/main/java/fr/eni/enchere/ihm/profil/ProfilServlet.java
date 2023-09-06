@@ -38,8 +38,8 @@ public class ProfilServlet extends HttpServlet {
 
             if (user != null) {
                 // Vous pouvez maintenant accéder aux propriétés de l'utilisateur
-
-    			request.setAttribute("pseudo", "pseudo");
+    			
+            	request.setAttribute("pseudo", "pseudo");
     			request.setAttribute("prenom", "prenom");
     			request.setAttribute("nom", "nom");
     			request.setAttribute("email", "email");
