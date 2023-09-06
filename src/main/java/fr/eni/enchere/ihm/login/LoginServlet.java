@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
         }
         else {
         	if(request.getParameter("rememberMe") != null) {
-        		Cookie rememberMeCookie = new Cookie("rememberMe", "true");
+        		Cookie rememberMeCookie = new Cookie("rememberMe", String.valueOf(user.getNoUtilisateur()));
         		rememberMeCookie.setMaxAge(30*24*60*60);
         		response.addCookie(rememberMeCookie);
         	}

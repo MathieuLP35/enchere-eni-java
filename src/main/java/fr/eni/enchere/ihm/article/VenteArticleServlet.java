@@ -54,7 +54,7 @@ public class VenteArticleServlet extends HttpServlet {
 		retraitUserRetrait.setVille(utilisateur.getVille());
 		
 		model.setLieuRetrait(retraitUserRetrait);
-		
+		model.setMessage("");
 		try {
 			model.setLstCategories(managerCategorie.getAllCategorie());
 		} catch (Exception e) {
@@ -77,6 +77,7 @@ public class VenteArticleServlet extends HttpServlet {
 		articleVendu.setNomArticle(request.getParameter("nomArticle"));
 		articleVendu.setDescription(request.getParameter("description"));
 		Categorie categorie = new Categorie();
+		System.out.println(request.getParameter("categorie"));
 		categorie.setNoCategorie(Integer.parseInt(request.getParameter("categorie")));
 		articleVendu.setCategorie(categorie);
 		articleVendu.setDateDebutEnchere(Date.valueOf(request.getParameter("dateDebutEnchere")));

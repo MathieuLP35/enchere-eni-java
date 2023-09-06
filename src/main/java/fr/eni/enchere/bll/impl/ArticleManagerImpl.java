@@ -40,4 +40,10 @@ public class ArticleManagerImpl implements ArticleManager {
 	public ArticleVendu insertPrixArticleVendu(Enchere enchere, Integer montant) throws DALException {
 		return dao.insertPrixArticleVendu(enchere, montant);
 	}
+
+	@Override
+	public ArticleVendu updateMontantArticleVendu(ArticleVendu articleVendu, Integer montant) throws DALException {
+		// TODO Auto-generated method stub
+		return dao.updateMontantArticleVendu(articleVendu, montant);
+	}
 }

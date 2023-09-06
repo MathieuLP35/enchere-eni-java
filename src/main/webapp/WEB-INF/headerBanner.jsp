@@ -9,7 +9,7 @@
     <body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container mt-5 bg-white rounded p-4 shadow">
-				<a class="navbar-brand" href="${pageContext.request.contextPath}/AccueilServlet">ENI-Enchère</a>
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/AccueilServlet">ENI-EnchÃ¨re</a>
 			    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 			        <ul class="navbar-nav">
 						<c:if test="${user == null}">
@@ -22,7 +22,7 @@
 						</c:if>
 						<c:if test="${user != null}">
 							<li class="nav-item">
-								<a class="nav-link">Bienvenue ${user.prenom} ${user.nom } (${user.credit} crédits)</a>
+								<a class="nav-link">Bienvenue ${user.prenom} ${user.nom } (${user.credit} crÃ©dits)</a>
 							</li>
 							<c:if test="${user.administrateur}">
 								<div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
@@ -33,14 +33,14 @@
 							          </button>
 							          <ul class="dropdown-menu dropdown-menu-light">
 							            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/GestionUtilisateurServlet">Gestion utilisateur</a></li>
-							            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/GestionCategorieServlet">Gestion catégorie</a></li>
+							            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/GestionCategorieServlet">Gestion catÃ©gorie</a></li>
 							          </ul>
 							        </li>
 							      </ul>
 							    </div>
 							</c:if>
 			                <li class="nav-item">
-			                     <a class="nav-link" href="${pageContext.request.contextPath}/FaireEnchereServlet">Enchère</a>
+			                     <a class="nav-link" href="${pageContext.request.contextPath}/FaireEnchereServlet">EnchÃ¨re</a>
 			                </li>
 			                <li>
 			                     <a class="nav-link" href="${pageContext.request.contextPath}/VenteEnchereServlet">Vendre un article</a>
@@ -49,7 +49,7 @@
 			                     <a class="nav-link" href="${pageContext.request.contextPath}/ProfilServlet">Mon Profil</a>
 							</li>    
 							<li>
-			                     <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">Déconnexion</a>
+			                     <a class="nav-link" href="${pageContext.request.contextPath}/LogoutServlet">DÃ©connexion</a>
 							</li> 				            
 						</c:if>
 			        </ul>

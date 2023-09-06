@@ -18,7 +18,7 @@
 		<c:if test="${model.message != ''}">
 			<div class="alert alert-primary my-2" role="alert">${model.message}</div>
 		</c:if>
-		<form action="VenteEnchereServlet" method="post"
+		<form action="VenteArticleServlet" method="post"
 			enctype='multipart/form-data'>
 			<div class="form-group row mb-3">
 				<label for="nomArticle" class="col-sm-2 col-form-label">Article</label>

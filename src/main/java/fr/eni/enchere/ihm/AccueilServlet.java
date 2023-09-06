@@ -1,9 +1,11 @@
 package fr.eni.enchere.ihm;
 
 import java.io.IOException;
+import java.net.CookieStore;
 
 import fr.eni.enchere.bll.manager.ArticleManager;
 import fr.eni.enchere.bll.manager.CategorieManager;
+import fr.eni.enchere.bll.manager.UtilisateurManager;
 import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.dal.exception.DALException;
@@ -14,6 +16,7 @@ import java.util.ResourceBundle;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +29,7 @@ public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CategorieManager managerCategorie = ManagerSing.getInstanceCategorie();
 	private ArticleManager managerArticleVendu = ManagerSing.getInstanceArticle();
+	private UtilisateurManager managerUtilisateur = ManagerSing.getInstanceUtilisateur();
 	
 	
 	AccueilModel model = new AccueilModel();
@@ -47,6 +51,18 @@ public class AccueilServlet extends HttpServlet {
 		
 		AccueilModel model = new AccueilModel();
 
+		Cookie[] cookies = request.getCookies();
+		
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals("rememberMe")) {
+					String rememberMeValue = cookie.getValue();
+					Utilisateur utilisateur = managerUtilisateur.checkIdUser(Integer.parseInt(rememberMeValue));
+					request.getSession().setAttribute("user", utilisateur);
+				}
+			}
+		}
+		
 		try {
 			model.setLstCategories(managerCategorie.getAllCategorie());
 		} catch (Exception e) {
