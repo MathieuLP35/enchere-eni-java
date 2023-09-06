@@ -45,12 +45,14 @@
                         	<c:if test="${!u.administrateur}"><span class="text-danger">Non</span></c:if>
 						</td>
                         <td>
-							<form action="GestionUtilisateurServlet" method="post" class="d-flex flex-nowrap">
-								<input type="hidden" name="idUser" value="${u.noUtilisateur}" />
-								<c:if test="${u.isActive}"><button href="#" class="btn btn-warning mx-1" name="BT_DESACTIVATE">Désactiver</button></c:if>
-								<c:if test="${!u.isActive}"><button href="#" class="btn btn-primary mx-1" name="BT_DESACTIVATE">Activer</button></c:if>
-	                            <button href="#" class="btn btn-danger mx-1" name="BT_REMOVE">Supprimer</button>
-							</form>
+	                        <c:if test="${u.noUtilisateur != idUtilisateur}">
+								<form action="GestionUtilisateurServlet" method="post" class="d-flex flex-nowrap">
+									<input type="hidden" name="idUser" value="${u.noUtilisateur}" />
+									<c:if test="${u.isActive}"><button href="#" class="btn btn-warning mx-1" name="BT_DESACTIVATE">Désactiver</button></c:if>
+									<c:if test="${!u.isActive}"><button href="#" class="btn btn-primary mx-1" name="BT_DESACTIVATE">Activer</button></c:if>
+		                            <button href="#" class="btn btn-danger mx-1" name="BT_REMOVE">Supprimer</button>
+								</form>
+							</c:if>
                         </td>
                     </tr>
                 </c:forEach>

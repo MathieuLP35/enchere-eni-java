@@ -31,7 +31,9 @@ public class GestionUtilisateurServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Boolean isAdmin = ((Utilisateur) request.getSession().getAttribute("user")).getAdministrateur();
+		Integer idUtilisateur = ((Utilisateur) request.getSession().getAttribute("user")).getNoUtilisateur();
 		if (isAdmin) {
+			request.setAttribute("idUtilisateur", idUtilisateur);
 			request.setAttribute("users", manager.getAllUser());
 			request.getRequestDispatcher("/WEB-INF/admin/gestionUtilisateur.jsp").forward(request, response);
 		} else {
