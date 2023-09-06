@@ -23,7 +23,15 @@ public class ArticleDAOImpl implements ArticleDAO {
 	final String INSERT_ARTICLES_VENDUS = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, lienImg) VALUES (?,?,?,?,?,?,?,?,?)";
 	
 
-	final String SELECT_BY_ID_ARTICLES_VENDUS = "SELECT nom_article as nomArticle, description, date_debut_encheres AS dateDebutEnchere, date_fin_encheres AS dateFinEnchere, prix_initial as prixInitial, prix_vente as prixVente, lienImg, no_utilisateur, no_categorie FROM ARTICLES_VENDUS WHERE no_article = ?";
+	final String SELECT_BY_ID_ARTICLES_VENDUS = """
+			
+			SELECT nom_article as nomArticle, description, date_debut_encheres AS dateDebutEnchere, date_fin_encheres AS dateFinEnchere, prix_initial as prixInitial, prix_vente as prixVente, lienImg FROM ARTICLES_VENDUS
+			INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur
+		 	INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie
+		 	INNER JOIN RETRAITS ON ARTICLES_VENDUS.no_article = RETRAITS.no_article
+			WHERE ARTICLES_VENDUS.no_article = ?
+			
+			""";
 
 	final String SELECT_ARTICLES_VENDUS = """
 			SELECT ARTICLES_VENDUS.no_article, nom_article as nomArticle, description, date_debut_encheres AS dateDebutEnchere, date_fin_encheres AS dateFinEnchere, prix_initial as prixInitial, prix_vente as prixVente, lienImg, UTILISATEURS.*, CATEGORIES.*, RETRAITS.* FROM ARTICLES_VENDUS
@@ -61,6 +69,11 @@ public class ArticleDAOImpl implements ArticleDAO {
 			while(rs.next()) {
 				articleVendu = new ArticleVendu(rs.getString("nomArticle"), rs.getString("description"), rs.getDate("dateDebutEnchere"), rs.getDate("dateFinEnchere"),
 						rs.getInt("prixInitial"), rs.getInt("prixVente"), rs.getString("lienImg"));
+				articleVendu.setNoArticle(rs.getInt("no_article"));
+				articleVendu.setLstEncheres(getAllEnchereByArticle(articleVendu.getNoArticle()));
+				articleVendu.setUtilisateur(getUtilisateurByArticle(articleVendu.getNoArticle()));
+				articleVendu.setLieuRetrait(getLieuRetraitByArticle(articleVendu.getNoArticle()));
+				articleVendu.setCategorie(getCategorieByArticle(articleVendu.getNoArticle()));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

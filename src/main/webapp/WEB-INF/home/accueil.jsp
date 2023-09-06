@@ -167,5 +167,6 @@
 			achat3.checked = false;
 		});
 	</script>
+
 </body>
 </html>
