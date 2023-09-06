@@ -11,17 +11,8 @@ import fr.eni.enchere.dal.exception.DALException;
 
 
 public interface EnchereDAO {
-
-	public void insertArticleVendu(ArticleVendu articleVendu) throws DALException;
-	public List<ArticleVendu> getAllArticleVendu() throws DALException;
-	public ArticleVendu findByIdArticle(Integer idArticle) throws DALException;
-	public void insertCategorie(Categorie categorie) throws DALException;
-	public List<Categorie> getAllCategorie() throws DALException;
-	public Categorie findByIdCategorie(Integer idCategorie) throws DALException;
-	public void insertRetrait(Retrait retrait, ArticleVendu articleVendu) throws DALException;
-	public List<Retrait> getAllRetrait() throws DALException;
-	public Retrait findByIdRetrait(Integer idRetrait) throws DALException;
+	
 	public void insertEnchere(Enchere enchere) throws DALException;
 	public List<Enchere> getAllEnchere() throws DALException;
-	public ArticleVendu insertPrixArticleVendu(Enchere enchere, Integer montant) throws DALException;
+
 }

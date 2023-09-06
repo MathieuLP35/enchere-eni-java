@@ -1,6 +1,7 @@
 package fr.eni.enchere.bo;
 
 import java.util.Date;
+import java.util.List;
 
 public class ArticleVendu {
 	private Integer noArticle;
@@ -10,6 +11,7 @@ public class ArticleVendu {
 	private Date dateFinEnchere;
 	private Integer prixInitial;
 	private Integer prixVente;
+	private String lienImg;
 
 	private Categorie categorieArticle;
 	
@@ -17,12 +19,14 @@ public class ArticleVendu {
 	
 	private Retrait lieuRetrait;
 	
+	private List<Enchere> lstEncheres;
+	
 	public ArticleVendu() {
 		super();
 	}
 
 	public ArticleVendu(String nomArticle, String description, Date dateDebutEnchere, Date dateFinEnchere,
-			Integer prixInitial, Integer prixVente) {
+			Integer prixInitial, Integer prixVente, String lienImg) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -30,7 +34,7 @@ public class ArticleVendu {
 		this.dateFinEnchere = dateFinEnchere;
 		this.prixInitial = prixInitial;
 		this.prixVente = prixVente;
-
+		this.lienImg = lienImg;
 	}
 
 	public Integer getNoArticle() {
@@ -115,11 +119,31 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 	}
 
+	public String getLienImg() {
+		return lienImg;
+	}
+
+	public void setLienImg(String lienImg) {
+		this.lienImg = lienImg;
+	}
+
+	public List<Enchere> getLstEncheres() {
+		return lstEncheres;
+	}
+
+	public void setLstEncheres(List<Enchere> lstEncheres) {
+		this.lstEncheres = lstEncheres;
+	}
+
 	@Override
 	public String toString() {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEnchere=" + dateDebutEnchere + ", dateFinEnchere=" + dateFinEnchere + ", prixInitial="
-				+ prixInitial + ", prixVente=" + prixVente + "]";
+				+ prixInitial + ", prixVente=" + prixVente + ", lienImg=" + lienImg + ", categorieArticle="
+				+ categorieArticle + ", utilisateur=" + utilisateur + ", lieuRetrait=" + lieuRetrait + ", lstEncheres="
+				+ lstEncheres + "]";
 	}
+
+	
 	
 }

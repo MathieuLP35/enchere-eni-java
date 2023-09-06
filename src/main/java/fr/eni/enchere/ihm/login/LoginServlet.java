@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import fr.eni.enchere.bll.manager.UtilisateurManager;
-import fr.eni.enchere.bll.sing.UtilisateurManagerSing;
+import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.Utilisateur;
 
 /**
@@ -19,7 +19,7 @@ import fr.eni.enchere.bo.Utilisateur;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private UtilisateurManager manager = UtilisateurManagerSing.getInstance();
+    private UtilisateurManager manager = ManagerSing.getInstanceUtilisateur();
     
 
     /**
@@ -27,8 +27,8 @@ public class LoginServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
-    	Locale.setDefault(request.getLocale());
-		ResourceBundle bundle = ResourceBundle.getBundle("fr.eni.enchere.bundles.message", request.getLocale());
+    	//Locale.setDefault(request.getLocale());
+		//ResourceBundle bundle = ResourceBundle.getBundle("fr.eni.enchere.bundles.message", request.getLocale());
     	
         request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
     }

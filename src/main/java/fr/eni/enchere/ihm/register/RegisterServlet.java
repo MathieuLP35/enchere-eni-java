@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import fr.eni.enchere.bll.exception.BLLException;
 import fr.eni.enchere.bll.manager.UtilisateurManager;
-import fr.eni.enchere.bll.sing.UtilisateurManagerSing;
+import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.Utilisateur;
 
 /**
@@ -18,7 +18,7 @@ import fr.eni.enchere.bo.Utilisateur;
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurManager manager = UtilisateurManagerSing.getInstance();
+	private UtilisateurManager manager = ManagerSing.getInstanceUtilisateur();
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -41,10 +41,13 @@ public class RegisterServlet extends HttpServlet {
 		
 		if (login == null || login.isBlank()) {
 			request.setAttribute("message", "Le login doit être rempli");
+			persistentRegisterInfos(request);
 		} else if (password == null || password.isBlank()) {
 			request.setAttribute("message", "Le mot de passe doit être rempli");
+			persistentRegisterInfos(request);
 		} else if (!password.equals(confirmPassword)) {
 			request.setAttribute("message", "Le mot de passe doit être identique au mot de passe de confirmation");
+			persistentRegisterInfos(request);
 		} else {
 			try {
 				Utilisateur utilisateur = new Utilisateur(
@@ -61,6 +64,7 @@ public class RegisterServlet extends HttpServlet {
 					    false, // Un nouvel utilisateur ne devrait pas être un administrateur par défaut
 					    true // Un nouvel utilisateur est activer par default. 
 				 );
+				
 				manager.addUser(utilisateur);
 				// On met l'utilisateur en session
 	            request.getSession().setAttribute("user", utilisateur);
@@ -74,6 +78,17 @@ public class RegisterServlet extends HttpServlet {
 		}
 
 		request.getRequestDispatcher("/WEB-INF/user/register.jsp").forward(request, response);
+	}
+
+	private void persistentRegisterInfos(HttpServletRequest request) {
+		request.setAttribute("pseudo", request.getParameter("pseudo"));
+		request.setAttribute("prenom", request.getParameter("prenom"));
+		request.setAttribute("nom", request.getParameter("nom"));
+		request.setAttribute("email", request.getParameter("email"));
+		request.setAttribute("telephone", request.getParameter("telephone"));
+		request.setAttribute("rue", request.getParameter("rue"));
+		request.setAttribute("codePostal", request.getParameter("codePostal"));
+		request.setAttribute("ville", request.getParameter("ville"));
 	}
 
 }

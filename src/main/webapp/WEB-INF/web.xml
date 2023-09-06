@@ -23,6 +23,10 @@
     <servlet-name>GestionCategorieServlet</servlet-name>
     <servlet-class>fr.eni.enchere.ihm.admin.GestionCategorieServlet</servlet-class>
   </servlet>
+   <servlet-mapping>
+    <servlet-name>GestionCategorieServlet</servlet-name>
+    <url-pattern>/GestionCategorieServlet</url-pattern>
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>ModifyProfilServlet</display-name>
@@ -63,4 +67,14 @@
     <servlet-name>FaireEnchereServlet</servlet-name>
     <url-pattern>/FaireEnchereServlet</url-pattern>
   </servlet-mapping>
+  <filter>
+    <display-name>EnchereFilter</display-name>
+    <filter-name>EnchereFilter</filter-name>
+    <filter-class>fr.eni.enchere.ihm.filter.EnchereFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>EnchereFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
 </web-app>

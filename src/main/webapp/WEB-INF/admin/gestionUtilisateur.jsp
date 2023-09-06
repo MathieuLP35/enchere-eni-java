@@ -8,17 +8,19 @@
 	<title>Administration - Gestion utilisateur</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
-<body>
+<body class="bg-light">
 	<jsp:include page="../headerBanner.jsp"/>
-    <div class="container mt-5">
-    	${message}
+    <div class="container mt-5 bg-white rounded p-4 shadow">
+		<c:if test="${message != null}">
+			<div class="alert alert-primary my-2" role="alert">${message}</div>
+		</c:if>
         <table class="table mt-5">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Pseudo</th>
                     <th scope="col">Nom</th>
-                    <th scope="col">Prenom</th>
+                    <th scope="col">Prénom</th>
                     <th scope="col">Email</th>
                     <th scope="col">Téléphone</th>
                     <th scope="col">Adresse</th>

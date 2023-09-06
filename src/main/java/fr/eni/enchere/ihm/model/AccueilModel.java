@@ -3,6 +3,7 @@ package fr.eni.enchere.ihm.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.enchere.bo.ArticleVendu;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Enchere;
 
@@ -10,16 +11,16 @@ public class AccueilModel {
 	
 	private String message = "";
 	private List<Categorie> lstCategories = new ArrayList<>();
-	private List<Enchere> lstEncheres = new ArrayList<>();
+	private List<ArticleVendu> lstArticlesVendus = new ArrayList<>();
 	
 
 	public AccueilModel() {}
 	
-	public AccueilModel(String message, List<Categorie> lstCategories, List<Enchere> lstEncheres) {
+	public AccueilModel(String message, List<Categorie> lstCategories, List<ArticleVendu> lstArticlesVendus) {
 		super();
 		this.message = message;
 		this.lstCategories = lstCategories;
-		this.lstEncheres = lstEncheres;
+		this.lstArticlesVendus = lstArticlesVendus;
 	}
 
 	public List<Categorie> getLstCategories() {
@@ -38,11 +39,11 @@ public class AccueilModel {
 		this.message = message;
 	}
 
-	public List<Enchere> getLstEncheres() {
-		return lstEncheres;
+	public List<ArticleVendu> getLstArticlesVendus() {
+		return lstArticlesVendus;
 	}
 
-	public void setLstEncheres(List<Enchere> lstEncheres) {
-		this.lstEncheres = lstEncheres;
+	public void setLstArticlesVendus(List<ArticleVendu> lstArticlesVendus) {
+		this.lstArticlesVendus = lstArticlesVendus;
 	}
 }

@@ -6,8 +6,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import fr.eni.enchere.bll.manager.ArticleManager;
 import fr.eni.enchere.bll.manager.EnchereManager;
-import fr.eni.enchere.bll.sing.EnchereSing;
+import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.ArticleVendu;
 import fr.eni.enchere.bo.Enchere;
 
@@ -17,7 +18,7 @@ import fr.eni.enchere.dal.exception.DALException;
  * Servlet implementation class FaireEnchereServlet
  */
 public class FaireEnchereServlet extends HttpServlet {
-	private EnchereManager manager = EnchereSing.getInstance();
+	private ArticleManager managerArticle = ManagerSing.getInstanceArticle();
 
 	private static final long serialVersionUID = 1L;
 	
@@ -43,7 +44,7 @@ public class FaireEnchereServlet extends HttpServlet {
         int productId = Integer.parseInt(request.getParameter("id"));
         ArticleVendu articleVendu = null;
         try {
-			articleVendu = manager.findByIdArticleVendu(productId);
+			articleVendu = managerArticle.findByIdArticleVendu(productId);
 			System.out.println(articleVendu);
 			request.setAttribute("idArticle", articleVendu.getNoArticle());
 			request.setAttribute("nomArticle", articleVendu.getNomArticle());
@@ -53,9 +54,9 @@ public class FaireEnchereServlet extends HttpServlet {
 			request.setAttribute("prixInitial", articleVendu.getPrixInitial());
 			request.setAttribute("debutEnchere", articleVendu.getDateDebutEnchere());
 			request.setAttribute("finEnchere", articleVendu.getDateFinEnchere());
-//			request.setAttribute("lieuRetraitRue", articleVendu.getLieuRetrait().getRue());
-//			request.setAttribute("lieuRetraitCP", articleVendu.getLieuRetrait().getCodePostal());
-//			request.setAttribute("lieuRetraitVille", articleVendu.getLieuRetrait().getVille());
+			request.setAttribute("lieuRetraitRue", articleVendu.getLieuRetrait().getRue());
+			request.setAttribute("lieuRetraitCP", articleVendu.getLieuRetrait().getCodePostal());
+			request.setAttribute("lieuRetraitVille", articleVendu.getLieuRetrait().getVille());
 			request.setAttribute("utilisateur", articleVendu.getUtilisateur());
 			System.out.println(articleVendu.getUtilisateur().getNoUtilisateur());
 			
