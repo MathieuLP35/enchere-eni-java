@@ -93,7 +93,7 @@
 				</div>
 		</form>
 		<div class="row mt-5">
-			<c:forEach items="${model.lstEncheres}" var="enchere">
+			<c:forEach items="${model.lstArticlesVendus}" var="article">
 				<div class="card p-2 col-sm-5 m-2">
 					<div class="row">
 						<div class="col">
@@ -102,15 +102,15 @@
 						</div>
 						<div class="col">
 							<div class="card-body">
-								<h5 class="card-title text-decoration-underline"></form><a href="FaireEnchereServlet/${enchere.noEnchere}">${enchere.articleVendu.nomArticle }</a></h5>
+								<h5 class="card-title text-decoration-underline"></form><a href="FaireEnchereServlet/${article.noArticle}">${article.nomArticle }</a></h5>
 								<p class="card-text">Prix :
-									${enchere.articleVendu.prixVente}</p>
+									${article.prixVente}</p>
 								<p class="card-text">Début de l'enchère :
-									${enchere.articleVendu.dateDebutEnchere}</p>
+									${article.dateDebutEnchere}</p>
 								<p class="card-text">Fin de l'enchère :
-									${enchere.articleVendu.dateFinEnchere}</p>
-								<p class="card-text">Vendeur : ${enchere.user.nom }
-									${enchere.user.prenom}</p>
+									${article.dateFinEnchere}</p>
+								<p class="card-text">Vendeur : ${article.utilisateur.nom }
+									${article.utilisateur.prenom}</p>
 							</div>
 						</div>
 					</div>

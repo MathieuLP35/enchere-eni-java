@@ -2,17 +2,16 @@ package fr.eni.enchere.ihm;
 
 import java.io.IOException;
 
-import fr.eni.enchere.bll.manager.EnchereManager;
-import fr.eni.enchere.bll.sing.EnchereSing;
+import fr.eni.enchere.bll.manager.ArticleManager;
+import fr.eni.enchere.bll.manager.CategorieManager;
+import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.dal.exception.DALException;
 import fr.eni.enchere.ihm.model.AccueilModel;
 
-import java.nio.file.Path;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import org.eclipse.tags.shaded.org.apache.xpath.operations.And;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,7 +25,9 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/AccueilServlet")
 public class AccueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private EnchereManager manager = EnchereSing.getInstance();
+	private CategorieManager managerCategorie = ManagerSing.getInstanceCategorie();
+	private ArticleManager managerArticleVendu = ManagerSing.getInstanceArticle();
+	
 	
 	AccueilModel model = new AccueilModel();
 
@@ -46,13 +47,13 @@ public class AccueilServlet extends HttpServlet {
 		ResourceBundle bundle = ResourceBundle.getBundle("fr.eni.enchere.bundles.message", request.getLocale());
 		
 		try {
-			model.setLstCategories(manager.getAllCategorie());
+			model.setLstCategories(managerCategorie.getAllCategorie());
 		} catch (Exception e) {
 			model.setMessage(e.getMessage());
 		}
 		
 		try {
-			model.setLstEncheres(manager.getAllEnchere());
+			model.setLstArticlesVendus(managerArticleVendu.getAllArticleVendu());
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.setMessage(e.getMessage());
@@ -83,13 +84,13 @@ public class AccueilServlet extends HttpServlet {
 		}
 		
 		try {
-			model.setLstCategories(manager.getAllCategorie());
+			model.setLstCategories(managerCategorie.getAllCategorie());
 		} catch (Exception e) {
 			model.setMessage(e.getMessage());
 		}
 		
 		try {
-			model.setLstEncheres(manager.getEncheresFilter(idCat, nomArticle, 
+			model.setLstArticlesVendus(managerArticleVendu.getArticlesFilter(idCat, nomArticle, 
 					enchereOuverteFilter, enchereEnCoursFilter, enchereRemporterFilter, 
 					venteEnchereEnCours, venteEnchereNonDébutées, venteEnchereTerminées, idUtilisateur));
 		} catch (NumberFormatException e) {

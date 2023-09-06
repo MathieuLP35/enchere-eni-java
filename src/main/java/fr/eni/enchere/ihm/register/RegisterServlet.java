@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import fr.eni.enchere.bll.exception.BLLException;
 import fr.eni.enchere.bll.manager.UtilisateurManager;
-import fr.eni.enchere.bll.sing.UtilisateurManagerSing;
+import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.Utilisateur;
 
 /**
@@ -18,7 +18,7 @@ import fr.eni.enchere.bo.Utilisateur;
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UtilisateurManager manager = UtilisateurManagerSing.getInstance();
+	private UtilisateurManager manager = ManagerSing.getInstanceUtilisateur();
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse

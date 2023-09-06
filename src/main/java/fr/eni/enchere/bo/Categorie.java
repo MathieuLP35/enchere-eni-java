@@ -1,8 +1,11 @@
 package fr.eni.enchere.bo;
 
+import java.util.List;
+
 public class Categorie {
 	private Integer noCategorie;
 	private String libelle;
+	private List<ArticleVendu> lstArticleVendus;
 	
 	public Categorie() {
 		super();
@@ -25,10 +28,18 @@ public class Categorie {
 		this.libelle = libelle;
 	}
 	
+	public List<ArticleVendu> getLstArticleVendus() {
+		return lstArticleVendus;
+	}
+	public void setLstArticleVendus(List<ArticleVendu> lstArticleVendus) {
+		this.lstArticleVendus = lstArticleVendus;
+	}
 	@Override
 	public String toString() {
-		return "Categorie [noCategorie=" + noCategorie + ", libelle=" + libelle + "]";
+		return "Categorie [noCategorie=" + noCategorie + ", libelle=" + libelle + ", lstArticleVendus="
+				+ lstArticleVendus + "]";
 	}
+	
 	
 	
 }

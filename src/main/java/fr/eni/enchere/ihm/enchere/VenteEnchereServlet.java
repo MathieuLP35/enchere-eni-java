@@ -1,24 +1,17 @@
 package fr.eni.enchere.ihm.enchere;
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.nio.file.Paths;
 import java.sql.Date;
-import java.time.LocalDateTime;
-
-import fr.eni.enchere.bll.manager.EnchereManager;
-import fr.eni.enchere.bll.sing.EnchereSing;
+import fr.eni.enchere.bll.manager.ArticleManager;
+import fr.eni.enchere.bll.manager.CategorieManager;
+import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.ArticleVendu;
 import fr.eni.enchere.bo.Categorie;
 import fr.eni.enchere.bo.Retrait;
@@ -35,7 +28,8 @@ import fr.eni.enchere.ihm.model.VenteArticleModel;
 )
 public class VenteEnchereServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private EnchereManager manager = EnchereSing.getInstance();
+	private ArticleManager managerArticle = ManagerSing.getInstanceArticle();
+	private CategorieManager managerCategorie = ManagerSing.getInstanceCategorie();
 	private VenteArticleModel model = new VenteArticleModel();
     /**
      * @see HttpServlet#HttpServlet()
@@ -60,7 +54,7 @@ public class VenteEnchereServlet extends HttpServlet {
 		model.setLieuRetrait(retraitUserRetrait);
 		
 		try {
-			model.setLstCategories(manager.getAllCategorie());
+			model.setLstCategories(managerCategorie.getAllCategorie());
 		} catch (Exception e) {
 			model.setMessage(e.getMessage());
 		}
@@ -78,8 +72,6 @@ public class VenteEnchereServlet extends HttpServlet {
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
 		
 		ArticleVendu articleVendu = new ArticleVendu();
-		
-		String message = "";
 		 
 		articleVendu.setNomArticle(request.getParameter("nomArticle"));
 		articleVendu.setDescription(request.getParameter("description"));
@@ -111,7 +103,7 @@ public class VenteEnchereServlet extends HttpServlet {
 		articleVendu.setLienImg(fileName);
 		
 		try {
-			manager.addArticle(articleVendu);
+			managerArticle.addArticle(articleVendu);
 			model.setMessage("Ajout d'article effectué");
 		} catch (Exception e) {
 			e.printStackTrace();

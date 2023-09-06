@@ -1,6 +1,7 @@
 package fr.eni.enchere.bo;
 
 import java.util.Date;
+import java.util.List;
 
 public class ArticleVendu {
 	private Integer noArticle;
@@ -18,6 +19,8 @@ public class ArticleVendu {
 	
 	private Retrait lieuRetrait;
 	
+	private List<Enchere> lstEncheres;
+	
 	public ArticleVendu() {
 		super();
 	}
@@ -32,7 +35,6 @@ public class ArticleVendu {
 		this.prixInitial = prixInitial;
 		this.prixVente = prixVente;
 		this.lienImg = lienImg;
-
 	}
 
 	public Integer getNoArticle() {
@@ -125,11 +127,23 @@ public class ArticleVendu {
 		this.lienImg = lienImg;
 	}
 
+	public List<Enchere> getLstEncheres() {
+		return lstEncheres;
+	}
+
+	public void setLstEncheres(List<Enchere> lstEncheres) {
+		this.lstEncheres = lstEncheres;
+	}
+
 	@Override
 	public String toString() {
 		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEnchere=" + dateDebutEnchere + ", dateFinEnchere=" + dateFinEnchere + ", prixInitial="
-				+ prixInitial + ", prixVente=" + prixVente + "]";
+				+ prixInitial + ", prixVente=" + prixVente + ", lienImg=" + lienImg + ", categorieArticle="
+				+ categorieArticle + ", utilisateur=" + utilisateur + ", lieuRetrait=" + lieuRetrait + ", lstEncheres="
+				+ lstEncheres + "]";
 	}
+
+	
 	
 }
