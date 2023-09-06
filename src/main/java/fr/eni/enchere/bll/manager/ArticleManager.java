@@ -15,6 +15,7 @@ public interface ArticleManager {
 			Boolean venteEnchereEnCours, Boolean venteEnchereNonDébutées, Boolean venteEnchereTerminées, Integer idUtilisateur) throws DALException;
 	public ArticleVendu insertPrixArticleVendu(Enchere enchere, Integer montant) throws DALException;
 	public ArticleVendu findByIdArticleVendu(Integer idArticle) throws DALException;
+	public ArticleVendu updateMontantArticleVendu(ArticleVendu articleVendu, Integer montant) throws DALException;
 	
 
 }

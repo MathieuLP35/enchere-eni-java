@@ -22,6 +22,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	
 	final String INSERT_ARTICLES_VENDUS = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, lienImg) VALUES (?,?,?,?,?,?,?,?,?)";
 	
+	final String INSERT_ENCHERES = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,?,?)";
 
 	final String SELECT_BY_ID_ARTICLES_VENDUS = """
 			
@@ -54,9 +55,9 @@ public class ArticleDAOImpl implements ArticleDAO {
 		    %s
 	""";
 	
-	final String UPDATE_PRIX_ARTICLES_VENDUS = "UPDATE ARTICLES_VENDUS SET prix_vente = ? WHERE no_article = ?";
+	final String UPDATE_MONTANT_ARTICLES_VENDUS = "UPDATE ARTICLES_VENDUS SET prix_vente = ? WHERE no_article = ?";
 
-	
+
 	@Override
 	public ArticleVendu findByIdArticle(Integer idArticle) throws DALException {
 
@@ -300,12 +301,34 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public ArticleVendu insertPrixArticleVendu(Enchere enchere, Integer montant) throws DALException {
 		
 	    try (Connection con = ConnectionProvider.getConnection()){
-	        PreparedStatement stmt = con.prepareStatement(UPDATE_PRIX_ARTICLES_VENDUS);
-	        stmt.setInt(1, montant);
+	        PreparedStatement stmt = con.prepareStatement(INSERT_ENCHERES);
+	        stmt.setInt(1, enchere.getUser().getNoUtilisateur());
+	        stmt.setInt(2, enchere.getArticleVendu().getNoArticle());	        
+	        stmt.setTimestamp(3, java.sql.Timestamp.valueOf(enchere.getDateEnchere()));
+	        stmt.setInt(4, montant);	        
+
 	        stmt.executeUpdate();
+	        
+
 	    }
 	    catch(SQLException e) {
-			throw new DALException("ms_updatePrixArticleVendu");
+			throw new DALException("Erreur lors de la mise à jour du prix de l'article vendu : " + e.getMessage());
+	    }
+		return null;
+	}
+	
+	public ArticleVendu updateMontantArticleVendu(ArticleVendu articleVendu, Integer montant) throws DALException {
+		
+	    try (Connection con = ConnectionProvider.getConnection()){
+	        PreparedStatement stmt = con.prepareStatement(UPDATE_MONTANT_ARTICLES_VENDUS);
+	        stmt.setInt(1, montant);	        
+	        stmt.setInt(2, articleVendu.getNoArticle());	        	        
+	        stmt.executeUpdate();
+	        
+
+	    }
+	    catch(SQLException e) {
+			throw new DALException("Erreur lors de la mise à jour du prix de l'article vendu : " + e.getMessage());
 	    }
 		return null;
 	}
