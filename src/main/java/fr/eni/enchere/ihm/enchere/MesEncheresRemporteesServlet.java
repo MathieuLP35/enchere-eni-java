@@ -13,16 +13,16 @@ import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.dal.exception.DALException;
 
 /**
- * Servlet implementation class MesEncheresRemportéesServlet
+ * Servlet implementation class MesEncheresRemporteesServlet
  */
-public class MesEncheresRemportéesServlet extends HttpServlet {
+public class MesEncheresRemporteesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArticleManager managerArticleVendu = ManagerSing.getInstanceArticle();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MesEncheresRemportéesServlet() {
+    public MesEncheresRemporteesServlet() {
         super();
     }
 
@@ -44,14 +44,14 @@ public class MesEncheresRemportéesServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/enchere/mesencheresremportées.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/enchere/mesencheresremportees.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/enchere/mesencheresremportées.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/enchere/mesencheresremportees.jsp").forward(request, response);
 	}
 
 }
