@@ -106,9 +106,9 @@
 								<h5 class="card-title text-decoration-underline"></form><a href="FaireEnchereServlet/${article.noArticle}">${article.nomArticle }</a></h5>
 								<p class="card-text">Prix :
 									${article.prixVente}</p>
-								<p class="card-text">Début de l'enchère :
+								<p class="card-text">DÃ©but de l'enchÃ¨re :
 									${article.dateDebutEnchere}</p>
-								<p class="card-text">Fin de l'enchère :
+								<p class="card-text">Fin de l'enchÃ¨re :
 									${article.dateFinEnchere}</p>
 								<p class="card-text">Vendeur : ${article.utilisateur.nom }
 									${article.utilisateur.prenom}</p>
