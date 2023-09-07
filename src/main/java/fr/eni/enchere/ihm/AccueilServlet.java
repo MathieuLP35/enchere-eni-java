@@ -54,6 +54,7 @@ public class AccueilServlet extends HttpServlet {
 			managerUtilisateur.checkIdUser(utilisateurSession.getNoUtilisateur());
 			request.getSession().setAttribute("user", utilisateurSession);
 		}
+		
 
 		Cookie[] cookies = request.getCookies();
 		
