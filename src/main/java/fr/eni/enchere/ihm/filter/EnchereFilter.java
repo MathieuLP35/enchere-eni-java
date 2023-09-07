@@ -50,10 +50,15 @@ public class EnchereFilter extends HttpFilter implements Filter {
 		HttpSession session = httpRequest.getSession();
 		
 		///si un Utilisateur est présent dans la session ou si on va vers la page de connexion
-		if(session.getAttribute("user") != null || url.equals("/LoginServlet") || url.equals("/AccueilServlet") || url.equals("/RegisterServlet") || url.equals("/ForgotPasswordServlet")) {
+		if(session.getAttribute("user") != null || (session.getAttribute("user") == null && url.equals("/LoginServlet")) || url.equals("/AccueilServlet") || url.equals("/RegisterServlet") || url.equals("/ForgotPasswordServlet")) {
 			//on laisse filer
 			chain.doFilter(request, response);
-		} else {
+		}else if (session.getAttribute("user") == null && url.equals("/LoginServlet")){
+			//sinon, on redirige vers la page de connexion
+			HttpServletResponse httpResponse = (HttpServletResponse) response;
+			httpResponse.sendRedirect("AccueilServlet");
+		} 
+		else {
 			//sinon, on redirige vers la page de connexion
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
 			httpResponse.sendRedirect("LoginServlet");

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,40 +36,41 @@
                     </div>
                     
                     <form action="FaireEnchereServlet" method="post">
-					<div class="mb-3">
-					    <p class="fw-bold">Meilleure Offre :</p>
-					    <input type="hidden" name="prixVente" value="${prixVente}" id="${prixVente}">
-					    <p id="prixVente">${prixVente}</p>
-					</div>
-
-                    <div class="mb-3">
-                        <p class="fw-bold">Mise à Prix :</p>
-                        <p>${prixInitial}</p>
-                    </div>
-
-                    <div class="mb-3">
-                        <p class="fw-bold">Début de l'Enchère :</p>
-                        <p>${debutEnchere}</p>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <p class="fw-bold">Fin de l'Enchère :</p>
-                        <p>${finEnchere}</p>
-                    </div>
-
-                    <div class="mb-3">
-                        <p class="fw-bold">Retrait :</p>
-                        <p>${lieuRetraitRue} ${lieuRetraitCP} ${lieuRetraitVille}</p>
-                    </div>
-                    <div class="mb-3 d-none">
-                    	<input type="number" class="form-control" name="idArticle" id="idArticle" value="${idArticle}">
-                    </div>                    
-
-                    <div class="mb-3 form-outline">
-	                        <p class="product-label font-weight-bold">Proposition de Prix :</p>
-	                        <input type="number" class="form-control" name="montant" id="montant">
-	                        <button type="submit" name="BTN_SAVE" class="btn btn-primary">Enchérir</button>
-                    </div>
+						<div class="mb-3">
+						    <p class="fw-bold">Meilleure Offre :</p>
+						    <input type="hidden" name="prixVente" value="${prixVente}" id="${prixVente}">
+						    <p id="prixVente">${prixVente}</p>
+						</div>
+	
+	                    <div class="mb-3">
+	                        <p class="fw-bold">Mise à Prix :</p>
+	                        <p>${prixInitial}</p>
+	                    </div>
+	
+	                    <div class="mb-3">
+	                        <p class="fw-bold">Début de l'Enchère :</p>
+	                        <p>${debutEnchere}</p>
+	                    </div>
+	                    
+	                    <div class="mb-3">
+	                        <p class="fw-bold">Fin de l'Enchère :</p>
+	                        <p>${finEnchere}</p>
+	                    </div>
+	
+	                    <div class="mb-3">
+	                        <p class="fw-bold">Retrait :</p>
+	                        <p>${lieuRetraitRue} ${lieuRetraitCP} ${lieuRetraitVille}</p>
+	                    </div>
+	                    <div class="mb-3 d-none">
+	                    	<input type="number" class="form-control" name="idArticle" id="idArticle" value="${idArticle}">
+	                    </div>  
+						<c:if test="${lancementEnchere}">
+		                    <div class="mb-3 form-outline">
+			                        <p class="product-label font-weight-bold">Proposition de Prix :</p>
+			                        <input type="number" class="form-control" name="montant" id="montant">
+			                        <button type="submit" name="BTN_SAVE" class="btn btn-primary">Enchérir</button>
+		                    </div>
+	                    </c:if>
                     </form>  
                     ${message}                  
                 </div>

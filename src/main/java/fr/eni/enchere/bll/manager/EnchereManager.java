@@ -9,5 +9,5 @@ public interface EnchereManager {
 
 	public void addEnchere(Enchere enchere) throws DALException;
 	public List<Enchere> getAllEnchere() throws DALException;
-	
+    public Enchere getMontantByEnchere(Integer noArticle) throws DALException; // Ajout de la méthode
 }

@@ -14,4 +14,6 @@ public interface UtilisateurManager {
 	public List<Utilisateur> getAllUser();
 	public void update(Utilisateur user, Integer noUtilisateur) throws BLLException;
 	public void delete(Utilisateur user, Integer noUtilisateur);
+	public Integer updateCredit(Integer noUtilisateur, Integer montantACrediter) throws BLLException;
+
 }
