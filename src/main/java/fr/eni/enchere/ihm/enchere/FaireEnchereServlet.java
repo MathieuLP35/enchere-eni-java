@@ -56,11 +56,13 @@ public class FaireEnchereServlet extends HttpServlet {
         try {
 			articleVendu = managerArticle.findByIdArticleVendu(productId);
 			System.out.println(articleVendu);
+		    
 			request.setAttribute("idArticle", articleVendu.getNoArticle());
 			request.setAttribute("nomArticle", articleVendu.getNomArticle());
 			request.setAttribute("description", articleVendu.getDescription());
 			request.setAttribute("categorie", articleVendu.getCategorie().getLibelle());
 			request.setAttribute("prixVente", articleVendu.getPrixVente());
+			//request.setAttribute("enrechisseur", articleVendu.getLstEncheres().stream().filter(e -> e.getMontant());
 			request.setAttribute("prixInitial", articleVendu.getPrixInitial());
 			request.setAttribute("debutEnchere", articleVendu.getDateDebutEnchere());
 			request.setAttribute("finEnchere", articleVendu.getDateFinEnchere());
