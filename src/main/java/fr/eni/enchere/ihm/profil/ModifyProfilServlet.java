@@ -159,7 +159,7 @@ public class ModifyProfilServlet extends HttpServlet {
 		if (user.getMotdepasse().equals(motDePasse)) {
 			manager.delete(user, user.getNoUtilisateur());
 			request.getSession().invalidate();
-			request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
+			request.getRequestDispatcher("/AccueilServlet").forward(request, response);
 
 		} else {
 			request.setAttribute("motDePasseErreur", "Le mot de passe est incorrect");
