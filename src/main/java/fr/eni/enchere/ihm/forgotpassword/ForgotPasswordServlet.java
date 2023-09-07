@@ -68,7 +68,6 @@ public class ForgotPasswordServlet extends HttpServlet {
 	        request.setAttribute("message", "L'email n'existe pas dans notre système.");
 	        request.getRequestDispatcher("/WEB-INF/user/forgotpassword.jsp").forward(request, response);
 	    }
-		request.getRequestDispatcher("/WEB-INF/user/forgotpassword.jsp").forward(request, response);
 	}
 	
 	// Fonction pour générer un mot de passe aléatoire

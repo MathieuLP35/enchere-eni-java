@@ -6,9 +6,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 import fr.eni.enchere.bll.manager.ArticleManager;
 import fr.eni.enchere.bll.sing.ManagerSing;
+import fr.eni.enchere.bo.ArticleVendu;
+import fr.eni.enchere.bo.Enchere;
 import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.dal.exception.DALException;
 
@@ -33,14 +36,22 @@ public class MesEncheresRemporteesServlet extends HttpServlet {
 		
 		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("user");
 		
+		List<ArticleVendu> lstArticlesVendu;
+		
 		request.setAttribute("utilisateur", utilisateur);
 		
 		try {
-			request.setAttribute("lstEncheresRemportees", managerArticleVendu.getArticlesFilter(null, null, 
+			lstArticlesVendu = managerArticleVendu.getArticlesFilter(null, null, 
 					false, false, true, 
-					false, false, false, utilisateur.getNoUtilisateur()));
+					false, false, false, utilisateur.getNoUtilisateur());
+			
+			request.setAttribute("lstEncheresRemportees", lstArticlesVendu);
+			
+			if(lstArticlesVendu.size() <= 0) {
+				request.setAttribute("message", "Aucune enchère n'a été remporter.");
+			}
+			
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

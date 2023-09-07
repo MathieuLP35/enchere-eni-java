@@ -47,10 +47,11 @@ public class ArticleDAOImpl implements ArticleDAO {
 	final String SELECT_UTILISATEUR_BY_ARTICLE = "SELECT * FROM UTILISATEURS INNER JOIN ARTICLES_VENDUS ON UTILISATEURS.no_utilisateur = ARTICLES_VENDUS.no_utilisateur WHERE ARTICLES_VENDUS.no_article = ?";
 	
 	final String GET_ENCHERES_FILTER = """
-			SELECT ARTICLES_VENDUS.no_article, nom_article as nomArticle, description, date_debut_encheres AS dateDebutEnchere, date_fin_encheres AS dateFinEnchere, prix_initial as prixInitial, prix_vente as prixVente, lienImg, UTILISATEURS.*, CATEGORIES.*, RETRAITS.* FROM ARTICLES_VENDUS
+			SELECT DISTINCT ARTICLES_VENDUS.no_article, nom_article as nomArticle, description, date_debut_encheres AS dateDebutEnchere, date_fin_encheres AS dateFinEnchere, prix_initial as prixInitial, prix_vente as prixVente, lienImg, UTILISATEURS.*, CATEGORIES.*, RETRAITS.* FROM ARTICLES_VENDUS
 		 	INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur
 		 	INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie
 		 	INNER JOIN RETRAITS ON ARTICLES_VENDUS.no_article = RETRAITS.no_article
+		 	LEFT JOIN ENCHERES ON ARTICLES_VENDUS.no_article = ENCHERES.no_article
 		    WHERE 1=1
 		    %s
 	""";
@@ -235,19 +236,21 @@ public class ArticleDAOImpl implements ArticleDAO {
 	            whereClause += " AND ARTICLES_VENDUS.nom_article LIKE ?";
 	        }
 	        if(enchereOuverteFilter) {
-	        	whereClause += " AND CAST(GETDATE() AS DATE) >= CAST(date_debut_encheres AS DATE)\r\n"
+	        	whereClause += " AND CAST(GETDATE() AS DATE) >= CAST(date_debut_encheres AS DATE)"
 	        			+ "AND CAST(GETDATE() AS DATE) <= CAST(date_fin_encheres AS DATE)";
 	        }
 	        if(enchereEnCoursFilter){
-	        	whereClause += " AND CAST(GETDATE() AS DATE) >= CAST(date_debut_encheres AS DATE)\r\n"
+	        	whereClause += " AND CAST(GETDATE() AS DATE) >= CAST(date_debut_encheres AS DATE)"
 	        			+ "AND CAST(GETDATE() AS DATE) <= CAST(date_fin_encheres AS DATE) AND ENCHERES.no_utilisateur = ?";
 	        }
 	        if(enchereRemporterFilter){
-	        	whereClause += " AND CAST(GETDATE() AS DATE) >= CAST(date_fin_encheres AS DATE) AND ARTICLES_VENDUS.no_article IN (SELECT ENCHERES.no_article FROM ENCHERES WHERE date_enchere = (SELECT MAX(date_enchere) FROM ENCHERES) AND ENCHERES.no_utilisateur = ?)";
+	        	whereClause += " AND date_fin_encheres < GETDATE() \r\n"
+	        			+ " AND ENCHERES.no_utilisateur = ? \r\n"
+	        			+ "	AND ENCHERES.montant_enchere = (SELECT MAX(montant_enchere) FROM ENCHERES WHERE ENCHERES.no_article = ARTICLES_VENDUS.no_article)";
 	        }
 	        if (venteEnchereEnCours) {
-	            whereClause += " AND ARTICLES_VENDUS.no_utilisateur = ?\r\n"
-	                        + "AND CAST(GETDATE() AS DATE) >= CAST(date_debut_encheres AS DATE)\r\n"
+	            whereClause += " AND ARTICLES_VENDUS.no_utilisateur = ?"
+	                        + "AND CAST(GETDATE() AS DATE) >= CAST(date_debut_encheres AS DATE)"
 	                        + "AND CAST(GETDATE() AS DATE) <= CAST(date_fin_encheres AS DATE)";
 	        }
 	        if(venteEnchereNonDébutées){
@@ -257,6 +260,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	        	whereClause += " AND CAST(GETDATE() AS DATE) >= CAST(date_fin_encheres AS DATE)";
 	        }
 	        String query = String.format(GET_ENCHERES_FILTER, whereClause);
+	        System.out.println(query);
 	        PreparedStatement stmt = con.prepareStatement(query);
 	        int paramIndex = 1;
 

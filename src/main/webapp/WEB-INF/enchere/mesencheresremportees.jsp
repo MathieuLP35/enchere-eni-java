@@ -32,6 +32,9 @@
 	            </div>
 			</c:forEach>
         </div>
+        <c:if test="${message != null}">
+			<div class="alert alert-primary my-2" role="alert">${message}</div>
+		</c:if>
     </div>
 
 	<script
