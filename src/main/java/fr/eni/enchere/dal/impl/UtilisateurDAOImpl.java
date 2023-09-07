@@ -30,7 +30,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
 	final String DELETE_USER = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
 	
-	final String UPDATE_ALL = "UPDATE UTILISATEURS SET  pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?";
+	final String UPDATE_ALL = "UPDATE UTILISATEURS SET  pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ?, credit = ? WHERE no_utilisateur = ?";
 
 	@Override
 	public void insert(Utilisateur user) throws DALException {
@@ -182,6 +182,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	        stmt.setString(8, user.getVille());
 	        stmt.setString(9, user.getMotdepasse());
 	        stmt.setInt(10, user.getNoUtilisateur());
+	        stmt.setInt(11, user.getCredit());
 	        stmt.executeUpdate();
 	    }
 	    catch(SQLException e) {
@@ -216,6 +217,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		user.setCredit(rs.getInt("credit"));
 		user.setAdministrateur(rs.getBoolean("administrateur"));
 		user.setIsActive(rs.getBoolean("activer"));
+		user.setCredit(rs.getInt("credit"));
 		return user;
 	}
 

@@ -53,7 +53,7 @@ public class AccueilServlet extends HttpServlet {
 
 		Cookie[] cookies = request.getCookies();
 		
-		if(cookies != null) {
+		if(cookies != null && request.getSession().getAttribute("user") != null) {
 			for(Cookie cookie : cookies) {
 				if(cookie.getName().equals("rememberMe")) {
 					String rememberMeValue = cookie.getValue();

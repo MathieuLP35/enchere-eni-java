@@ -1,6 +1,7 @@
 package fr.eni.enchere.ihm.profil;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -127,8 +128,9 @@ public class ModifyProfilServlet extends HttpServlet {
 					doGet(request, response);
 				}
 			}
-
+			System.out.println(user.getCredit());
 			manager.update(user, user.getNoUtilisateur());
+			session.setAttribute("user", user);
 		} catch (BLLException e) {
 			e.printStackTrace();
 			request.setAttribute("message", e.getMessage());
@@ -149,6 +151,15 @@ public class ModifyProfilServlet extends HttpServlet {
 		if (user.getMotdepasse().equals(motDePasse)) {
 			manager.delete(user, user.getNoUtilisateur());
 			session.invalidate();
+			Cookie[] cookies = request.getCookies();
+			
+			if(cookies != null) {
+				for(Cookie cookie : cookies) {
+					if(cookie.getName().equals("rememberMe") && Integer.parseInt(cookie.getValue()) == user.getNoUtilisateur()) {
+						cookie.setMaxAge(0);
+					}
+				}
+			}
 			request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
 
 		} else {
