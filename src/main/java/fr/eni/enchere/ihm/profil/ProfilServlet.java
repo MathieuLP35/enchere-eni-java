@@ -47,6 +47,7 @@ public class ProfilServlet extends HttpServlet {
     			request.setAttribute("rue", "rue");
     			request.setAttribute("ville", "ville");
     			request.setAttribute("codePostal", "codePostal");
+    			request.setAttribute("credit", "credit");
     			
             } else {
                 // L'utilisateur n'est pas dans la session

@@ -1,6 +1,7 @@
 package fr.eni.enchere.ihm.profil;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -110,7 +111,7 @@ public class ModifyProfilServlet extends HttpServlet {
 					doGet(request, response);
 				}
 			}
-
+      
 			if (pseudo == null || pseudo.isBlank()) {
 			    request.setAttribute("message", "Le login doit être rempli");
 			    doGet(request, response);
@@ -159,6 +160,15 @@ public class ModifyProfilServlet extends HttpServlet {
 		if (user.getMotdepasse().equals(motDePasse)) {
 			manager.delete(user, user.getNoUtilisateur());
 			request.getSession().invalidate();
+			Cookie[] cookies = request.getCookies();
+			
+			if(cookies != null) {
+				for(Cookie cookie : cookies) {
+					if(cookie.getName().equals("rememberMe") && Integer.parseInt(cookie.getValue()) == user.getNoUtilisateur()) {
+						cookie.setMaxAge(0);
+					}
+				}
+			}
 			request.getRequestDispatcher("/AccueilServlet").forward(request, response);
 
 		} else {

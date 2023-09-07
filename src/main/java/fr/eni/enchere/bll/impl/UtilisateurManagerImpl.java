@@ -94,6 +94,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	@Override
 	public void update(Utilisateur user, Integer noUtilisateur) throws BLLException{
 
+		System.out.println(user);
 		String regexTelephone = "[^0-9]";
 		Pattern patternTelephone = Pattern.compile(regexTelephone);
 		Matcher matcherTelephone = patternTelephone.matcher(user.getTelephone()); 
@@ -117,7 +118,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 			try {
 				dao.update(user, noUtilisateur);
 			} catch (DALException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
