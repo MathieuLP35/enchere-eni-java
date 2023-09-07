@@ -25,4 +25,12 @@ public class EnchereManagerImpl implements EnchereManager{
 		return dao.getAllEnchere();
 	}
 
+	@Override
+	public Enchere getMontantByEnchere(Integer noArticle) throws DALException {
+		// TODO Auto-generated method stub
+		return dao.getMontantByEnchere(noArticle);
+	}
+
+
+
 }

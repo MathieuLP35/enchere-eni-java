@@ -14,4 +14,6 @@ public interface UtilisateurDAO {
 	public Utilisateur findByEmail(String emailUser) throws DALException;
 	public void update(Utilisateur user, Integer noUtilisateur) throws DALException;
 	void delete(Utilisateur user, Integer noUtilisateur) throws DALException;
+	public Integer updateCredit(Integer noUtilisateur, Integer montantACrediter) throws DALException;
+
 }
