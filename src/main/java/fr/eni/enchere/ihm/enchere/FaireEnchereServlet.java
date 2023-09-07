@@ -4,10 +4,16 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import fr.eni.enchere.bll.exception.BLLException;
 import fr.eni.enchere.bll.manager.ArticleManager;
+import fr.eni.enchere.bll.manager.EnchereManager;
+import fr.eni.enchere.bll.manager.UtilisateurManager;
 import fr.eni.enchere.bll.sing.ManagerSing;
 import fr.eni.enchere.bo.ArticleVendu;
 import fr.eni.enchere.bo.Enchere;
@@ -19,6 +25,8 @@ import fr.eni.enchere.dal.exception.DALException;
  */
 public class FaireEnchereServlet extends HttpServlet {
 	private ArticleManager managerArticle = ManagerSing.getInstanceArticle();
+	private EnchereManager managerEnchere = ManagerSing.getInstanceEnchere();
+	private UtilisateurManager managerUtilisateur = ManagerSing.getInstanceUtilisateur();
 
 	private static final long serialVersionUID = 1L;
 	
@@ -89,6 +97,7 @@ public class FaireEnchereServlet extends HttpServlet {
 	protected void doSave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DALException {
 		System.out.println("qdqzdqzd");
 		
+		
 		int prixInitial = Integer.parseInt(request.getParameter("prixVente"));
 		//System.out.println(request.getParameter("idArticle"));
 		LocalDateTime dateActuelle = LocalDateTime.now();
@@ -114,11 +123,36 @@ public class FaireEnchereServlet extends HttpServlet {
 		System.out.println(enchere);
 		if(prixInitial < montant) {
 			if(montant <= utilisateur.getCredit()) {
+
+				Enchere enchereEnCours = managerEnchere.getMontantByEnchere(articleVendu.getNoArticle());
+			
+			    Integer montantACrediter = enchereEnCours.getMontant();
+			    Utilisateur utilisateurACrediter = enchereEnCours.getUser();
+			    
+
+			    if (utilisateurACrediter != null) {
+			        System.out.println("JE PASSE LA");
+			        try {
+			            managerUtilisateur.updateCredit(utilisateurACrediter.getNoUtilisateur(), utilisateurACrediter.getCredit() + montantACrediter);
+
+			            utilisateur.setCredit(utilisateurACrediter.getCredit() + montantACrediter);
+
+			        } catch (BLLException e) {
+			            e.printStackTrace();
+			        }
+			    }
+
+			    try {
+			        Integer credit = managerUtilisateur.updateCredit(utilisateur.getNoUtilisateur(), utilisateur.getCredit() - montant);
+			        utilisateur.setCredit(credit);
+			    } catch (BLLException e) {
+			        e.printStackTrace();
+			    }
+
 				managerArticle.insertPrixArticleVendu(enchere, montant);
 				managerArticle.updateMontantArticleVendu(articleVendu, montant);
-				/** si une enchere existe **/
-				/** du coup update credit **/
-				/** update Credit **/
+				
+				
 			} else {
 				request.setAttribute("message", "Tu n'as pas assez de crédit sur ton compte");
 				System.out.println("Tu n'as pas assez de crédit sur ton compte");

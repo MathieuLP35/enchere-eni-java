@@ -32,6 +32,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	
 	final String UPDATE_ALL = "UPDATE UTILISATEURS SET  pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur = ?";
 
+	final String UPDATE_CREDIT = "UPDATE UTILISATEURS SET credit = ? WHERE no_utilisateur = ?";
 	@Override
 	public void insert(Utilisateur user) throws DALException {
 		try (Connection con = ConnectionProvider.getConnection()){
@@ -217,6 +218,20 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 		user.setAdministrateur(rs.getBoolean("administrateur"));
 		user.setIsActive(rs.getBoolean("activer"));
 		return user;
+	}
+
+	public Integer updateCredit(Integer noUtilisateur, Integer montantACrediter) throws DALException {
+	    try (Connection con = ConnectionProvider.getConnection()) {
+	        PreparedStatement stmt = con.prepareStatement(UPDATE_CREDIT);
+	        stmt.setInt(1, montantACrediter);
+	        stmt.setInt(2, noUtilisateur);  
+	        stmt.executeUpdate();
+	    } catch (SQLException e) {
+	        throw new DALException(e.getMessage());
+	    }
+	    Utilisateur utilisateur = findById(noUtilisateur);
+	    Integer credit = utilisateur.getCredit();
+		return credit;
 	}
 
 }

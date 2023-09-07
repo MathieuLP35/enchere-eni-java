@@ -164,4 +164,19 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 			e.printStackTrace();
 		}	
 	}
+
+	@Override
+	public Integer updateCredit(Integer noUtilisateur, Integer montantACrediter) throws BLLException {
+
+		try {
+			Integer credit = dao.updateCredit(noUtilisateur, montantACrediter);
+			return credit;
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+
 }
