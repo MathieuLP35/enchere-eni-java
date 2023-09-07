@@ -30,8 +30,12 @@ public class LoginServlet extends HttpServlet {
     	
     	//Locale.setDefault(request.getLocale());
 		//ResourceBundle bundle = ResourceBundle.getBundle("fr.eni.enchere.bundles.message", request.getLocale());
-    	
-        request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
+    	Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
+    	if(user != null) {
+    		response.sendRedirect("AccueilServlet");
+    	} else {
+    		request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
+    	}
     }
 
     /**
