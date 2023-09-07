@@ -52,6 +52,11 @@ public class UtilisateurDAOMock implements UtilisateurDAO {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public Integer updateCredit(Integer noUtilisateur, Integer montantACrediter) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

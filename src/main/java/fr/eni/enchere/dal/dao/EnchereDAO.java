@@ -14,5 +14,6 @@ public interface EnchereDAO {
 	
 	public void insertEnchere(Enchere enchere) throws DALException;
 	public List<Enchere> getAllEnchere() throws DALException;
+    public Enchere getMontantByEnchere(Integer noArticle) throws DALException; // Ajout de la méthode
 
 }

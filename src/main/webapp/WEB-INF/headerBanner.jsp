@@ -7,7 +7,7 @@
 		<link href="${pageContext.request.contextPath}/css/styles.css"rel="stylesheet">
 	</head>
     <body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
 			<div class="container mt-5 bg-white rounded p-4 shadow">
 				<a class="navbar-brand" href="${pageContext.request.contextPath}/AccueilServlet">ENI-Enchère</a>
 			    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">

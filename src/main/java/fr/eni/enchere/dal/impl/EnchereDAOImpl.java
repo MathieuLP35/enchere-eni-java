@@ -12,6 +12,7 @@ import java.util.List;
 
 import fr.eni.enchere.bo.ArticleVendu;
 import fr.eni.enchere.bo.Enchere;
+import fr.eni.enchere.bo.Retrait;
 import fr.eni.enchere.bo.Utilisateur;
 import fr.eni.enchere.dal.dao.EnchereDAO;
 import fr.eni.enchere.dal.exception.DALException;
@@ -31,7 +32,8 @@ public class EnchereDAOImpl implements EnchereDAO {
 	
 	final String INSERT_ENCHERES = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?,?,?,?)";
 	
-	
+	final String SELECT_HIGHEST_ENCHERES_BY_ID = "SELECT ENCHERES.no_utilisateur, ENCHERES.montant_enchere, ENCHERES.no_article, ENCHERES.date_enchere, UTILISATEURS.* FROM ENCHERES INNER JOIN UTILISATEURS ON ENCHERES.no_utilisateur = UTILISATEURS.no_utilisateur WHERE no_article = ? AND ENCHERES.montant_enchere = (SELECT MAX(montant_enchere) FROM ENCHERES WHERE ENCHERES.no_article = ?) ORDER BY montant_enchere DESC";
+
 
 	@Override
 	public void insertEnchere(Enchere enchere) throws DALException {
@@ -85,5 +87,28 @@ public class EnchereDAOImpl implements EnchereDAO {
 		return result;
 	}
 
-	
+	public Enchere getMontantByEnchere(Integer noArticle) throws DALException {
+	    Enchere result = new Enchere();
+
+
+	    try (Connection con = ConnectionProvider.getConnection()) {
+	        PreparedStatement stmt = con.prepareStatement(SELECT_HIGHEST_ENCHERES_BY_ID);
+	        stmt.setInt(1, noArticle);
+	        stmt.setInt(2, noArticle);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            result = new Enchere();
+	            result.setMontant(rs.getInt("montant_enchere"));
+	            Utilisateur user = new Utilisateur();
+	            user.setNoUtilisateur(rs.getInt("no_utilisateur"));
+	            user.setCredit(rs.getInt("credit"));
+	            result.setUser(user);
+	        }
+	    } catch (SQLException e) {
+	        System.out.println(e.getMessage());
+	        throw new DALException("ms_getMontantByEnchere");
+	    }
+
+	    return result;
+	}
 }
