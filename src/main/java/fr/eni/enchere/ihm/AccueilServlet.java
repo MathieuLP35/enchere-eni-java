@@ -48,8 +48,12 @@ public class AccueilServlet extends HttpServlet {
 		
 		Locale.setDefault(request.getLocale());
 		ResourceBundle bundle = ResourceBundle.getBundle("fr.eni.enchere.bundles.message", request.getLocale());
-		
+		Utilisateur utilisateurSession = ((Utilisateur) request.getSession().getAttribute("user"));
 		AccueilModel model = new AccueilModel();
+		if(utilisateurSession != null) {
+			managerUtilisateur.checkIdUser(utilisateurSession.getNoUtilisateur());
+			request.getSession().setAttribute("user", utilisateurSession);
+		}
 
 		Cookie[] cookies = request.getCookies();
 		
@@ -62,6 +66,7 @@ public class AccueilServlet extends HttpServlet {
 				}
 			}
 		}
+		
 		
 		try {
 			model.setLstCategories(managerCategorie.getAllCategorie());
