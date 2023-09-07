@@ -81,10 +81,11 @@ public class RegisterServlet extends HttpServlet {
 				e.printStackTrace();
 				persistentRegisterInfos(request);
 				request.setAttribute("message", e.getMessage());
+				request.getRequestDispatcher("/WEB-INF/user/register.jsp").forward(request, response);
 			}
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/user/register.jsp").forward(request, response);
+		
 	}
 
 	private void persistentRegisterInfos(HttpServletRequest request) {

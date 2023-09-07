@@ -17,11 +17,11 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	@Override
 	public void addUser(Utilisateur user) throws BLLException {
 
-		String regexTelephone = "[^0-9]";
+		String regexTelephone = "^[0-9]{10}$";
 		Pattern patternTelephone = Pattern.compile(regexTelephone);
 		Matcher matcherTelephone = patternTelephone.matcher(user.getTelephone()); 
 		
-		String regexMail = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
+		String regexMail = "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$";
 		Pattern patternMail = Pattern.compile(regexMail);
 		Matcher matcherMail = patternMail.matcher(user.getEmail());
 		
@@ -29,11 +29,11 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 			throw new BLLException("Ce pseudo est déjà utilisé.");
 		} else if(checkEmailUser(user.getEmail()) != null) {
 			throw new BLLException("Cette email est déjà utilisé.");
-		} else if(matcherTelephone.find()){
+		} else if(!matcherTelephone.find()){
 	        throw new BLLException("Le numéro de téléphone n'est pas au format valide. (XXXXXXXXXX)"); 
 		} else if(user.getCodePostal().length() < 5 || user.getCodePostal().length() > 5){
 			throw new BLLException("Le code postal doit se composé de 5 chiffres."); 
-		} else if(matcherMail.find()){
+		} else if(!matcherMail.find()){
 	        throw new BLLException("Le mail n'est pas valide. (xx@xxx.fr)"); 
 		} else {
 			try {
