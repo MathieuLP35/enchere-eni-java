@@ -20,6 +20,12 @@ public class EnchereDAOMock implements EnchereDAO {
 	public List<Enchere> getAllEnchere() throws DALException {
 		return lstEncheres;
 	}
+
+	@Override
+	public Enchere getMontantByEnchere(Integer noArticle) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

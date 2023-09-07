@@ -7,7 +7,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import fr.eni.enchere.bll.exception.BLLException;
@@ -73,8 +75,12 @@ public class FaireEnchereServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		System.out.println("&&&&&&&&&&&");
-
+		Date now = new Date();
+		Boolean lancementEnchere = false;
+		if(articleVendu.getDateDebutEnchere().compareTo(now) <= 0 && now.compareTo(articleVendu.getDateFinEnchere())<= 0) {
+			lancementEnchere = true;
+		}
+		request.setAttribute("lancementEnchere", lancementEnchere);
 		request.getRequestDispatcher("/WEB-INF/enchere/creation.jsp").forward(request, response);
 	}
 
@@ -183,6 +189,7 @@ public class FaireEnchereServlet extends HttpServlet {
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
+		
 		request.getRequestDispatcher("/WEB-INF/enchere/creation.jsp").forward(request, response);
 
 	}
