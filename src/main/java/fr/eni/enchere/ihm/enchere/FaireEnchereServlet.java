@@ -174,7 +174,7 @@ public class FaireEnchereServlet extends HttpServlet {
 			request.setAttribute("idArticle", articleVendu.getNoArticle());
 			request.setAttribute("nomArticle", articleVendu.getNomArticle());
 			request.setAttribute("description", articleVendu.getDescription());
-			request.setAttribute("categorie", articleVendu.getCategorie());
+			request.setAttribute("categorie", articleVendu.getCategorie().getLibelle());
 			request.setAttribute("prixVente", articleVendu.getPrixVente());
 			request.setAttribute("prixInitial", articleVendu.getPrixInitial());
 			request.setAttribute("debutEnchere", articleVendu.getDateDebutEnchere());
@@ -182,7 +182,6 @@ public class FaireEnchereServlet extends HttpServlet {
 			request.setAttribute("lieuRetraitRue", articleVendu.getLieuRetrait().getRue());
 			request.setAttribute("lieuRetraitCP", articleVendu.getLieuRetrait().getCodePostal());
 			request.setAttribute("lieuRetraitVille", articleVendu.getLieuRetrait().getVille());
-			request.setAttribute("utilisateur", articleVendu.getUtilisateur());
 			request.setAttribute("utilisateur", articleVendu.getUtilisateur().getNoUtilisateur());
 			
 			
