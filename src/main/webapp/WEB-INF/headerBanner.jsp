@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html> 
 <html>
@@ -40,10 +40,10 @@
 							    </div>
 							</c:if>
 			                <li class="nav-item">
-			                     <a class="nav-link" href="${pageContext.request.contextPath}/FaireEnchereServlet">Enchère</a>
+			                     <a class="nav-link" href="${pageContext.request.contextPath}/MesEncheresRemporteesServlet">Enchères remportées</a>
 			                </li>
 			                <li>
-			                     <a class="nav-link" href="${pageContext.request.contextPath}/VenteEnchereServlet">Vendre un article</a>
+			                     <a class="nav-link" href="${pageContext.request.contextPath}/VenteArticleServlet">Vendre un article</a>
 							</li> 
 							<li>
 			                     <a class="nav-link" href="${pageContext.request.contextPath}/ProfilServlet">Mon Profil</a>

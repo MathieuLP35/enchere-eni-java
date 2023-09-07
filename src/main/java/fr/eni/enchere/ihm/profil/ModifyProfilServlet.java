@@ -28,25 +28,22 @@ public class ModifyProfilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false); // Utilisez false pour éviter de créer une nouvelle session si
-															// elle n'existe pas
-
-		if (session != null) {
+		if (request.getSession() != null) {
 			// Récupérer l'utilisateur depuis la session
-			Utilisateur user = (Utilisateur) session.getAttribute("user");
+			Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 
 			if (user != null) {
 				// Vous pouvez maintenant accéder aux propriétés de l'utilisateur
 
-				request.setAttribute("pseudo", "pseudo");
-				request.setAttribute("prenom", "prenom");
-				request.setAttribute("nom", "nom");
-				request.setAttribute("email", "email");
-				request.setAttribute("telephone", "telephone");
-				request.setAttribute("credit", "credit");
-				request.setAttribute("rue", "rue");
-				request.setAttribute("ville", "ville");
-				request.setAttribute("codePostal", "codePostal");
+				request.setAttribute("pseudo", user.getPseudo());
+				request.setAttribute("prenom", user.getPrenom());
+				request.setAttribute("nom", user.getNom());
+				request.setAttribute("email", user.getEmail());
+				request.setAttribute("telephone", user.getTelephone());
+				request.setAttribute("credit", user.getCredit());
+				request.setAttribute("rue", user.getRue());
+				request.setAttribute("ville", user.getVille());
+				request.setAttribute("codePostal", user.getCodePostal());
 
 			} else {
 				// L'utilisateur n'est pas dans la session
@@ -79,8 +76,7 @@ public class ModifyProfilServlet extends HttpServlet {
 
 	private void doSave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-		Utilisateur user = (Utilisateur) session.getAttribute("user");
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 
 		String pseudo = request.getParameter("pseudo");
 		String prenom = request.getParameter("prenom");
@@ -94,22 +90,9 @@ public class ModifyProfilServlet extends HttpServlet {
 		String motDePasse = request.getParameter("motDePasse");
 		String nouveauMotDePasse = request.getParameter("nouveauMotDePasse");
 		String confirmationMotDePasse = request.getParameter("confirmationMotDePasse");
-
-		// Mettez à jour les attributs de l'utilisateur avec les nouvelles valeurs
-		if (user.getMotdepasse().equals(motDePasse)) {
-			user.setPseudo(pseudo);
-			user.setPrenom(prenom);
-			user.setNom(nom);
-			user.setEmail(email);
-			user.setCredit(Integer.parseInt(credit));
-			user.setTelephone(telephone);
-			user.setRue(rue);
-			user.setVille(ville);
-			user.setCodePostal(codePostal);
-		} else {
-			request.setAttribute("motDePasseErreur", "Le mots de passe actuel est incorrect");
-			doGet(request, response);
-		}
+		
+		// le pseudo ne doit contenir que des caractères alphanumériques
+		String regexPseudo = "^[a-zA-Z0-9]+$"; // Cette regex accepte uniquement des lettres (majuscules et minuscules) et des chiffres.
 
 		try {
 			if ((!nouveauMotDePasse.isBlank() && !confirmationMotDePasse.isBlank())
@@ -128,9 +111,36 @@ public class ModifyProfilServlet extends HttpServlet {
 					doGet(request, response);
 				}
 			}
-			System.out.println(user.getCredit());
-			manager.update(user, user.getNoUtilisateur());
-			session.setAttribute("user", user);
+      
+			if (pseudo == null || pseudo.isBlank()) {
+			    request.setAttribute("message", "Le login doit être rempli");
+			    doGet(request, response);
+			} else if (!pseudo.matches(regexPseudo)) {
+			    request.setAttribute("message", "Le pseudo ne doit contenir que des caractères alphanumériques");
+			    doGet(request, response);
+			} else {
+				// Mettez à jour les attributs de l'utilisateur avec les nouvelles valeurs
+				if (user.getMotdepasse().equals(motDePasse)) {
+					user.setPseudo(pseudo);
+					user.setPrenom(prenom);
+					user.setNom(nom);
+					user.setEmail(email);
+					user.setCredit(Integer.parseInt(credit));
+					user.setTelephone(telephone);
+					user.setRue(rue);
+					user.setVille(ville);
+					user.setCodePostal(codePostal);
+					
+					// update en base
+					manager.update(user, user.getNoUtilisateur());
+					// on set la session avec les modifs
+					request.getSession().setAttribute("user", user);
+				} else {
+					request.setAttribute("motDePasseErreur", "Le mots de passe actuel est incorrect");
+					doGet(request, response);
+				}
+			}
+
 		} catch (BLLException e) {
 			e.printStackTrace();
 			request.setAttribute("message", e.getMessage());
@@ -143,14 +153,13 @@ public class ModifyProfilServlet extends HttpServlet {
 	private void doDelet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-		Utilisateur user = (Utilisateur) session.getAttribute("user");
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 
 		String motDePasse = request.getParameter("motDePasse");
 
 		if (user.getMotdepasse().equals(motDePasse)) {
 			manager.delete(user, user.getNoUtilisateur());
-			session.invalidate();
+			request.getSession().invalidate();
 			Cookie[] cookies = request.getCookies();
 			
 			if(cookies != null) {
@@ -160,7 +169,7 @@ public class ModifyProfilServlet extends HttpServlet {
 					}
 				}
 			}
-			request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
+			request.getRequestDispatcher("/AccueilServlet").forward(request, response);
 
 		} else {
 			request.setAttribute("motDePasseErreur", "Le mot de passe est incorrect");

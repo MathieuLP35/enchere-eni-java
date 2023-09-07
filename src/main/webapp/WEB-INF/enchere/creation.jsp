@@ -36,7 +36,7 @@
                     
                     <form action="FaireEnchereServlet" method="post">
 					<div class="mb-3">
-					    <p class="product-label">Meilleure Offre :</p>
+					    <p class="fw-bold">Meilleure Offre :</p>
 					    <input type="hidden" name="prixVente" value="${prixVente}" id="${prixVente}">
 					    <p id="prixVente">${prixVente}</p>
 					</div>

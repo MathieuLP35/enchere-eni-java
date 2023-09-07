@@ -39,15 +39,21 @@ public class RegisterServlet extends HttpServlet {
 		String password = request.getParameter("motdepasse");
 		String confirmPassword = request.getParameter("confirmationMotDePasse");
 		
+		// le pseudo ne doit contenir que des caractères alphanumériques
+		String regexPseudo = "^[a-zA-Z0-9]+$"; // Cette regex accepte uniquement des lettres (majuscules et minuscules) et des chiffres.
+
 		if (login == null || login.isBlank()) {
-			request.setAttribute("message", "Le login doit être rempli");
-			persistentRegisterInfos(request);
+		    request.setAttribute("message", "Le login doit être rempli");
+		    persistentRegisterInfos(request);
+		} else if (!login.matches(regexPseudo)) {
+		    request.setAttribute("message", "Le pseudo ne doit contenir que des caractères alphanumériques");
+		    persistentRegisterInfos(request);
 		} else if (password == null || password.isBlank()) {
-			request.setAttribute("message", "Le mot de passe doit être rempli");
-			persistentRegisterInfos(request);
+		    request.setAttribute("message", "Le mot de passe doit être rempli");
+		    persistentRegisterInfos(request);
 		} else if (!password.equals(confirmPassword)) {
-			request.setAttribute("message", "Le mot de passe doit être identique au mot de passe de confirmation");
-			persistentRegisterInfos(request);
+		    request.setAttribute("message", "Le mot de passe doit être identique au mot de passe de confirmation");
+		    persistentRegisterInfos(request);
 		} else {
 			try {
 				Utilisateur utilisateur = new Utilisateur(
@@ -77,6 +83,8 @@ public class RegisterServlet extends HttpServlet {
 				request.setAttribute("message", e.getMessage());
 			}
 		}
+		
+		request.getRequestDispatcher("/WEB-INF/user/register.jsp").forward(request, response);
 	}
 
 	private void persistentRegisterInfos(HttpServletRequest request) {

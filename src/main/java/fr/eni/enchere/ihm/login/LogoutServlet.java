@@ -36,7 +36,7 @@ public class LogoutServlet extends HttpServlet {
 			}
 		}
 		request.getSession().setAttribute("user", null);
-		request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
+		request.getRequestDispatcher("/AccueilServlet").forward(request, response);
 	}
 
 
