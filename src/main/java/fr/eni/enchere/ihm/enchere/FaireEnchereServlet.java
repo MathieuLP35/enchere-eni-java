@@ -100,6 +100,7 @@ public class FaireEnchereServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 		}
+		
 	}
 
 	protected void doSave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DALException {
@@ -190,7 +191,13 @@ public class FaireEnchereServlet extends HttpServlet {
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
-		
+		Date now = new Date();
+		Boolean lancementEnchere = false;
+		if(articleVendu.getDateDebutEnchere().compareTo(now) <= 0 && now.compareTo(articleVendu.getDateFinEnchere())<= 0) {
+			lancementEnchere = true;
+		}
+		System.out.println(lancementEnchere);
+		request.setAttribute("lancementEnchere", lancementEnchere);
 		request.getRequestDispatcher("/WEB-INF/enchere/creation.jsp").forward(request, response);
 
 	}
