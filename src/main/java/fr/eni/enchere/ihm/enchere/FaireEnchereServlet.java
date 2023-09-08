@@ -191,6 +191,7 @@ public class FaireEnchereServlet extends HttpServlet {
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
+
 		Date now = new Date();
 		Boolean lancementEnchere = false;
 		if(articleVendu.getDateDebutEnchere().compareTo(now) <= 0 && now.compareTo(articleVendu.getDateFinEnchere())<= 0) {
