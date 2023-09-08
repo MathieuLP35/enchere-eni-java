@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,9 +124,9 @@
 							<hr />
 							<p class="card-text">Prix : ${article.prixVente}</p>
 							<p class="card-text">Début de l'enchère :
-								${article.dateDebutEnchere}</p>
+								<fmt:formatDate value="${article.dateDebutEnchere}" pattern="dd/MM/yyyy" /></p>
 							<p class="card-text">Fin de l'enchère :
-								${article.dateFinEnchere}</p>
+								<fmt:formatDate value="${article.dateFinEnchere}" pattern="dd/MM/yyyy" /></p>
 							<p class="card-text">Vendeur : ${article.utilisateur.nom}
 								${article.utilisateur.prenom}</p>
 						</div>
