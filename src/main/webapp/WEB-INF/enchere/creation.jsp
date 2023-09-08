@@ -66,9 +66,9 @@
 	                    </div>  
 						<c:if test="${lancementEnchere}">
 		                    <div class="mb-3 form-outline">
-			                        <p class="product-label font-weight-bold">Proposition de Prix :</p>
-			                        <input type="number" class="form-control" name="montant" id="montant">
-			                        <button type="submit" name="BTN_SAVE" class="btn btn-primary">Enchérir</button>
+		                        <p class="product-label font-weight-bold">Proposition de Prix :</p>
+		                        <input type="number" class="form-control" name="montant" id="montant">
+		                        <button type="submit" name="BTN_SAVE" class="btn btn-primary">Enchérir</button>
 		                    </div>
 	                    </c:if>
                     </form>  

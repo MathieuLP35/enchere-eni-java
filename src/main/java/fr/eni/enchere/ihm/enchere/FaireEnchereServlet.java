@@ -189,7 +189,7 @@ public class FaireEnchereServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/enchere/creation.jsp").forward(request, response);
+		request.getRequestDispatcher("/FaireEnchereServlet").forward(request, response);
 
 	}
 }

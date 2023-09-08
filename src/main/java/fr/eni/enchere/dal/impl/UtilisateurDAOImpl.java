@@ -173,6 +173,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
   public void update(Utilisateur user, Integer noUtilisateur) throws DALException {
 	    try (Connection con = ConnectionProvider.getConnection()){
 	        PreparedStatement stmt = con.prepareStatement(UPDATE_ALL);
+	        System.out.println(user.getCredit());
 	        stmt.setString(1, user.getPseudo());
 	        stmt.setString(2, user.getNom());
 	        stmt.setString(3, user.getPrenom());
@@ -182,8 +183,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 	        stmt.setString(7, user.getCodePostal());
 	        stmt.setString(8, user.getVille());
 	        stmt.setString(9, user.getMotdepasse());
-	        stmt.setInt(10, user.getNoUtilisateur());
-	        stmt.setInt(11, user.getCredit());
+	        stmt.setInt(10, user.getCredit());
+	        stmt.setInt(11, user.getNoUtilisateur());
 	        stmt.executeUpdate();
 	    }
 	    catch(SQLException e) {
