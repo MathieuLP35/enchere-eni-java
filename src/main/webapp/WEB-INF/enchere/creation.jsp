@@ -41,7 +41,7 @@
 						    <input type="hidden" name="prixVente" value="${prixVente}" id="${prixVente}">
 						    <p id="prixVente">${prixVente}</p>
 						</div>
-	
+						
 	                    <div class="mb-3">
 	                        <p class="fw-bold">Mise à Prix :</p>
 	                        <p>${prixInitial}</p>

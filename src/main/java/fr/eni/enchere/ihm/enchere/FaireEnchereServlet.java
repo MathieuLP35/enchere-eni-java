@@ -56,11 +56,13 @@ public class FaireEnchereServlet extends HttpServlet {
         try {
 			articleVendu = managerArticle.findByIdArticleVendu(productId);
 			System.out.println(articleVendu);
+		    
 			request.setAttribute("idArticle", articleVendu.getNoArticle());
 			request.setAttribute("nomArticle", articleVendu.getNomArticle());
 			request.setAttribute("description", articleVendu.getDescription());
 			request.setAttribute("categorie", articleVendu.getCategorie().getLibelle());
 			request.setAttribute("prixVente", articleVendu.getPrixVente());
+			//request.setAttribute("enrechisseur", articleVendu.getLstEncheres().stream().filter(e -> e.getMontant());
 			request.setAttribute("prixInitial", articleVendu.getPrixInitial());
 			request.setAttribute("debutEnchere", articleVendu.getDateDebutEnchere());
 			request.setAttribute("finEnchere", articleVendu.getDateFinEnchere());
@@ -98,6 +100,7 @@ public class FaireEnchereServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 		}
+		
 	}
 
 	protected void doSave(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DALException {
@@ -188,8 +191,15 @@ public class FaireEnchereServlet extends HttpServlet {
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
-		
-		request.getRequestDispatcher("/FaireEnchereServlet").forward(request, response);
+
+		Date now = new Date();
+		Boolean lancementEnchere = false;
+		if(articleVendu.getDateDebutEnchere().compareTo(now) <= 0 && now.compareTo(articleVendu.getDateFinEnchere())<= 0) {
+			lancementEnchere = true;
+		}
+		System.out.println(lancementEnchere);
+		request.setAttribute("lancementEnchere", lancementEnchere);
+		request.getRequestDispatcher("/WEB-INF/enchere/creation.jsp").forward(request, response);
 
 	}
 }
